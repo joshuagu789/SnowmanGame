@@ -29,6 +29,7 @@ public class PlayerTargeting : MonoBehaviour
             {
                 Debug.Log(hit.collider.gameObject);
                 var target = Instantiate(targetLock, hit.collider.transform.position, hit.collider.transform.localRotation, hit.collider.transform);
+                target.localScale = hit.collider.transform.localScale;
             }
 
         }
