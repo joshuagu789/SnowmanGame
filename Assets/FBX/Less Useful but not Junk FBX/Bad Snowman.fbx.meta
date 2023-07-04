@@ -1,0 +1,213 @@
+fileFormatVersion: 2
+guid: f99019e92909b4121940968ea3bbe2b6
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      74: 3003642933479413245
+    second: Head|BaseIdle
+  - first:
+      74: 8676505117613932414
+    second: Head|HeadIdle
+  - first:
+      74: 4161651380279134150
+    second: Head|RedEyeIdle
+  - first:
+      74: 3675415600796719855
+    second: Head|TorsoIdle
+  - first:
+      74: 7143135579809814887
+    second: Red Eye|BaseIdle
+  - first:
+      74: -8629944749007470690
+    second: Red Eye|HeadIdle
+  - first:
+      74: 1604762238880622922
+    second: Red Eye|RedEyeIdle
+  - first:
+      74: 7960865701470229578
+    second: Red Eye|TorsoIdle
+  - first:
+      74: 5472083748066123549
+    second: Green Eye|BaseIdle
+  - first:
+      74: 2891501820411952140
+    second: Green Eye|HeadIdle
+  - first:
+      74: 3111250196405152992
+    second: Green Eye|RedEyeIdle
+  - first:
+      74: 7834518014758356948
+    second: Green Eye|TorsoIdle
+  - first:
+      74: 7963016262660039627
+    second: Base|BaseIdle
+  - first:
+      74: 3015969625714012277
+    second: Base|HeadIdle
+  - first:
+      74: -2798768072674325186
+    second: Base|RedEyeIdle
+  - first:
+      74: -6166520079409770243
+    second: Base|TorsoIdle
+  - first:
+      74: 5750023077908782799
+    second: Torso|BaseIdle
+  - first:
+      74: 954077283804848399
+    second: Torso|HeadIdle
+  - first:
+      74: -3133234846109548388
+    second: Torso|RedEyeIdle
+  - first:
+      74: -4976396498074346458
+    second: Torso|TorsoIdle
+  - first:
+      74: 8071597084511101887
+    second: Brown Gem.001|BaseIdle
+  - first:
+      74: -5403779145711117915
+    second: Brown Gem.001|HeadIdle
+  - first:
+      74: -6244769530665678700
+    second: Brown Gem.001|RedEyeIdle
+  - first:
+      74: -1465948773290532456
+    second: Brown Gem.001|TorsoIdle
+  - first:
+      74: 7357479476028137900
+    second: Brown Gem.002|BaseIdle
+  - first:
+      74: -1178784932903199108
+    second: Brown Gem.002|HeadIdle
+  - first:
+      74: -8615186269371771374
+    second: Brown Gem.002|RedEyeIdle
+  - first:
+      74: -4734957105611852275
+    second: Brown Gem.002|TorsoIdle
+  - first:
+      74: -3869381124169848882
+    second: Brown Gem.003|BaseIdle
+  - first:
+      74: -502775407320124829
+    second: Brown Gem.003|HeadIdle
+  - first:
+      74: 8591697485323471566
+    second: Brown Gem.003|RedEyeIdle
+  - first:
+      74: 1355260047617539261
+    second: Brown Gem.003|TorsoIdle
+  - first:
+      74: -9195375720913280577
+    second: Brown Gem.004|BaseIdle
+  - first:
+      74: -7338817840733505824
+    second: Brown Gem.004|HeadIdle
+  - first:
+      74: 8252759951814526600
+    second: Brown Gem.004|RedEyeIdle
+  - first:
+      74: -3878683092164721288
+    second: Brown Gem.004|TorsoIdle
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
