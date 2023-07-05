@@ -11,9 +11,7 @@ public class AnomalyAI : MonoBehaviour
     private Animator animator;
 
     // For interactions with player
-    //PlayerStatus player;
-    //GameObject snowman;
-    public PlayerStatus playerStatus;
+    public Player player;
 
     public Transform rangeFinder;
     bool extinguished;
@@ -32,9 +30,7 @@ public class AnomalyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // To access PlayerStatus script (used for when anomaly burns a snowman)
-        //snowman = GameObject.FindGameObjectWithTag("Player");
-        //player = snowman.GetComponent<PlayerStatus>();
+       
     }
 
     void Awake()
@@ -113,19 +109,19 @@ public class AnomalyAI : MonoBehaviour
 
     void BurnEnemies()
     {
-        Vector3 distanceFromSnowman = playerStatus.transform.position - rangeFinder.position;
+        Vector3 distanceFromSnowman = player.transform.position - rangeFinder.position;
 
         // Increases temperature based on how close player is to anomaly
         if (distanceFromSnowman.magnitude <= 30f)
         {
-            playerStatus.tempGain = 150f / distanceFromSnowman.magnitude;
+            player.tempGain = 150f / distanceFromSnowman.magnitude;
             extinguished = false;
         }
 
         // Removes the temperature gain once player moves out of range
         else if(!extinguished)
         {
-            playerStatus.tempGain -= 150f / distanceFromSnowman.magnitude;
+            player.tempGain -= 150f / distanceFromSnowman.magnitude;
             extinguished = true;
         }
     }

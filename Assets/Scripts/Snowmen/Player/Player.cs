@@ -2,41 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Snowman
+public class Player : MonoBehaviour
 {
     public Animator animator;
+
+    // Starting stats of the player
+    public float systemIntegrity = 100f;
+    public float maxIntegrity = 100f;
+
+    public float temperature = 0f;
+    public float minTemperature = 0f;
+
+    public float integrityRegen = 1f;
+    public float integrityLoss = 0f;
+    public float tempGain = 0f;
+    public float tempLoss = 1f;
+
+    public float speed = 6f;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        // Starting stats of the player
-        systemIntegrity = 100f;
-        maxIntegrity = 100f;
-
-        temperature = 0f;
-        minTemperature = 0f;
-
-        integrityRegen = 1f;
-        integrityLoss = 0f;
-        tempGain = 0f;
-        tempLoss = 1f;
-
-        speed = 6f;
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckMelt();
+        UpdateStats();
     }
 
-    
+    void UpdateStats()
+    {
+        // Calculating how to change integrity (aka health) and temperature
+        float tempChange = tempGain - tempLoss;     
+        temperature += tempChange * Time.deltaTime;
+
+        float integrityChange = integrityRegen - integrityLoss - temperature / 10f;
+        systemIntegrity += integrityChange * Time.deltaTime;
+    }
+
     public void CheckMelt()
     {
         // If player is going to melt
-        if (systemIntegrity <= 50f)
+        if (systemIntegrity <= 0f)
         {
             animator.SetBool("isMelting", true);
             speed = 1f;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Snowman : MonoBehaviour
 {
+    /*
+    IN DEVELOPMENT 
+     
     // Stats/characteristics of all snowmen- includes player
     public float systemIntegrity;
     public float maxIntegrity;
@@ -16,12 +19,24 @@ public class Snowman : MonoBehaviour
     public float tempGain;
     public float tempLoss;
 
-    public float speed;
+    public static float speed;
 
     // Start is called before the first frame update
     void Start()
     {
+        print(speed);
+    }
 
+    
+    public void setSpeed(float speed)
+    {
+        this.speed = speed;
+        print("executed: " + speed);
+    }
+    
+    public float getSpeed()
+    {
+        return speed;
     }
 
     // Update is called once per frame
@@ -29,4 +44,5 @@ public class Snowman : MonoBehaviour
     {
         
     }
+    */
 }
