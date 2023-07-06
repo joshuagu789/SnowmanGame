@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("isMelting", true);
             speed = 1f;
-            print("melting");
         }
         else
         {

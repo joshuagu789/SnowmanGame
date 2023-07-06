@@ -9,10 +9,10 @@ public class PlayerTargeting : MonoBehaviour
     public Transform targetLock;
 
     public float range = 100f;
-    bool isLockedOn = false;
+    public bool isLockedOn = false;
     int numLocks = 0;
 
-    Transform target;
+    public Transform target;
 
     // Start is called before the first frame update
     void Start()
@@ -37,10 +37,12 @@ public class PlayerTargeting : MonoBehaviour
             // If the ray has hit an enemy within range
             if (Physics.Raycast(ray, out hit, range) && hit.collider.gameObject.CompareTag("Enemy"))
             {
+                // To remove any pre-existing locks
                 if (isLockedOn)
                 {
                     Destroy(target.gameObject);
                 }
+
                 target = Instantiate(targetLock, hit.collider.transform.position, hit.collider.transform.localRotation, hit.collider.transform);
                 target.localScale = hit.collider.transform.localScale;
                 isLockedOn = true;
