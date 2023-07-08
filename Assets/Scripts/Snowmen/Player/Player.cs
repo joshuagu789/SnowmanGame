@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
 
     public float speed = 6f;
 
+    public bool isLockedOn = false;
+    public float targetingRange = 100f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,11 +54,13 @@ public class Player : MonoBehaviour
             animator.SetBool("isMelting", true);
             speed = 1f;
         }
+        /*
         else
         {
             animator.SetBool("isMelting", false);
             speed = 6f;
         }
+        */
     }
     
 }

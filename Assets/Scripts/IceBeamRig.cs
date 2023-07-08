@@ -12,13 +12,15 @@ public class IceBeamRig : MonoBehaviour
     bool toggleActive = false;
 
     // For laser beam
+    public Player player;
     public PlayerTargeting PlayerTargeting;
     public Transform laserOrigin;
-    public Transform player;
     LineRenderer laser;
-    
+
+    // For laser stats
     public float weaponRange = 75f;
     public float laserDuration = 1f;
+    public float recoil = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -62,14 +64,14 @@ public class IceBeamRig : MonoBehaviour
     void Shoot()
     {
         // Laser beam always hit target if player is locked on in PlayerTargeting script
-        if (PlayerTargeting.isLockedOn)
+        if (player.isLockedOn)
         {
             //if (Physics.Raycast(player.position, PlayerTargeting.target.position, weaponRange))
-            if ((PlayerTargeting.target.position - player.position).magnitude <= weaponRange)
+            if ((PlayerTargeting.target.position - player.transform.position).magnitude <= weaponRange)
             {
-                Debug.Log("In range");
                 laser.SetPosition(0, laserOrigin.position);
                 laser.SetPosition(1, PlayerTargeting.target.position);
+
                 StartCoroutine(ShootLaser());
             }
             else
@@ -83,7 +85,9 @@ public class IceBeamRig : MonoBehaviour
     IEnumerator ShootLaser()
     {
         laser.enabled = true;
+        player.speed /= recoil;
         yield return new WaitForSeconds(laserDuration);
+        player.speed *= recoil;
         laser.enabled = false;
     }
 }
