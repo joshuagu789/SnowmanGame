@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TargetForCamera
   - Enemy
+  - Snowman
   layers:
   - Default
   - TransparentFX

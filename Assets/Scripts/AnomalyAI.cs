@@ -78,10 +78,6 @@ public class AnomalyAI : MonoBehaviour
         {
             anomaly.SetDestination(walkPoint);
 
-            // To make anomaly face destination
-            Vector3 moveDirection = new Vector3(walkPoint.x, anomaly.transform.position.y, walkPoint.z);
-            anomaly.transform.LookAt(moveDirection);
-
             // Checking if destination is reached
             Vector3 distanceToWalkPoint = walkPoint - transform.position;
             if (distanceToWalkPoint.magnitude < 0.25f)

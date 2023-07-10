@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Animator animator;
+    public GameServer server;
 
     // Starting stats of the player
     public float systemIntegrity = 100f;
@@ -27,6 +28,16 @@ public class Player : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+    }
+
+    private void Awake()
+    {
+        server.snowmenList.Add(transform);
+    }
+
+    private void OnDisable()
+    {
+        server.snowmenList.Remove(transform);
     }
 
     // Update is called once per frame

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Snowman : MonoBehaviour
 {
-    /*
-    IN DEVELOPMENT 
-     
-    // Stats/characteristics of all snowmen- includes player
+    public GameServer server;
+
+    // Starting stats of snowman
     public float systemIntegrity;
     public float maxIntegrity;
 
@@ -24,19 +23,17 @@ public class Snowman : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print(speed);
+
     }
 
-    
-    public void setSpeed(float speed)
+    private void Awake()
     {
-        this.speed = speed;
-        print("executed: " + speed);
+        server.snowmenList.Add(transform);
     }
-    
-    public float getSpeed()
+
+    private void OnDisable()
     {
-        return speed;
+        server.snowmenList.Remove(transform);
     }
 
     // Update is called once per frame
@@ -44,5 +41,5 @@ public class Snowman : MonoBehaviour
     {
         
     }
-    */
+    
 }

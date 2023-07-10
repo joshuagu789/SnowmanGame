@@ -27,7 +27,7 @@ public class ThirdPersonMovement : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
