@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public float speed = 6f;
 
     public bool isLockedOn = false;
+    public Transform target;
     public float targetingRange = 100f;
 
     // Start is called before the first frame update

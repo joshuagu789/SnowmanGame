@@ -8,7 +8,7 @@ public class PlayerTargeting : MonoBehaviour
     public CinemachineVirtualCamera firstPersonCam;
     public Transform targetLock;
     Player player;
-    public Transform target;
+    public Transform targetLockClone;
 
     // Start is called before the first frame update
     void Start()
@@ -24,14 +24,28 @@ public class PlayerTargeting : MonoBehaviour
         {
             AdjustRotation();
         }
+        // Resetting torso's rotation is there is no target lock
+        else
+        {
+            Transform torso = transform.Find("Armature").Find("Torso");
+            torso.localRotation = Quaternion.Slerp(torso.localRotation, Quaternion.Euler(-90f, 0f, 0f), 2 * Time.deltaTime);
+        }
     }
 
     // Managing the target lock
     void CheckLockState()
     {
+        
+        // To see if the target has been destroyed
+        if (player.target == null)
+        {
+            player.isLockedOn = false;
+        }
+        
+        // Getting a target lock by player click
         if (Input.GetButtonDown("Fire2") && firstPersonCam.enabled)
         {
-            // Locking on target if it's in range
+            // Locking on target if it's in range by shooting out a ray and seeing if it hits a target
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -41,11 +55,12 @@ public class PlayerTargeting : MonoBehaviour
                 // To remove any pre-existing locks
                 if (player.isLockedOn)
                 {
-                    Destroy(target.gameObject);
+                    Destroy(targetLockClone.gameObject);
                 }
 
-                target = Instantiate(targetLock, hit.collider.transform.position, hit.collider.transform.localRotation, hit.collider.transform);
-                target.localScale = hit.collider.transform.localScale;
+                player.target = hit.transform;
+                targetLockClone = Instantiate(targetLock, hit.collider.transform.position, hit.collider.transform.localRotation, hit.collider.transform);
+                targetLockClone.localScale = hit.collider.transform.localScale;
                 player.isLockedOn = true;
             }
 
@@ -56,7 +71,7 @@ public class PlayerTargeting : MonoBehaviour
     void AdjustRotation()
     {
         // Retrieving torso with its parent's parent 
-        Transform torso = transform.GetChild(0).GetChild(2);
+        Transform torso = transform.Find("Armature").Find("Torso");
 
         /*
             The below code can usually be done simply with LookAt() except because of Blender to Unity export issues the torso part has
@@ -65,12 +80,12 @@ public class PlayerTargeting : MonoBehaviour
             is used to store target's location as local to compare with player's position to see if it is left or right of player
         */
 
-        var targetDir = new Vector3(target.transform.position.x - torso.transform.position.x,   // Vector3 representing direction between 
-                            0f, target.transform.position.z - torso.transform.position.z).normalized;   // player and target
+        var targetDir = new Vector3(player.target.transform.position.x - torso.transform.position.x,   // Vector3 representing direction between 
+                            0f, player.target.transform.position.z - torso.transform.position.z).normalized;   // player and target
 
         float angle = Vector3.Angle(targetDir, player.transform.forward);   // Angle between two vectors
 
-        Vector3 targetLocalPos = transform.InverseTransformPoint(target.position);  // Storing target's location relative to player
+        Vector3 targetLocalPos = transform.InverseTransformPoint(player.target.position);  // Storing target's location relative to player
 
         if (targetLocalPos.x < 0)   // If target is left of player
         {

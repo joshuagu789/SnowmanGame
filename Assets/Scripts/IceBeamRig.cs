@@ -18,9 +18,11 @@ public class IceBeamRig : MonoBehaviour
     LineRenderer laser;
 
     // For laser stats
+    public float damage = 15f;
+    public float tempModifier = -15f;
     public float weaponRange = 75f;
     public float laserDuration = 1f;
-    public float recoil = 2f;
+    public float recoil = 1.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -67,10 +69,10 @@ public class IceBeamRig : MonoBehaviour
         if (player.isLockedOn)
         {
             //if (Physics.Raycast(player.position, PlayerTargeting.target.position, weaponRange))
-            if ((PlayerTargeting.target.position - player.transform.position).magnitude <= weaponRange)
+            if ((player.target.position - player.transform.position).magnitude <= weaponRange)
             {
                 laser.SetPosition(0, laserOrigin.position);
-                laser.SetPosition(1, PlayerTargeting.target.position);
+                laser.SetPosition(1, player.target.position);
 
                 StartCoroutine(ShootLaser());
             }
@@ -85,6 +87,10 @@ public class IceBeamRig : MonoBehaviour
     IEnumerator ShootLaser()
     {
         laser.enabled = true;
+
+        // Making target take damage
+        player.target.gameObject.GetComponent<Register>().TakeDamage(transform, damage, tempModifier);
+
         player.speed /= recoil;
         yield return new WaitForSeconds(laserDuration);
         player.speed *= recoil;

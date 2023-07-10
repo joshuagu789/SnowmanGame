@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyRobot : MonoBehaviour
 {
     public GameServer server;
+    public Register register;
 
     public float integrity;
 
@@ -38,6 +39,22 @@ public class EnemyRobot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateStats();
+
+        if (integrity <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void UpdateStats()
+    {
+        
+        if (register.hasTakenDamage)
+        {
+            integrity -= register.damageTaken;
+            register.hasTakenDamage = false;
+        }
         
     }
 }
