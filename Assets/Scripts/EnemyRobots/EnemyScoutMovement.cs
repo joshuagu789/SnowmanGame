@@ -44,6 +44,7 @@ public class EnemyScoutMovement : MonoBehaviour
         }
         else if (entity.isLockedOn)
         {
+            entity.isIdle = false;
             Pursuing();
         }
     }

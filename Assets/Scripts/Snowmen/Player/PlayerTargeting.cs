@@ -27,6 +27,7 @@ public class PlayerTargeting : MonoBehaviour
         // Resetting torso's rotation is there is no target lock
         else
         {
+            // Can this be used for AdjustRotation() to make life easier?
             Transform torso = transform.Find("Armature").Find("Torso");
             torso.localRotation = Quaternion.Slerp(torso.localRotation, Quaternion.Euler(-90f, 0f, 0f), 2 * Time.deltaTime);
         }

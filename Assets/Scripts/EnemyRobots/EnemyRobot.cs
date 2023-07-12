@@ -19,6 +19,7 @@ public class EnemyRobot : MonoBehaviour
     public bool isMoving = false;
     public bool isIdle = false;
     public bool isLockedOn = false;
+    public float lockDuration;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class EnemyRobot : MonoBehaviour
     void Update()
     {
         UpdateStats();
-
+        UpdateLockState();
         if (integrity <= 0)
         {
             Destroy(gameObject);
@@ -56,5 +57,27 @@ public class EnemyRobot : MonoBehaviour
             register.hasTakenDamage = false;
         }
         
+    }
+
+    // To make target lock go away after a duration
+    void UpdateLockState()
+    {
+        if (isLockedOn)
+        {
+            StartCoroutine(LockLifetime());
+        }
+    }
+
+    IEnumerator LockLifetime()
+    {
+        yield return new WaitForSeconds(lockDuration);
+
+        // Removing the lock and resetting robot's states if target is outside detection range so robot can resume patrolling/being idle
+        if (target != null && (target.position - transform.position).magnitude > detectionRange)
+        {
+            isLockedOn = false;
+            isIdle = false;
+            isMoving = false;
+        }
     }
 }

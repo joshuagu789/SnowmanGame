@@ -16,7 +16,10 @@ public class EnemyScoutTargeting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindClosestTarget();
+        if (!entity.isLockedOn)
+        {
+            FindClosestTarget();
+        }
     }
 
     void FindClosestTarget()
