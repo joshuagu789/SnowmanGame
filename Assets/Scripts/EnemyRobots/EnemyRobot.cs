@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyRobot : MonoBehaviour
 {
     public GameServer server;
     public Register register;
+    public Animator animator;
+    public NavMeshAgent agent;
 
     public float integrity;
 
     // For targeting
     public float detectionRange;
-    public float minRange;
-    public float maxRange;
+    public float range;     // Maximum distance from target from which entity can act
+    public float minRange;      // Minimum distance from target that entity can be (kind of like tether range)
+    public float maxRange;      // Maximum distance from target that entity can be
     public Transform target = null;
 
     // For the robot's current state

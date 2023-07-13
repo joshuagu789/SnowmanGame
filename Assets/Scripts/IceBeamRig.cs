@@ -28,7 +28,7 @@ public class IceBeamRig : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        animator.SetBool("hasFired", false);
+        animator.SetBool("isAttacking", false);
         laser = GetComponent<LineRenderer>();
     }
 
@@ -39,12 +39,12 @@ public class IceBeamRig : MonoBehaviour
         CheckWeaponStates();
     }
 
-    void CheckWeaponStates()
+    private void CheckWeaponStates()
     {
         // Re-arming ice beam after firing animation finishes
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Ice Beam Rig Active"))
         {
-            animator.SetBool("hasFired", false);
+            animator.SetBool("isAttacking", false);
         }
 
         // To make ready the ice beam
@@ -54,16 +54,16 @@ public class IceBeamRig : MonoBehaviour
             animator.SetBool("isActive", toggleActive);
         }
         // To shoot and play firing animation
-        else if (Input.GetButtonDown("Fire1") && toggleActive && !animator.GetBool("hasFired") &&
+        else if (Input.GetButtonDown("Fire1") && toggleActive && !animator.GetBool("isAttacking") &&
                  animator.GetCurrentAnimatorStateInfo(0).IsName("Ice Beam Rig Active"))
         {
-            animator.SetBool("hasFired", true);
+            animator.SetBool("isAttacking", true);
             Shoot();
         }
     }
 
     // To shoot laser beam
-    void Shoot()
+    private void Shoot()
     {
         // Laser beam always hit target if player is locked on in PlayerTargeting script
         if (player.isLockedOn && player.target != null)

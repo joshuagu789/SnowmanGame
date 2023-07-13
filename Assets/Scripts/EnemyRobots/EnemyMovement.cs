@@ -1,16 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class EnemyScoutMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     public EnemyRobot entity;
-    public NavMeshAgent scout;
-    public Animator animator;
-
-    // For interactions with player
-    public float threatLevelMultiplier;
 
     // For patrolling movement
     public Vector3 walkPoint;
@@ -31,7 +25,7 @@ public class EnemyScoutMovement : MonoBehaviour
 
     void Awake()
     {
-        scout = GetComponent<NavMeshAgent>();
+
     }
 
     // Update is called once per frame
@@ -51,22 +45,22 @@ public class EnemyScoutMovement : MonoBehaviour
 
     void Idle()
     {
-        // Making scout idle for a period of time
+        // Making entity.agent idle for a period of time
         if (entity.isIdle)
         {
             timer -= Time.deltaTime;
             if (timer <= 0)
                 entity.isIdle = false;
 
-        // 50% probability of being idle if scout isn't patrolling
+        // 50% probability of being idle if entity.agent isn't patrolling
         }
         else if (Random.value >= 0.5f && !entity.isMoving)
         {
             timer = Random.value * maxIdleTime;
             entity.isIdle = true;
-            if (animator != null)
+            if (entity.animator != null)
             {
-                animator.SetBool("isMoving", false);
+                entity.animator.SetBool("isMoving", false);
             }
         }
     }
@@ -81,7 +75,7 @@ public class EnemyScoutMovement : MonoBehaviour
         // If walkPoint is ready
         else if (entity.isMoving)
         {
-            scout.SetDestination(walkPoint);
+            entity.agent.SetDestination(walkPoint);
 
             // Checking if destination is reached
             Vector3 distanceToWalkPoint = walkPoint - transform.position;
@@ -104,9 +98,9 @@ public class EnemyScoutMovement : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up) || Physics.Raycast(walkPoint, -transform.up))
         {
             entity.isMoving = true;
-            if (animator != null)
+            if (entity.animator != null)
             {
-                animator.SetBool("isMoving", true);
+                entity.animator.SetBool("isMoving", true);
             }
         }
     }
@@ -116,24 +110,33 @@ public class EnemyScoutMovement : MonoBehaviour
         walkPoint = new Vector3(entity.target.position.x, entity.target.position.y, entity.target.position.z);
         entity.isMoving = true;
 
-        if (animator != null)
+        if (entity.animator != null)
         {
-            animator.SetBool("isMoving", true);
+            entity.animator.SetBool("isMoving", true);
         }
 
-        // Making scout chase after target
-        scout.SetDestination(walkPoint);
+        // Making entity.agent chase after target
+        entity.agent.SetDestination(walkPoint);
 
-        // Making scout stop if in minimum range 
+        // Making entity.agent stop if in minimum range 
         Vector3 distanceToWalkPoint = walkPoint - transform.position;
         if (distanceToWalkPoint.magnitude < entity.minRange)
         {
             entity.isMoving = false;
-            scout.isStopped = true;
+            if (entity.animator != null)
+            {
+                entity.animator.SetBool("isMoving", false);
+            }
+            entity.agent.isStopped = true;
         }
+        // Making entity.agent move if out of minimum range
         else 
         {
-            scout.isStopped = false;
+            if (entity.animator != null)
+            {
+                entity.animator.SetBool("isMoving", true);
+            }
+            entity.agent.isStopped = false;
         }
     }
 }

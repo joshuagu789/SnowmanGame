@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyScoutTargeting : MonoBehaviour
+public class EnemyTargeting : MonoBehaviour
 {
     public EnemyRobot entity;
     public GameServer server;
