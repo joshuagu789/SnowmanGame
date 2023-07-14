@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public Animator animator;
     public GameServer server;
+    public Register register;
 
     // Starting stats of the player
     public float systemIntegrity = 100f;
@@ -50,6 +51,12 @@ public class Player : MonoBehaviour
 
     void UpdateStats()
     {
+        if (register.hasTakenDamage)
+        {
+            systemIntegrity -= register.damageTaken;
+            register.hasTakenDamage = false;
+        }
+
         // Calculating how to change integrity (aka health) and temperature
         float tempChange = tempGain - tempLoss;     
         temperature += tempChange * Time.deltaTime;

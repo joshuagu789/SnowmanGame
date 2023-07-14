@@ -17,9 +17,10 @@ public class RobotArcingAttack : MonoBehaviour
     public float horizontalVelocity;
     public float fireAngle;        // Angle that projectile should be fired at
     public float fireAngleAccuracy;     // Max degrees that angle can deviate
+
     private float timer = 0;
-    private float airTime; 
     private float netVelocity;
+    private Vector3 distanceToTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +35,10 @@ public class RobotArcingAttack : MonoBehaviour
         // Checking to see if the target meets requirements to be fired at 
         if (entity.target != null && entity.isLockedOn)
         {
-            Vector3 distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
+            distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
                                                     entity.target.position.z - projectileOrigin.position.z);
+
+            FaceTarget();
 
             // Checking to see if the target is in range and attack is off cooldown
             if (distanceToTarget.magnitude <= entity.range && timer > cooldown)
@@ -55,9 +58,18 @@ public class RobotArcingAttack : MonoBehaviour
         }
     }
 
+    private void FaceTarget()
+    {
+        // Swivelling game object to face target
+        var targetRotation = Quaternion.LookRotation(distanceToTarget);
+        entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     // Mathf.PI/180f since rotationSpeed is in degrees
+                                                     entity.rotationSpeed * Mathf.PI/180f * Time.deltaTime);
+    }
+
     private void CalculateTrajectory(Vector3 distance)
     {
-        projectileOrigin.localRotation = Quaternion.Euler(-fireAngle + Random.Range(-fireAngleAccuracy, fireAngleAccuracy), 0f, 0f);
+        projectileOrigin.localRotation = Quaternion.Euler(-fireAngle + Random.Range(-fireAngleAccuracy, fireAngleAccuracy),
+                                                          Random.Range(-fireAngleAccuracy, fireAngleAccuracy), 0f);
 
         // From the formula Vx * time = distance aka Vcos(angle) * time = distance (Vx is horizontal component of velocity)
         // Along with Vyf = Vyi + at aka 0 = Vsin(angle) - 9.8t with t isolated and substituted into Vcos(angle) * time = distance
@@ -83,8 +95,8 @@ public class RobotArcingAttack : MonoBehaviour
 
         yield return new WaitForSeconds(firingDelay);
 
-        var attack = Instantiate(projectile, projectileOrigin.position, projectileOrigin.localRotation);
-        attack.GetComponent<Rigidbody>().velocity = netVelocity * projectileOrigin.forward;
+        var attack = Instantiate(projectile, projectileOrigin.position, projectileOrigin.localRotation);        // Creating projectile
+        attack.GetComponent<Rigidbody>().velocity = netVelocity * projectileOrigin.forward;     // Applying initial velocity to make object fly
 
         entity.animator.SetBool("isAttacking", false);
     }

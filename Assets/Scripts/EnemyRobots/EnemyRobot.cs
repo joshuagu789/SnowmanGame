@@ -11,6 +11,8 @@ public class EnemyRobot : MonoBehaviour
     public NavMeshAgent agent;
 
     public float integrity;
+    public float speed;
+    public float rotationSpeed;
 
     // For targeting
     public float detectionRange;
@@ -28,7 +30,8 @@ public class EnemyRobot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        speed = agent.speed;
+        rotationSpeed = agent.angularSpeed;
     }
 
     private void Awake()

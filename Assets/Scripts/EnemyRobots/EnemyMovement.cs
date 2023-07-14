@@ -116,7 +116,7 @@ public class EnemyMovement : MonoBehaviour
         }
 
         // Making entity.agent chase after target
-        entity.agent.SetDestination(walkPoint);
+        entity.agent.SetDestination(walkPoint);     // Later make this a random point between min and max range?
 
         // Making entity.agent stop if in minimum range 
         Vector3 distanceToWalkPoint = walkPoint - transform.position;
