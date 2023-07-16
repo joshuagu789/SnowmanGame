@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ModelB_Head&LauncherMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: ModelB Armature
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Base
+    m_Weight: 0
+  - m_Path: ModelB Armature/ModelB_Base/ModelB_Base_end
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso
+    m_Weight: 0
+  - m_Path: ModelB Armature/ModelB_Torso/LauncherPlatform
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/LauncherPlatform/LauncherBarrel
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/LauncherPlatform/LauncherBarrel/LauncherBarrel_end
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/ModelB_Head
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/ModelB_Head/GreenEye1
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/ModelB_Head/GreenEye1/GreenEye1_end
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/ModelB_Head/GreenEye2
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/ModelB_Head/GreenEye2/GreenEye2_end
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/ModelB_Head/GreenEye3
+    m_Weight: 1
+  - m_Path: ModelB Armature/ModelB_Torso/ModelB_Head/GreenEye3/GreenEye3_end
+    m_Weight: 1
+  - m_Path: ModelB_Mesh
+    m_Weight: 1

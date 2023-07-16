@@ -37,7 +37,6 @@ public class RobotArcingAttack : MonoBehaviour
         {
             distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
                                                     entity.target.position.z - projectileOrigin.position.z);
-
             FaceTarget();
 
             // Checking to see if the target is in range and attack is off cooldown
@@ -45,6 +44,7 @@ public class RobotArcingAttack : MonoBehaviour
             {
                 // Robot can't move while firing
                 entity.isMoving = false;
+
                 if (entity.animator != null)
                 {
                     entity.animator.SetBool("isMoving", false);

@@ -18,11 +18,11 @@ public class EnemyTargeting : MonoBehaviour
     {
         if (!entity.isLockedOn)
         {
-            FindClosestTarget();
+            StartCoroutine(FindClosestTarget());
         }
     }
 
-    void FindClosestTarget()
+    IEnumerator FindClosestTarget()
     {
         bool targetFound = false;
 
@@ -57,5 +57,8 @@ public class EnemyTargeting : MonoBehaviour
             entity.isLockedOn = false;
             entity.target = null;
         }
+
+        // Makes entity find closest target every 1f seconds instead of every frame to conserve CPU
+        yield return new WaitForSeconds(1f);
     }
 }
