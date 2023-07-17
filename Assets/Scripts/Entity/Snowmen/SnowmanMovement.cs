@@ -16,16 +16,17 @@ public class SnowmanMovement : MonoBehaviour
 
     // For patrolling movement
     public Vector3 walkPoint;
+    private bool walkPointSet = false;
     public float walkPointRange;
     public float maxIdleTime;
+
+    private Vector3 strafingDirection;
+    private bool strafingSet = false;
 
     [SerializeField]
     private bool tooFarFromPlayer = false;
     [SerializeField]
-    //private bool returningToPlayer = false;   EXPERIMENTAL TO MAKE SNOWMAN CHANGE DESTINATION WHILE MOVING
-
-    // Timer for being idle
-    float timer;
+    private bool returningToPlayer = false;   //EXPERIMENTAL TO MAKE SNOWMAN CHANGE DESTINATION WHILE MOVING
 
     // Start is called before the first frame update
     void Start()
@@ -42,13 +43,14 @@ public class SnowmanMovement : MonoBehaviour
     void Update()
     {
         StartCoroutine(CheckDistanceFromPlayer());
-        if (entity.isLockedOn)
+        if (tooFarFromPlayer)
         {
-            Pursuing();
+            StartCoroutine(ReturnToPlayer());
         }
-        else if (tooFarFromPlayer)
+        else if (entity.isLockedOn)
         {
-            Patrolling();   // Set for snowman to patrol around player
+            FaceTarget();
+            Pursuing();
         }
         else if (!player.animator.GetBool("isMoving"))
         {
@@ -56,6 +58,7 @@ public class SnowmanMovement : MonoBehaviour
         }
         else
         {
+            returningToPlayer = false;
             Patrolling();
         }
     }
@@ -69,6 +72,7 @@ public class SnowmanMovement : MonoBehaviour
         if (distance.magnitude > entity.leashRange)
         {
             tooFarFromPlayer = true;
+            returningToPlayer = false;  // Means that entity is currently not approaching player
         }
         else
         {
@@ -78,50 +82,45 @@ public class SnowmanMovement : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
+    IEnumerator ReturnToPlayer()
+    {
+        if (!returningToPlayer)
+        {
+            walkPointSet = false;
+            strafingSet = false;
+            Patrolling();   // Set for snowman to patrol around player
+        }
+
+        yield return new WaitForSeconds(1f);
+    }
+
     void Idle()
     {
         entity.isMoving = false;
+        walkPointSet = false;
         entity.animator.SetBool("isMoving", false);
-
-        /*
-        // Making entity.agent idle for a period of time
-        if (entity.isIdle)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-                entity.isIdle = false;
-
-            // 50% probability of being idle if entity.agent isn't patrolling
-        }
-        else if (Random.value >= 0.5f && !entity.isMoving)
-        {
-            timer = Random.value * maxIdleTime;
-            entity.isIdle = true;
-            if (entity.animator != null)
-            {
-                entity.animator.SetBool("isMoving", false);
-            }
-        }
-        */
     }
 
     void Patrolling()
     {
-        if (!entity.isMoving) //!entity.isMoving
+        if (!walkPointSet && !returningToPlayer) //!entity.isMoving
         {
             SearchWalkPoint();
         }
 
         // If walkPoint is ready
-        else if (entity.isMoving)
+        if (walkPointSet)
         {
             entity.agent.SetDestination(walkPoint);
+            returningToPlayer = true;
 
             // Checking if destination is reached
             Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
             if (distanceToWalkPoint.magnitude < 1f)
             {
                 entity.isMoving = false;
+                walkPointSet = false;
+                returningToPlayer = false;
             }
         }
     }
@@ -138,6 +137,8 @@ public class SnowmanMovement : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up) || Physics.Raycast(walkPoint, -transform.up))
         {
             entity.isMoving = true;
+            walkPointSet = true;
+            returningToPlayer = true;
             entity.animator.SetBool("isMoving", true);
         }
     }
@@ -148,35 +149,50 @@ public class SnowmanMovement : MonoBehaviour
         entity.isMoving = true;
         entity.animator.SetBool("isMoving", true);
 
-        // Making entity.agent stop if in minimum range
         Vector3 distanceToWalkPoint = new Vector3(entity.target.position.x - transform.position.x, 0f, entity.target.position.z - transform.position.z);
-        // walkPoint - transform.position;
-        print("test");
-        print(new Vector3(entity.target.position.x - transform.position.x, 0f, entity.target.position.z - transform.position.z).magnitude);
 
+        // Entity will strafe in directions other than forward if target is within minimum range
         if (distanceToWalkPoint.magnitude <= entity.minRange && !tooFarFromPlayer)
         {
-            //entity.isMoving = false;
-            //entity.animator.SetBool("isMoving", false);
-
-            entity.agent.SetDestination(entity.transform.right * Random.Range(-5,5));
-            Debug.Log("strafing");
-
-            //entity.agent.isStopped = true;
+            StrafeTarget(distanceToWalkPoint);
         }
         else if (tooFarFromPlayer)
         {
-            entity.isMoving = false;
             Patrolling();
         }
         // Making entity.agent move if out of minimum range
-        else
+        else if(distanceToWalkPoint.magnitude > entity.maxRange)
         {
             entity.animator.SetBool("isMoving", true);
 
-            //entity.agent.isStopped = false;
             // Making entity.agent chase after target
             entity.agent.SetDestination(walkPoint);     // Later make this a random point between min and max range?
         }
+    }
+
+    private void FaceTarget()
+    {
+        // Swivelling game object to face target
+        var targetRotation = Quaternion.LookRotation(new Vector3(entity.target.position.x, entity.transform.position.y, entity.target.position.z));
+        entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     // Mathf.PI/180f since rotationSpeed is in degrees
+                                                     entity.rotationSpeed * Time.deltaTime); // * Mathf.PI / 180f
+    }
+
+    private void StrafeTarget(Vector3 distanceToTarget)
+    {
+        if (!strafingSet)
+        {
+            strafingDirection = Quaternion.AngleAxis(Random.Range(90f, 270f), entity.transform.up) * distanceToTarget.normalized * -1f * 5f;
+            strafingSet = true;
+        }
+        else if (strafingSet)
+        {
+            entity.agent.SetDestination(strafingDirection);
+            if (entity.agent.remainingDistance <= 1f)
+            {
+                strafingSet = false;
+            }
+        }
+        Debug.Log("strafing");
     }
 }
