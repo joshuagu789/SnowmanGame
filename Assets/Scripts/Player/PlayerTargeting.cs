@@ -51,7 +51,7 @@ public class PlayerTargeting : MonoBehaviour
             RaycastHit hit;
 
             // If the ray has hit an enemy within range
-            if (Physics.Raycast(ray, out hit, player.targetingRange) && hit.collider.gameObject.CompareTag("Enemy"))
+            if (Physics.Raycast(ray, out hit, player.detectionRange) && hit.collider.gameObject.CompareTag("Enemy"))
             {
                 // To remove any pre-existing locks
                 if (player.isLockedOn)

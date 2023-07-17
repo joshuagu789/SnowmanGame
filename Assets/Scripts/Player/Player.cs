@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     public bool isLockedOn = false;
     public Transform target;
-    public float targetingRange = 100f;
+    public float detectionRange = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -51,18 +51,20 @@ public class Player : MonoBehaviour
 
     void UpdateStats()
     {
+        // Calculating how to change integrity (aka health) and temperature
+        float tempChange = tempGain - tempLoss;     
+        temperature += tempChange * Time.deltaTime;
+        temperature = Mathf.Clamp(temperature, minTemperature, Mathf.Infinity);
+
+        float integrityChange = integrityRegen - integrityLoss - temperature / 10f;
+        systemIntegrity += integrityChange * Time.deltaTime;
+        systemIntegrity = Mathf.Clamp(systemIntegrity, 0, maxIntegrity);
+
         if (register.hasTakenDamage)
         {
             systemIntegrity -= register.damageTaken;
             register.hasTakenDamage = false;
         }
-
-        // Calculating how to change integrity (aka health) and temperature
-        float tempChange = tempGain - tempLoss;     
-        temperature += tempChange * Time.deltaTime;
-
-        float integrityChange = integrityRegen - integrityLoss - temperature / 10f;
-        systemIntegrity += integrityChange * Time.deltaTime;
     }
 
     public void CheckMelt()

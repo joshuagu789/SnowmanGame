@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTargeting : MonoBehaviour
+public class EntityTargeting : MonoBehaviour
 {
-    public EnemyRobot entity;
+    public Entity entity;
     public GameServer server;
+    private List<Transform> targetList = new List<Transform>();
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,15 @@ public class EnemyTargeting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (entity.type.Equals("Enemy"))
+        {
+            targetList = server.snowmenList;
+        }
+        else if (entity.type.Equals("Snowman"))
+        {
+            targetList = server.enemiesList;
+        }
+
         if (!entity.isLockedOn)
         {
             StartCoroutine(FindClosestTarget());
@@ -35,7 +45,7 @@ public class EnemyTargeting : MonoBehaviour
         Transform closestTarget = null;
         float minDist = Mathf.Infinity;
 
-        foreach (Transform potentialTarget in server.snowmenList)
+        foreach (Transform potentialTarget in targetList)
         {
             float distance = Vector3.Distance(potentialTarget.position, transform.position);
             if (distance < minDist && distance <= entity.detectionRange)
@@ -51,11 +61,13 @@ public class EnemyTargeting : MonoBehaviour
         {
             entity.isLockedOn = true;
             entity.target = closestTarget;
+            entity.animator.SetBool("isLockedOn", true);
         }
         else
         {
             entity.isLockedOn = false;
             entity.target = null;
+            entity.animator.SetBool("isLockedOn", false);
         }
 
         // Makes entity find closest target every 1f seconds instead of every frame to conserve CPU

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySearchLight : MonoBehaviour
 {
-    public EnemyRobot entity;
+    public Entity entity;
     float defaultX;
     float defaultY;
     float defaultZ;

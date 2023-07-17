@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public EnemyRobot entity;
+    public Entity entity;
 
     // For patrolling movement
     public Vector3 walkPoint;
     public float walkPointRange;
     public float maxIdleTime;
-
-    public float turnSmoothTime = 0.5f;
-    float turnSmoothVelocity;
 
     // Timer for being idle
     float timer;
@@ -119,7 +116,8 @@ public class EnemyMovement : MonoBehaviour
         entity.agent.SetDestination(walkPoint);     // Later make this a random point between min and max range?
 
         // Making entity.agent stop if in minimum range 
-        Vector3 distanceToWalkPoint = walkPoint - transform.position;
+        Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
+
         if (distanceToWalkPoint.magnitude < entity.minRange)
         {
             entity.isMoving = false;

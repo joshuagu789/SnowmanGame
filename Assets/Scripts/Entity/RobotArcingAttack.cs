@@ -8,7 +8,7 @@ public class RobotArcingAttack : MonoBehaviour
      * the projectile using the kinematic equations of physics since one unit in Unity is equal to a meter. 
      */
 
-    public EnemyRobot entity;
+    public Entity entity;
     public GameObject projectile;
     public Transform projectileOrigin; // Where the projectile will be created
 
