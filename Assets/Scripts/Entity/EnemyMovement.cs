@@ -117,6 +117,7 @@ public class EnemyMovement : MonoBehaviour
 
         // Making entity.agent stop if in minimum range 
         Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
+        FaceTarget();
 
         if (distanceToWalkPoint.magnitude < entity.minRange)
         {
@@ -136,5 +137,14 @@ public class EnemyMovement : MonoBehaviour
             }
             entity.agent.isStopped = false;
         }
+    }
+
+    private void FaceTarget()
+    {
+        // Swivelling game object to face target
+        var targetRotation = Quaternion.LookRotation(new Vector3(entity.target.position.x - entity.transform.position.x,
+                                                    entity.transform.position.y, entity.target.position.z - entity.transform.position.z));
+        entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     // Mathf.PI/180f since rotationSpeed is in degrees
+                                                     entity.rotationSpeed * Mathf.PI / 180f * Time.deltaTime); 
     }
 }

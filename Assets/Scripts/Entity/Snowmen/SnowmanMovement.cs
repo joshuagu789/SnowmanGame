@@ -47,7 +47,7 @@ public class SnowmanMovement : MonoBehaviour
         {
             StartCoroutine(ReturnToPlayer());
         }
-        else if (entity.isLockedOn)
+        else if (entity.isLockedOn && entity.target != null)
         {
             FaceTarget();
             Pursuing();
@@ -173,9 +173,10 @@ public class SnowmanMovement : MonoBehaviour
     private void FaceTarget()
     {
         // Swivelling game object to face target
-        var targetRotation = Quaternion.LookRotation(new Vector3(entity.target.position.x, entity.transform.position.y, entity.target.position.z));
+        var targetRotation = Quaternion.LookRotation(new Vector3(entity.target.position.x - entity.transform.position.x,
+                                                    entity.transform.position.y, entity.target.position.z - entity.transform.position.z));
         entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     // Mathf.PI/180f since rotationSpeed is in degrees
-                                                     entity.rotationSpeed * Time.deltaTime); // * Mathf.PI / 180f
+                                                     entity.rotationSpeed * Time.deltaTime);    //  * Mathf.PI / 180f 
     }
 
     private void StrafeTarget(Vector3 distanceToTarget)

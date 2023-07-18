@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotArcingAttack : MonoBehaviour
+public class ArcingProjectileAttack : MonoBehaviour
 {
-    /* This script activates only if the EnemyRobot script has found a target within range. It then calculates the trajectory to fire
+    /* This script activates only if the Entity script has found a target within range. It then calculates the trajectory to fire
      * the projectile using the kinematic equations of physics since one unit in Unity is equal to a meter. 
      */
 
@@ -12,11 +12,13 @@ public class RobotArcingAttack : MonoBehaviour
     public GameObject projectile;
     public Transform projectileOrigin; // Where the projectile will be created
 
+    public bool isStationaryWhenFiring;
+
     public float cooldown;      // Time until entity can attack again
     public float firingDelay;   // For projectile to appear with animation's timing
-    public float horizontalVelocity;
+    //public float horizontalVelocity;
     public float fireAngle;        // Angle that projectile should be fired at
-    public float fireAngleAccuracy;     // Max degrees that angle can deviate
+    public float fireAngleDeviation;     // Max degrees that angle can deviate
 
     private float timer = 0;
     private float netVelocity;
@@ -37,19 +39,22 @@ public class RobotArcingAttack : MonoBehaviour
         {
             distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
                                                     entity.target.position.z - projectileOrigin.position.z);
-            FaceTarget();
+            //FaceTarget();
 
             // Checking to see if the target is in range and attack is off cooldown
             if (distanceToTarget.magnitude <= entity.range && timer > cooldown)
             {
-                // Robot can't move while firing
-                entity.isMoving = false;
-
-                if (entity.animator != null)
+                if (isStationaryWhenFiring)
                 {
-                    entity.animator.SetBool("isMoving", false);
+                    // Robot can't move while firing
+                    entity.isMoving = false;
+
+                    if (entity.animator != null)
+                    {
+                        entity.animator.SetBool("isMoving", false);
+                    }
+                    entity.agent.isStopped = true;
                 }
-                entity.agent.isStopped = true;
 
                 timer = 0;
                 CalculateTrajectory(distanceToTarget);
@@ -58,6 +63,7 @@ public class RobotArcingAttack : MonoBehaviour
         }
     }
 
+    /*
     private void FaceTarget()
     {
         // Swivelling game object to face target
@@ -65,11 +71,12 @@ public class RobotArcingAttack : MonoBehaviour
         entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     // Mathf.PI/180f since rotationSpeed is in degrees
                                                      entity.rotationSpeed * Mathf.PI/180f * Time.deltaTime);
     }
+    */
 
     private void CalculateTrajectory(Vector3 distance)
     {
-        projectileOrigin.localRotation = Quaternion.Euler(-fireAngle + Random.Range(-fireAngleAccuracy, fireAngleAccuracy),
-                                                          Random.Range(-fireAngleAccuracy, fireAngleAccuracy), 0f);
+        projectileOrigin.localRotation = Quaternion.Euler(-fireAngle + Random.Range(-fireAngleDeviation, fireAngleDeviation),
+                                                          Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
 
         // From the formula Vx * time = distance aka Vcos(angle) * time = distance (Vx is horizontal component of velocity)
         // Along with Vyf = Vyi + at aka 0 = Vsin(angle) - 9.8t with t isolated and substituted into Vcos(angle) * time = distance
