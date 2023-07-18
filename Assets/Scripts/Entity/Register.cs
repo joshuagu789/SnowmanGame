@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Script that entities use to detect damage
+ *  - reason this isn't inside the Entity script is because colliders for damage detection may not
+ *    always be in parent gameobject (where Entity script is) and might be inside armature instead
+ *  - Register scripts usually attached to same game object that damage colliders are attached to
+*/
+
 public class Register : MonoBehaviour
 {
+
     public Transform damageSource;
     public float damageTaken;
     public float tempModifier;

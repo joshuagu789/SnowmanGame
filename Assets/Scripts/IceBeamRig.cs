@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+/*
+ * First weapon created that deals damage
+ *  - unlike other weapons this one is not part of user's animation but added on as an independent turret-like weapon
+ */
 
 [RequireComponent(typeof(LineRenderer))]
 public class IceBeamRig : MonoBehaviour

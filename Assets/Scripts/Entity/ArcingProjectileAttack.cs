@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 
+ * This script activates only if the Entity script has found a target within range. It then calculates the trajectory to fire
+ * the projectile using the kinematic equations of physics since one unit in Unity is equal to a meter. 
+ */
+
 public class ArcingProjectileAttack : MonoBehaviour
 {
-    /* This script activates only if the Entity script has found a target within range. It then calculates the trajectory to fire
-     * the projectile using the kinematic equations of physics since one unit in Unity is equal to a meter. 
-     */
 
     public Entity entity;
     public GameObject projectile;
@@ -39,7 +41,6 @@ public class ArcingProjectileAttack : MonoBehaviour
         {
             distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
                                                     entity.target.position.z - projectileOrigin.position.z);
-            //FaceTarget();
 
             // Checking to see if the target is in range and attack is off cooldown
             if (distanceToTarget.magnitude <= entity.range && timer > cooldown)
@@ -62,16 +63,6 @@ public class ArcingProjectileAttack : MonoBehaviour
             }
         }
     }
-
-    /*
-    private void FaceTarget()
-    {
-        // Swivelling game object to face target
-        var targetRotation = Quaternion.LookRotation(distanceToTarget);
-        entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     // Mathf.PI/180f since rotationSpeed is in degrees
-                                                     entity.rotationSpeed * Mathf.PI/180f * Time.deltaTime);
-    }
-    */
 
     private void CalculateTrajectory(Vector3 distance)
     {

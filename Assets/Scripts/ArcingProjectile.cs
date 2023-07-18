@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Instantiated by script ArcingProjectileAttack.cs- applies AOE damage when hitting a collider and instantiates an explosion script 
+ *  - explosion script just for visual effects- damage is calculated in this script
+ */
+
 public class ArcingProjectile : MonoBehaviour
 {
+
     public GameObject explosion;
     public float explosionRadius;
     public float damage;

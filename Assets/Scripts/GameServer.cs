@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 
+ * Script to hold information about the game's state as well as for starting events (such as spawning enemies)
+ *  - Later put list of entities all into a hashmap?
+ */
+
 public class GameServer : MonoBehaviour
 {
     // Lists to keep track of all active entities

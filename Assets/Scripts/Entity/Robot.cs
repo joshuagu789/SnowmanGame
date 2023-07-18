@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+   Interacts only with Entity script to manage the unique characteristics that robot entities have
+   (such as exploding and dropping spare parts when defeated)
+*/
+
 public class Robot : MonoBehaviour
 {
-    /*
-       Interacts only with Entity script to manage the unique characteristics that robot entities have
-       (such as exploding and dropping spare parts when defeated)
-    */
     public Entity entity;
 
     // Start is called before the first frame update

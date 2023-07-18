@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/* 
+ * Early script created for Anomaly NPC's movement- better versions of movement for NPCs can be found w/ EnemyMovement and SnowmanMovement
+ */
+
 public class AnomalyAI : MonoBehaviour
 {
+
     public NavMeshAgent anomaly;
     //public Transform player;
     //public LayerMask whatIsGround, whatIsPlayer;

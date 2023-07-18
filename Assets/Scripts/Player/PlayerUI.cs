@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using TMPro;    // Needed for TextMeshPro UI
 
-public class PlayerStatus: MonoBehaviour
+/* 
+ * Script in charge of managing player's UI such as health, temperature, energy, textboxes
+ *  - Later make the text boxes resizable
+ */
+
+public class PlayerUI: MonoBehaviour
 {
+
     public TextMeshProUGUI integrityText;
     public TextMeshProUGUI tempText;
 
@@ -32,9 +38,11 @@ public class PlayerStatus: MonoBehaviour
     {
         TextShake();
 
+        /*
         // To keep player health within zero and max health and player.temperature above minimum
         player.systemIntegrity = Mathf.Clamp(player.systemIntegrity, 0, player.maxIntegrity);
         player.temperature = Mathf.Clamp(player.temperature, player.minTemperature, 1000000f);
+        */
 
         integrityText.SetText(Mathf.Round(player.systemIntegrity).ToString() + " / " + player.maxIntegrity);
         tempText.SetText(Mathf.Round(player.temperature).ToString());

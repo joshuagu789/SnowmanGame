@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
+using Cinemachine;  // Needed for Cinemachine cameras
 using UnityEngine;
+
+/*
+ * Able to look left and right in first person using the standard method but unable to look up and down- maybe because of conflicting 3rd person camera?
+ *  - solved with having an empty game object move up and down by mouse movement and having camera look at empty game object
+ */
 
 public class FirstPersonView : MonoBehaviour
 {

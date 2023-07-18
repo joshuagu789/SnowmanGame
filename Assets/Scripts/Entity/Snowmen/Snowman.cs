@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
+/*
+ * Universal script assigned to snowmen- can it replace Player script for the player?
+ *  - NOTE: this script is heavily copy & pasted from Robot and Player script
+*/
 
 public class Snowman : MonoBehaviour
 {

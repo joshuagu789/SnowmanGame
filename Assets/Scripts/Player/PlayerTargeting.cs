@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
+/* 
+ * Currently requires player to be in first person view and right click repeatedly until target found by raycast
+ *  - Later make it so that player can target lock closest enemy when right clicked in third person view?
+ */
+
 public class PlayerTargeting : MonoBehaviour
 {
+
     public CinemachineVirtualCamera firstPersonCam;
     public Transform targetLock;
     Player player;

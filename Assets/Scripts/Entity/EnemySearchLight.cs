@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 
+ * Code for search lights attached to game objects to swivel at their targets regardless of rotation of parent game object
+ */
+
 public class EnemySearchLight : MonoBehaviour
 {
+
     public Entity entity;
     float defaultX;
     float defaultY;

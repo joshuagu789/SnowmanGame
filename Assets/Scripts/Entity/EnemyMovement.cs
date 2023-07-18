@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 
+ * Originally copy and pasted from script AnomalyAI.cs with the Pursuing() and FaceTarget() method added on- very similar to SnowmanMovement.cs
+ *  - Later create a second script for EnemyMovement called EnemySmartMovement?
+ */
+
 public class EnemyMovement : MonoBehaviour
 {
     public Entity entity;
@@ -144,7 +149,7 @@ public class EnemyMovement : MonoBehaviour
         // Swivelling game object to face target
         var targetRotation = Quaternion.LookRotation(new Vector3(entity.target.position.x - entity.transform.position.x,
                                                     entity.transform.position.y, entity.target.position.z - entity.transform.position.z));
-        entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     // Mathf.PI/180f since rotationSpeed is in degrees
-                                                     entity.rotationSpeed * Mathf.PI / 180f * Time.deltaTime); 
+        entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     // Converting rotationSpeed to radians just to make rotating slower
+                                                     entity.rotationSpeed * Mathf.PI / 180f * Time.deltaTime);      // (Slerp's rotation speed value usually zero to one)
     }
 }

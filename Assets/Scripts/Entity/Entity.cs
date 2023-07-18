@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.AI;   // Needed for NavMeshAgent
+
+/*
+   Universal script for any game character that isn't the player (npc)- this script only has
+   info-carrying variables that other scripts will use
+*/
 
 public class Entity : MonoBehaviour
 {
-    /*
-       Universal script for any game character that isn't the player (npc)- this script only has
-       info-carrying variables that other scripts will use
-    */
 
     public GameServer server;
     public Register register;

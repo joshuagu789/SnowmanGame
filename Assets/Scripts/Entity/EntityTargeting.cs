@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 
+ * Universal script for entities to find the closest enemy out of list of enemies currently existing in game
+ */
+
 public class EntityTargeting : MonoBehaviour
 {
+
     public Entity entity;
     public GameServer server;
     private List<Transform> targetList = new List<Transform>();

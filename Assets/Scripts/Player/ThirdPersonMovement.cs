@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
+/* 
+ * First script created for this game
+ */
+
 public class ThirdPersonMovement : MonoBehaviour
 {
+
     public CinemachineVirtualCamera firstPersonCam;
     public CharacterController controller;
     public Transform cam;

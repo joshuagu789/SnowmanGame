@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 
+ * First script created to encompass all smaller player scripts as well as holding vital player info
+ *  - Later replace this with the Entity script?
+ */
+
 public class Player : MonoBehaviour
 {
+
     public Animator animator;
     public GameServer server;
     public Register register;

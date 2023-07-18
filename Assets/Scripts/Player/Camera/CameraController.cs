@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
+using Cinemachine; // Needed for Cinemachine cameras
+
+/*
+ * Script for controlling which camera is currently active
+ *  - will later build on this by adding cutscenes & menu screens
+ */
 
 public class CameraController : MonoBehaviour
 {
