@@ -25,6 +25,7 @@ public class PlayerUI: MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     // Update is called once per frame

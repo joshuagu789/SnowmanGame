@@ -5,9 +5,10 @@ using UnityEngine;
 
 /* 
  * First script created for this game
+ *  - designed for third person movement but also works when player is in first person view
  */
 
-public class ThirdPersonMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 
     public CinemachineVirtualCamera firstPersonCam;

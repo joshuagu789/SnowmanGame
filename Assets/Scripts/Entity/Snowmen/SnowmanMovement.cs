@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* 
- * This script was copy and pasted from the EnemyMovement script with the following modifications:
+ * This script was copy and pasted from the BasicMovement script with the following modifications:
  *  - Snowmen patrol around the player's radius
  *  - Snowmen do not chase after its targets if they're out of player radius
  *  - Snowmen stop when player stops
- * Later combine this with the EnemyMovement script to make a universal movement script for NPC's?
+ * Later combine this with the BasicMovement script to make a universal movement script for NPC's?
 */
 
 public class SnowmanMovement : MonoBehaviour
@@ -87,7 +87,15 @@ public class SnowmanMovement : MonoBehaviour
     {
         if (!returningToPlayer)
         {
-            walkPointSet = false;   // Set to false whenever angle between snowman and player too large to prevent jiggling?
+            var angleToPlayer = Vector3.Angle(transform.forward, new Vector3(player.transform.position.x, 0f, player.transform.position.z));
+
+            // Cancelling current path snowman is taking if shortest angle between snowman's front and player >= 45 degrees
+            // so that snowman sets down new walkpoint that's closer to player
+            if (Mathf.Abs(angleToPlayer) >= 45f)
+            {
+                walkPointSet = false;
+            }
+
             strafingSet = false;
             Patrolling();   // Set for snowman to patrol around player
         }

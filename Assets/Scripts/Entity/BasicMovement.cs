@@ -4,10 +4,10 @@ using UnityEngine;
 
 /* 
  * Originally copy and pasted from script AnomalyAI.cs with the Pursuing() and FaceTarget() method added on- very similar to SnowmanMovement.cs
- *  - Later create a second script for EnemyMovement called EnemySmartMovement?
+ *  - Later create a second script for BasicMovement called SmartMovement?
  */
 
-public class EnemyMovement : MonoBehaviour
+public class BasicMovement : MonoBehaviour
 {
     public Entity entity;
 

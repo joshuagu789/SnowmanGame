@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /* 
- * Early script created for Anomaly NPC's movement- better versions of movement for NPCs can be found w/ EnemyMovement and SnowmanMovement
+ * Early script created for Anomaly NPC's movement- better versions of movement for NPCs can be found w/ BasicMovement and SnowmanMovement
  */
 
 public class AnomalyAI : MonoBehaviour
