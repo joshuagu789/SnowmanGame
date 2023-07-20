@@ -21,7 +21,8 @@ public class SnowmanMovement : MonoBehaviour
     public float walkPointRange;
     public float maxIdleTime;
 
-    private Vector3 strafingDirection;
+    public float strafeDistance;
+    private Vector3 strafingDirection; // Later replace this with walkPoint since they both do the same thing?
     private bool strafingSet = false;
 
     [SerializeField]
@@ -67,8 +68,8 @@ public class SnowmanMovement : MonoBehaviour
     // Periodically check if snowman is getting too far away from player
     IEnumerator CheckDistanceFromPlayer()
     {
-        var distance = new Vector3(entity.transform.position.x - player.transform.position.x, 0f,
-                                   entity.transform.position.z - player.transform.position.z);
+        var distance = new Vector3(player.transform.position.x - entity.transform.position.x, 0f,
+                                   player.transform.position.z - entity.transform.position.z);
 
         if (distance.magnitude > entity.leashRange)
         {
@@ -87,7 +88,8 @@ public class SnowmanMovement : MonoBehaviour
     {
         if (!returningToPlayer)
         {
-            var angleToPlayer = Vector3.Angle(transform.forward, new Vector3(player.transform.position.x, 0f, player.transform.position.z));
+            var angleToPlayer = Vector3.Angle(transform.forward, new Vector3(player.transform.position.x - entity.transform.position.x, 0f,
+                                                                            player.transform.position.z - entity.transform.position.z));
 
             // Cancelling current path snowman is taking if shortest angle between snowman's front and player >= 45 degrees
             // so that snowman sets down new walkpoint that's closer to player
@@ -194,7 +196,7 @@ public class SnowmanMovement : MonoBehaviour
         if (!strafingSet)
         {
             // Sets a destination between angles 90 & 270 for snowman to travel               multiply this by -1 so that AngleAxis rotations is applied backwards
-            strafingDirection = Quaternion.AngleAxis(Random.Range(90f, 270f), entity.transform.up) * distanceToTarget.normalized * -1f * 5f;
+            strafingDirection = Quaternion.AngleAxis(Random.Range(90f, 270f), entity.transform.up) * distanceToTarget.normalized * -1f * strafeDistance;
             strafingSet = true;
         }
         else if (strafingSet)

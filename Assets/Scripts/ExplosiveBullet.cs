@@ -7,13 +7,19 @@ using UnityEngine;
  *  - explosion script just for visual effects- damage is calculated in this script
  */
 
-public class ArcingProjectile : MonoBehaviour
+public class ExplosiveBullet : MonoBehaviour
 {
 
     public GameObject explosion;
+
     public float explosionRadius;
     public float damage;
     public float tempModifier;
+
+    public float lifeTime; 
+    public float speed;
+
+    public bool hasGravity;  
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +27,18 @@ public class ArcingProjectile : MonoBehaviour
         
     }
 
+    private void Awake()
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if (!hasGravity && lifeTime > 0)
+        {
+            transform.Translate(transform.forward * speed * Time.deltaTime);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

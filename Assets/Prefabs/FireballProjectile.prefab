@@ -215,6 +215,9 @@ MonoBehaviour:
   explosionRadius: 0
   damage: 0
   tempModifier: 0
+  lifeTime: 0
+  speed: 0
+  hasGravity: 0
 --- !u!135 &2861374375955318623
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 720b8a35636364d86a4c34baf2ea418c
+guid: 224594f8e797b4a6fbcdebe809a50898
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
-  - first:
-      74: -8650506644917733603
-    second: EmberIdle
   - first:
       74: -3888370383217376548
     second: EmberDefault
@@ -27,6 +24,9 @@ ModelImporter:
   - first:
       74: -5042630738168679941
     second: EmberDeath
+  - first:
+      74: -8650506644917733603
+    second: EmberIdle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -56,35 +56,6 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations:
-    - serializedVersion: 16
-      name: EmberIdle
-      takeName: EmberIdle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 199
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: EmberDefault
       takeName: EmberDefault
@@ -273,6 +244,35 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: EmberIdle
+      takeName: EmberIdle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 199
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

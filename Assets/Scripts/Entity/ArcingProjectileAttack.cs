@@ -59,6 +59,7 @@ public class ArcingProjectileAttack : MonoBehaviour
                     entity.agent.isStopped = true;
                 }
 
+                entity.animator.SetBool("isAttacking", true);
                 timer = 0;
                 CalculateTrajectory(distanceToTarget);
                 StartCoroutine(ShootArc());
@@ -91,14 +92,19 @@ public class ArcingProjectileAttack : MonoBehaviour
 
     IEnumerator ShootArc()
     {
-        entity.animator.SetBool("isAttacking", true);
-
         yield return new WaitForSeconds(firingDelay);
+        SpawnProjectile();
+    }
 
+    private void SpawnProjectile()
+    {
         var attack = Instantiate(projectile, projectileOrigin.position, projectileOrigin.localRotation);        // Creating projectile
+        var attackScript = attack.GetComponent<ExplosiveBullet>();
+
         attack.GetComponent<Rigidbody>().velocity = netVelocity * projectileOrigin.forward;     // Applying initial velocity to make object fly
-        attack.GetComponent<ArcingProjectile>().damage = damage;
-        attack.GetComponent<ArcingProjectile>().explosionRadius = explosionRadius;
+        attackScript.damage = damage;
+        attackScript.explosionRadius = explosionRadius;
+        attackScript.hasGravity = true;
 
         entity.animator.SetBool("isAttacking", false);
     }
