@@ -185,7 +185,7 @@ public class SnowmanMovement : MonoBehaviour
         var targetRotation = Quaternion.LookRotation(new Vector3(entity.target.position.x - entity.transform.position.x,
                                                     entity.transform.position.y, entity.target.position.z - entity.transform.position.z));
         entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,     
-                                                     entity.rotationSpeed * Time.deltaTime);    // Normally Slerp's rotation speed value is zero to one
+                                                     entity.rotationSpeed / 10 * Time.deltaTime);    // Normally Slerp's rotation speed value is zero to one
                                                                         //but rotation speed needs to be high here to override NavMeshAgent's rotations
     }
 

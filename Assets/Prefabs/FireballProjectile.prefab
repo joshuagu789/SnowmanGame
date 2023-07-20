@@ -212,8 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 6812224718508781062, guid: dc1c001041abc4783addc9d54b82e2a4, type: 3}
-  explosionRadius: 10
-  damage: 25
+  explosionRadius: 0
+  damage: 0
   tempModifier: 0
 --- !u!135 &2861374375955318623
 SphereCollider:

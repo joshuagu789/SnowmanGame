@@ -6,7 +6,7 @@ using UnityEngine;
  * Code for search lights attached to game objects to swivel at their targets regardless of rotation of parent game object
  */
 
-public class EnemySearchLight : MonoBehaviour
+public class SearchLightTurret : MonoBehaviour
 {
 
     public Entity entity;

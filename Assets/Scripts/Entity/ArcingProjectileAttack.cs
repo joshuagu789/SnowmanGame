@@ -16,6 +16,8 @@ public class ArcingProjectileAttack : MonoBehaviour
 
     public bool isStationaryWhenFiring;
 
+    public float damage;
+    public float explosionRadius;
     public float cooldown;      // Time until entity can attack again
     public float firingDelay;   // For projectile to appear with animation's timing
     //public float horizontalVelocity;
@@ -95,6 +97,8 @@ public class ArcingProjectileAttack : MonoBehaviour
 
         var attack = Instantiate(projectile, projectileOrigin.position, projectileOrigin.localRotation);        // Creating projectile
         attack.GetComponent<Rigidbody>().velocity = netVelocity * projectileOrigin.forward;     // Applying initial velocity to make object fly
+        attack.GetComponent<ArcingProjectile>().damage = damage;
+        attack.GetComponent<ArcingProjectile>().explosionRadius = explosionRadius;
 
         entity.animator.SetBool("isAttacking", false);
     }

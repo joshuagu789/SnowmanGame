@@ -19,13 +19,13 @@ public class PlayerUI: MonoBehaviour
     public Transform tempSizing;
 
     public Player player;
-    public ThirdPersonMovement movementScript;
+    public PlayerMovement movementScript;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
