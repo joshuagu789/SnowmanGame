@@ -25,11 +25,6 @@ public class BasicMovement : MonoBehaviour
 
     }
 
-    void Awake()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -122,7 +117,6 @@ public class BasicMovement : MonoBehaviour
 
         // Making entity.agent stop if in minimum range 
         Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
-        FaceTarget();
 
         if (distanceToWalkPoint.magnitude < entity.minRange)
         {
@@ -132,6 +126,7 @@ public class BasicMovement : MonoBehaviour
                 entity.animator.SetBool("isMoving", false);
             }
             entity.agent.isStopped = true;
+            FaceTarget();
         }
         // Making entity.agent move if out of minimum range
         else 

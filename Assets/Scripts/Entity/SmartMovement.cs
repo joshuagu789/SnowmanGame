@@ -111,7 +111,6 @@ public class SmartMovement : MonoBehaviour
         walkPoint = new Vector3(entity.target.position.x, entity.target.position.y, entity.target.position.z);
         entity.isMoving = true;
         entity.animator.SetBool("isMoving", true);
-        FaceTarget();
 
         Vector3 distanceToWalkPoint = new Vector3(entity.target.position.x - transform.position.x, 0f, entity.target.position.z - transform.position.z);
 
@@ -119,11 +118,13 @@ public class SmartMovement : MonoBehaviour
         if (distanceToWalkPoint.magnitude <= entity.minRange)
         {
             StrafeTarget(distanceToWalkPoint, "Backward");
+            FaceTarget();
         }
         // Entity will strafe towards target once within max range (min and max range determines when entity will strafe)
         else if (distanceToWalkPoint.magnitude <= entity.maxRange)
         {
             StrafeTarget(distanceToWalkPoint, "Forward");
+            FaceTarget();
         }
         else
         {

@@ -6,7 +6,7 @@ using UnityEngine;
  * Sets a lifetime for an explosion VFX and destroys it once the timer runs out
  */
 
-public class BigExplosionTemp : MonoBehaviour
+public class ExplosionVFX : MonoBehaviour
 {
     public float lifeTime;
 

@@ -43,9 +43,10 @@ public class ArcingProjectileAttack : MonoBehaviour
         {
             distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
                                                     entity.target.position.z - projectileOrigin.position.z);
+            var angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
 
-            // Checking to see if the target is in range and attack is off cooldown
-            if (distanceToTarget.magnitude <= entity.range && timer > cooldown)
+            // Checking to see if the target is in range, attack is off cooldown, and if target is in front
+            if (distanceToTarget.magnitude <= entity.range && timer > cooldown && angleToTarget <= (10 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring)
                 {

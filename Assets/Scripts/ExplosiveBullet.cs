@@ -16,9 +16,8 @@ public class ExplosiveBullet : MonoBehaviour
     public float damage;
     public float tempModifier;
 
+    // If bullet doesn't use gravity
     public float lifeTime; 
-    public float speed;
-
     public bool hasGravity;  
 
     // Start is called before the first frame update
@@ -37,21 +36,25 @@ public class ExplosiveBullet : MonoBehaviour
     {
         if (!hasGravity && lifeTime > 0)
         {
-            transform.Translate(transform.forward * speed * Time.deltaTime);
+            lifeTime -= Time.deltaTime;
+            if (lifeTime <= 0)
+            {
+                ApplyDamage();
+                Destroy(gameObject);
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        var explosionInstance = Instantiate(explosion,transform.position, transform.rotation);
-
         ApplyDamage();
-
         Destroy(gameObject);
     }
 
     private void ApplyDamage()
     {
+        var explosionInstance = Instantiate(explosion, transform.position, transform.rotation);
+
         var surroundingTargets = Physics.OverlapSphere(transform.position, explosionRadius);
 
         foreach (Collider entity in surroundingTargets)

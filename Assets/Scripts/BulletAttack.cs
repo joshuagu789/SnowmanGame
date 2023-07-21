@@ -64,73 +64,7 @@ public class BulletAttack : MonoBehaviour
                 StartCoroutine(Shoot());
             }
         }
-        /*
-        while (isAttacking)
-        {
-            entity.animator.SetTrigger("Attack" + attackNumber);
-            delayTimer += Time.deltaTime;
-
-            if (delayTimer >= firingDelay)
-            {
-                for (int i = 0; i < bulletCount; i++)
-                {
-                    StartCoroutine(SpawnBullets());
-                    if (i == bulletCount - 1)
-                    {
-                        delayTimer = 0;
-                        isAttacking = false;
-                    }
-                }
-            }
-        }
-        */
     }
-
-    /*
-    private void Shoot()
-    {
-        
-        while (isAttacking)
-        {
-            Debug.Log(delayTimer);
-
-            entity.animator.SetTrigger("Attack" + attackNumber);
-            delayTimer += Time.deltaTime;
-
-            if (delayTimer >= firingDelay)
-            {
-                for (int i = 0; i < bulletCount; i++)
-                {
-                    StartCoroutine(SpawnBullets());
-                    if (i == bulletCount - 1)
-                    {
-                        delayTimer = 0;
-                        isAttacking = false;
-                    }
-                }
-            }
-        }
-        
-        entity.animator.SetTrigger("Attack" + attackNumber);
-
-        for (float i = 0; i <= firingDelay + 1; i += Time.deltaTime)
-        {
-            if (i >= firingDelay)
-            {
-                for (int x = 0; x < bulletCount; x++)
-                {
-                    StartCoroutine(SpawnBullets());
-                    if (i == bulletCount - 1)
-                    {
-                        delayTimer = 0;
-                        isAttacking = false;
-                    }
-                }
-                break;
-            }
-        }
-    }
-    */
 
     IEnumerator Shoot()
     {
@@ -145,44 +79,23 @@ public class BulletAttack : MonoBehaviour
 
     void SpawnBullets()
     {
-        projectileOrigin.LookAt(new Vector3(0f, entity.target.position.y, 0f));
+        //projectileOrigin.LookAt(new Vector3(0f, entity.target.position.y, 0f));
 
         // Adding inaccuracy to shot by adjusting rotations by random range using var fireAngleDeviation
-        projectileOrigin.localRotation = Quaternion.Euler(Random.Range(-fireAngleDeviation, fireAngleDeviation), projectileOrigin.localRotation.y +
-                                                  Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
+        //projectileOrigin.localRotation = Quaternion.Euler(Random.Range(-fireAngleDeviation, fireAngleDeviation), projectileOrigin.localRotation.y +
+         //                                         Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
 
-        // Giving damage information to newly created bullet
         var bullet = Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
-        var bulletScript = bullet.GetComponent<ExplosiveBullet>();
-
-        bulletScript.damage = damage;
-        bulletScript.explosionRadius = explosionRadius;
-        bulletScript.lifeTime = bulletLifetime;
-        bulletScript.speed = bulletSpeed;
-        bulletScript.hasGravity = false;
-    }
-
-    /*
-    IEnumerator SpawnBullets()
-    {
-        Debug.Log("fired");
-        projectileOrigin.LookAt(new Vector3(0f, entity.target.position.y, 0f));
-
-        // Adding inaccuracy to shot by adjusting rotations by random range using var fireAngleDeviation
-        projectileOrigin.localRotation = Quaternion.Euler(Random.Range(-fireAngleDeviation, fireAngleDeviation), projectileOrigin.localRotation.y +
-                                                  Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
+        bullet.transform.LookAt(entity.target);
+        bullet.transform.Rotate(Random.Range(-fireAngleDeviation, fireAngleDeviation), projectileOrigin.localRotation.y +
+                                                 Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
         // Giving damage information to newly created bullet
-        var bullet = Instantiate(projectile, projectileOrigin.position, projectileOrigin.localRotation);
         var bulletScript = bullet.GetComponent<ExplosiveBullet>();
-
         bulletScript.damage = damage;
         bulletScript.explosionRadius = explosionRadius;
         bulletScript.lifeTime = bulletLifetime;
-        bulletScript.speed = bulletSpeed;
         bulletScript.hasGravity = false;
-
-        yield return new WaitForSeconds(bulletInterval);
     }
-    */
 }
