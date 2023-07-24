@@ -102,6 +102,7 @@ public class SmartMovement : MonoBehaviour
             if (entity.animator != null)
             {
                 entity.animator.SetBool("isMoving", true);
+                entity.animator.Play("ForwardWalk");
             }
         }
     }
@@ -117,17 +118,20 @@ public class SmartMovement : MonoBehaviour
         // Entity will strafe in directions other than forward if target is within minimum range
         if (distanceToWalkPoint.magnitude <= entity.minRange)
         {
+            entity.animator.Play("BackwardWalk");
             StrafeTarget(distanceToWalkPoint, "Backward");
             FaceTarget();
         }
         // Entity will strafe towards target once within max range (min and max range determines when entity will strafe)
         else if (distanceToWalkPoint.magnitude <= entity.maxRange)
         {
+            entity.animator.Play("ForwardWalk");
             StrafeTarget(distanceToWalkPoint, "Forward");
             FaceTarget();
         }
         else
         {
+            entity.animator.Play("ForwardWalk");
             entity.agent.SetDestination(walkPoint); // Entity heads directly towards target if out of max range
         }
     }
