@@ -46,7 +46,7 @@ public class ArcingProjectileAttack : MonoBehaviour
             var angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
 
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (distanceToTarget.magnitude <= entity.range && timer > cooldown && angleToTarget <= (10 + fireAngleDeviation))
+            if (distanceToTarget.magnitude <= entity.range && timer > cooldown && angleToTarget <= (20 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring)
                 {
@@ -79,16 +79,6 @@ public class ArcingProjectileAttack : MonoBehaviour
 
                                                 // Offset by 1.4 factor bc equation assumes start and end are at same height but not in reality
         netVelocity = Mathf.Sqrt((float)((9.8 * (distance.magnitude/1.4)) / (2 * Mathf.Sin(fireAngle) * Mathf.Cos(fireAngle))));
-
-        /*
-        angle = Mathf.Acos(distance.magnitude / airTime / horizontalVelocity) * 180/Mathf.PI;    //Mathf is in radians and we want degrees
-
-        Debug.Log(-angle);
-        Debug.Log(distance.magnitude / airTime / horizontalVelocity);
-
-        projectileOrigin.localRotation = Quaternion.Euler(-angle, 0f, 0f);
-        netVelocity = horizontalVelocity / Mathf.Cos(angle);
-        */
     }
 
     IEnumerator ShootArc()

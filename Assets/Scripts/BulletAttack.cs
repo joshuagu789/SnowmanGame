@@ -29,11 +29,8 @@ public class BulletAttack : MonoBehaviour
 
     public float fireAngleDeviation;     // Max degrees that angle can deviate
 
-    private bool isAttacking;
     private int attackNumber;     
-    private float delayTimer = 0;
     private float cooldownTimer = 0;
-    private float intervalTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -54,12 +51,10 @@ public class BulletAttack : MonoBehaviour
             var angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
 
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (distanceToTarget.magnitude <= entity.range && cooldownTimer > cooldown && angleToTarget <= (10 + fireAngleDeviation))
+            if (distanceToTarget.magnitude <= entity.range && cooldownTimer > cooldown && angleToTarget <= (20 + fireAngleDeviation))
             {
                 cooldownTimer = 0;
                 attackNumber = (int)Random.Range(1, uniqueAttackNumber + 0.99f);    // Selecting random attack
-                isAttacking = true;
-                //Shoot();
                 entity.animator.SetTrigger("Attack" + attackNumber);
                 StartCoroutine(Shoot());
             }
@@ -74,18 +69,13 @@ public class BulletAttack : MonoBehaviour
             SpawnBullets();
             yield return new WaitForSeconds(bulletInterval);
         }
-        //SpawnBullets();
     }
 
     void SpawnBullets()
     {
-        //projectileOrigin.LookAt(new Vector3(0f, entity.target.position.y, 0f));
+        var bullet = Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
 
         // Adding inaccuracy to shot by adjusting rotations by random range using var fireAngleDeviation
-        //projectileOrigin.localRotation = Quaternion.Euler(Random.Range(-fireAngleDeviation, fireAngleDeviation), projectileOrigin.localRotation.y +
-         //                                         Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
-
-        var bullet = Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
         bullet.transform.LookAt(entity.target);
         bullet.transform.Rotate(Random.Range(-fireAngleDeviation, fireAngleDeviation), projectileOrigin.localRotation.y +
                                                  Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
