@@ -46,15 +46,18 @@ public class BulletAttack : MonoBehaviour
         // Checking to see if the target meets requirements to be fired at 
         if (entity.target != null && entity.isLockedOn)
         {
+            /*
             var distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
                                                     entity.target.position.z - projectileOrigin.position.z);
             var angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
+            */
 
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (distanceToTarget.magnitude <= entity.range && cooldownTimer > cooldown && angleToTarget <= (20 + fireAngleDeviation))
+            if (entity.distanceToTarget.magnitude <= entity.range && cooldownTimer > cooldown && entity.angleToTarget <= (20 + fireAngleDeviation))
             {
                 cooldownTimer = 0;
                 attackNumber = (int)Random.Range(1, uniqueAttackNumber + 0.99f);    // Selecting random attack
+                entity.animator.SetBool("isAttacking", true);
                 entity.animator.SetTrigger("Attack" + attackNumber);
                 StartCoroutine(Shoot());
             }
@@ -69,6 +72,7 @@ public class BulletAttack : MonoBehaviour
             SpawnBullets();
             yield return new WaitForSeconds(bulletInterval);
         }
+        entity.animator.SetBool("isAttacking", false);
     }
 
     void SpawnBullets()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;   // Needed for NavMeshAgent
+using static UnityEngine.EventSystems.EventTrigger;
 
 /*
    Universal script for any game character that isn't the player (npc)- this script only has
@@ -49,10 +50,31 @@ public class Entity : MonoBehaviour
     public bool isLockedOn = false;
     public float lockDuration;
 
+    // For targeting and aiming
+    [HideInInspector]
+    public Vector3 distanceToTarget;
+    [HideInInspector]
+    public float angleToTarget;
+
     // Start is called before the first frame update
     void Start()
     {
         agent.speed = speed;
         agent.angularSpeed = rotationSpeed;
+    }
+
+    private void Update()
+    {
+        if (isLockedOn & target != null)
+        {
+            StartCoroutine(UpdateVectors());
+        }
+    }
+
+    IEnumerator UpdateVectors()
+    {
+        distanceToTarget = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
+        angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
+        yield return new WaitForSeconds(0.2f);
     }
 }

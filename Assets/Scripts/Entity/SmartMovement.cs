@@ -22,6 +22,7 @@ public class SmartMovement : MonoBehaviour
     public float strafeDistance;
     private Vector3 strafingDirection;  // Later replace this with walkPoint since they both do the same thing?
     private bool strafingSet = false;
+    private float strafeAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -102,7 +103,7 @@ public class SmartMovement : MonoBehaviour
             if (entity.animator != null)
             {
                 entity.animator.SetBool("isMoving", true);
-                entity.animator.Play("ForwardWalk");
+                //entity.animator.Play("ForwardWalk");
             }
         }
     }
@@ -113,31 +114,35 @@ public class SmartMovement : MonoBehaviour
         entity.isMoving = true;
         entity.animator.SetBool("isMoving", true);
 
-        Vector3 distanceToWalkPoint = new Vector3(entity.target.position.x - transform.position.x, 0f, entity.target.position.z - transform.position.z);
+        //Vector3 distanceToWalkPoint = new Vector3(entity.target.position.x - transform.position.x, 0f, entity.target.position.z - transform.position.z);
 
         // Entity will strafe in directions other than forward if target is within minimum range
-        if (distanceToWalkPoint.magnitude <= entity.minRange)
+        if (entity.distanceToTarget.magnitude <= entity.minRange)
         {
-            entity.animator.Play("BackwardWalk");
-            StrafeTarget(distanceToWalkPoint, "Backward");
+            //entity.animator.Play("BackwardWalk");
+            //StrafeTarget(distanceToWalkPoint, "Backward");
+            StrafeTarget(90f, 270f);
             FaceTarget();
         }
         // Entity will strafe towards target once within max range (min and max range determines when entity will strafe)
-        else if (distanceToWalkPoint.magnitude <= entity.maxRange)
+        else if (entity.distanceToTarget.magnitude <= entity.maxRange)
         {
-            entity.animator.Play("ForwardWalk");
-            StrafeTarget(distanceToWalkPoint, "Forward");
+            //entity.animator.Play("ForwardWalk");
+            //StrafeTarget(distanceToWalkPoint, "Forward");
+            StrafeTarget(0f, 360f);
             FaceTarget();
         }
         else
         {
-            entity.animator.Play("ForwardWalk");
+            //entity.animator.Play("ForwardWalk");
             entity.agent.SetDestination(walkPoint); // Entity heads directly towards target if out of max range
         }
     }
 
-    private void StrafeTarget(Vector3 distanceToTarget, string direction)
+    //private void StrafeTarget(Vector3 distanceToTarget, string direction)
+    private void StrafeTarget(float minAngle, float maxAngle)
     {
+        /*
         if (!strafingSet)
         {
             if (direction.Equals("Forward"))
@@ -153,8 +158,27 @@ public class SmartMovement : MonoBehaviour
 
             strafingSet = true;
         }
+        */
+
+        if (!strafingSet)
+        {
+            // Sets a destination between angles -90 & 90 for entity to travel
+            strafeAngle = Random.Range(minAngle, maxAngle);
+            strafingDirection = Quaternion.AngleAxis(strafeAngle, entity.transform.up) * entity.distanceToTarget.normalized * strafeDistance;
+
+            strafingSet = true;
+        }
+
         else if (strafingSet)
         {
+            // Making entity move left/right/backwards based on angle
+            if (strafeAngle >= 45 && strafeAngle <= 135)
+                entity.animator.SetTrigger("RightWalk");
+            else if(strafeAngle >= 135 && strafeAngle <= 225)
+                entity.animator.SetTrigger("BackWalk");
+            else if(strafeAngle <= -45 || strafeAngle >= 225 && strafeAngle <= 315)
+                entity.animator.SetTrigger("LeftWalk");
+
             // Making entity travel towards strafing destination
             entity.agent.SetDestination(strafingDirection);
             if (entity.agent.remainingDistance <= 1f)   // Resetting strafing once destination is reached

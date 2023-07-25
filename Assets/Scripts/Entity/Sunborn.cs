@@ -57,6 +57,7 @@ public class Sunborn : MonoBehaviour
 
         if (entity.register.hasTakenDamage)
         {
+            entity.animator.SetTrigger("Dodge");
             entity.systemIntegrity -= entity.register.damageTaken;
             entity.register.hasTakenDamage = false;
         }
