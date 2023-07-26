@@ -119,22 +119,20 @@ public class SmartMovement : MonoBehaviour
         // Entity will strafe in directions other than forward if target is within minimum range
         if (entity.distanceToTarget.magnitude <= entity.minRange)
         {
-            //entity.animator.Play("BackwardWalk");
-            //StrafeTarget(distanceToWalkPoint, "Backward");
             StrafeTarget(90f, 270f);
             FaceTarget();
         }
         // Entity will strafe towards target once within max range (min and max range determines when entity will strafe)
         else if (entity.distanceToTarget.magnitude <= entity.maxRange)
         {
-            //entity.animator.Play("ForwardWalk");
-            //StrafeTarget(distanceToWalkPoint, "Forward");
             StrafeTarget(0f, 360f);
             FaceTarget();
         }
-        else
+        else 
         {
             //entity.animator.Play("ForwardWalk");
+            strafingSet = false;
+            FaceTarget();
             entity.agent.SetDestination(walkPoint); // Entity heads directly towards target if out of max range
         }
     }
@@ -142,24 +140,6 @@ public class SmartMovement : MonoBehaviour
     //private void StrafeTarget(Vector3 distanceToTarget, string direction)
     private void StrafeTarget(float minAngle, float maxAngle)
     {
-        /*
-        if (!strafingSet)
-        {
-            if (direction.Equals("Forward"))
-            {
-                // Sets a destination between angles -90 & 90 for entity to travel               
-                strafingDirection = Quaternion.AngleAxis(Random.Range(-90f, 90f), entity.transform.up) * distanceToTarget.normalized * strafeDistance;
-            }
-            else if (direction.Equals("Backward"))
-            {
-                // Sets a destination between angles 90 & 270 for entity to travel               multiply this by -1 so that AngleAxis rotations is applied backwards
-                strafingDirection = Quaternion.AngleAxis(Random.Range(90f, 270f), entity.transform.up) * distanceToTarget.normalized * -1f * strafeDistance;
-            }
-
-            strafingSet = true;
-        }
-        */
-
         if (!strafingSet)
         {
             // Sets a destination between angles -90 & 90 for entity to travel

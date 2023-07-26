@@ -984,7 +984,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541687289}
-  m_LocalRotation: {x: 0.011560136, y: -9.857947e-10, z: 1.1396686e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560135, y: -0.0000000024479005, z: 2.8299951e-11, w: 0.9999332}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1964,7 +1964,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.011560133, y: -0.0000000021073148, z: 2.4362462e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560129, y: -0.0000000026190574, z: 3.027867e-11, w: 0.9999332}
   m_LocalPosition: {x: 2.2, y: -0.5999999, z: -11.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2402,7 +2402,7 @@ MonoBehaviour:
   projectile: {fileID: 9089406099736675579, guid: c0e572f3bf3174a31ab423f7bf80709b, type: 3}
   projectileOrigin: {fileID: 758878302}
   isStationaryWhenFiring: 0
-  damage: 15
+  damage: 1
   explosionRadius: 10
   cooldown: 5
   firingDelay: 0
@@ -4595,7 +4595,7 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 50
   maxIdleTime: 20
-  strafeDistance: 30
+  strafeDistance: 100
 --- !u!195 &1830757529
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5259,7 +5259,7 @@ MonoBehaviour:
   detectionRange: 75
   range: 60
   fov: 90
-  minRange: 30
+  minRange: 10
   maxRange: 50
   leashRange: 0
   target: {fileID: 0}
@@ -5338,7 +5338,7 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 100
   maxIdleTime: 20
-  strafeDistance: 20
+  strafeDistance: 100
 --- !u!1 &1907387494 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4bcdb38344f04427a9f2920954d64f46, type: 3}
