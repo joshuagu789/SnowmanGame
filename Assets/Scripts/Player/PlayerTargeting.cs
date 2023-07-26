@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 /* 
  * Currently requires player to be in first person view and right click repeatedly until target found by raycast
@@ -11,7 +12,8 @@ using UnityEngine;
 public class PlayerTargeting : MonoBehaviour
 {
 
-    public CinemachineVirtualCamera firstPersonCam;
+    public CameraController camera;
+    public GameServer server;
     public Transform targetLock;
     Player player;
     public Transform targetLockClone;
@@ -48,9 +50,9 @@ public class PlayerTargeting : MonoBehaviour
         {
             player.isLockedOn = false;
         }
-        
-        // Getting a target lock by player click
-        if (Input.GetButtonDown("Fire2") && firstPersonCam.enabled)
+
+        // Getting a target lock by player click in first person
+        if (Input.GetButtonDown("Fire2") && camera.firstPersonCam.enabled)
         {
             // Locking on target if it's in range by shooting out a ray and seeing if it hits a target
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -65,12 +67,60 @@ public class PlayerTargeting : MonoBehaviour
                     Destroy(targetLockClone.gameObject);
                 }
 
+                // Instantiating lock on effect
                 player.target = hit.transform;
                 targetLockClone = Instantiate(targetLock, hit.collider.transform.position, hit.collider.transform.localRotation, hit.collider.transform);
                 targetLockClone.localScale = hit.collider.transform.localScale;
                 player.isLockedOn = true;
             }
+        }
 
+        // Alternative method for getting a target lock if player in third person    
+        else if (Input.GetButtonDown("Fire2") && camera.thirdPersonCam.enabled)
+        {
+            bool targetFound = false;
+            Transform closestTarget = null;
+            float minPriorityRank = Mathf.Infinity;
+
+            // Looping through all enemies currently active 
+            foreach (Transform potentialTarget in server.enemiesList)
+            {
+                Vector3 distance = new Vector3(potentialTarget.position.x - transform.position.x, 0f, potentialTarget.position.z - transform.position.z);
+                float angle = Vector3.Angle(camera.transform.forward, distance);
+                float priorityRank = distance.magnitude + angle * 2;    // Formula to choose closest enemy that's closest to player's field of view
+
+                if (priorityRank < minPriorityRank && distance.magnitude <= player.detectionRange)
+                {
+                    closestTarget = potentialTarget;
+                    minPriorityRank = priorityRank;
+                    targetFound = true;
+                }
+            }
+
+            // Deciding if player found a potential target
+            if (targetFound)
+            {
+                // To remove any pre-existing locks
+                if (player.isLockedOn)
+                {
+                    Destroy(targetLockClone.gameObject);
+                }
+
+                // Instantiating lock on effect
+                var targetCollider = closestTarget.GetComponentInChildren<Collider>();
+                player.target = closestTarget;
+                targetLockClone = Instantiate(targetLock, targetCollider.transform.position, targetCollider.transform.localRotation, targetCollider.transform);
+                targetLockClone.localScale = targetCollider.transform.localScale;
+                player.isLockedOn = true;
+            }
+            /*
+            else
+            {
+                entity.isLockedOn = false;
+                entity.target = null;
+                entity.animator.SetBool("isLockedOn", false);
+            }
+            */
         }
     }
 
