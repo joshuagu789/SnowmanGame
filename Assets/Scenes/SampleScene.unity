@@ -1198,6 +1198,8 @@ MonoBehaviour:
   lockDuration: 100
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
+  leader: {fileID: 0}
+  isLeader: 0
 --- !u!114 &661972719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1461,7 +1463,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.08463522, y: -0.000000017144648, z: 0.000000001456266, w: 0.99641204}
+  m_LocalRotation: {x: 0.08463522, y: 0.000000017144645, z: -0.0000000014562656, w: 0.99641204}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2116,7 +2118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 207fab52263714a219bd69e488219b22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 88.3
+      value: 115.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 207fab52263714a219bd69e488219b22, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2291,7 +2293,6 @@ MonoBehaviour:
   maxIdleTime: 30
   strafeDistance: 5
   tooFarFromPlayer: 0
-  returningToPlayer: 0
 --- !u!114 &1151492745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2353,7 +2354,7 @@ MonoBehaviour:
   integrityLoss: 0
   tempGain: 0
   tempLoss: 1
-  speed: 3.5
+  speed: 4.5
   rotationSpeed: 180
   detectionRange: 50
   range: 100
@@ -2368,6 +2369,8 @@ MonoBehaviour:
   lockDuration: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
+  leader: {fileID: 0}
+  isLeader: 0
 --- !u!114 &1151492748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2857,6 +2860,8 @@ MonoBehaviour:
   lockDuration: 20
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
+  leader: {fileID: 0}
+  isLeader: 0
 --- !u!114 &1254591247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,7 +3204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 224594f8e797b4a6fbcdebe809a50898, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 94.70673
+      value: 121.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 224594f8e797b4a6fbcdebe809a50898, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3207,7 +3212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 224594f8e797b4a6fbcdebe809a50898, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.0348
+      value: 134
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 224594f8e797b4a6fbcdebe809a50898, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4645,12 +4650,12 @@ MonoBehaviour:
   tempLoss: 0
   speed: 10
   rotationSpeed: 120
-  detectionRange: 75
+  detectionRange: 0
   range: 60
   fov: 90
   minRange: 20
   maxRange: 50
-  leashRange: 20
+  leashRange: 30
   target: {fileID: 0}
   isMoving: 0
   isIdle: 0
@@ -4658,6 +4663,8 @@ MonoBehaviour:
   lockDuration: 15
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
+  leader: {fileID: 1905800712}
+  isLeader: 0
 --- !u!114 &1830757531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4771,7 +4778,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831699312}
-  m_LocalRotation: {x: -0.021651415, y: -0.000000017168814, z: -3.7181633e-10, w: 0.9997656}
+  m_LocalRotation: {x: -0.021651436, y: 0.000000017269512, z: 3.7399744e-10, w: 0.9997656}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5256,12 +5263,12 @@ MonoBehaviour:
   tempLoss: 0
   speed: 10
   rotationSpeed: 120
-  detectionRange: 75
+  detectionRange: 0
   range: 60
   fov: 90
   minRange: 10
   maxRange: 50
-  leashRange: 0
+  leashRange: 75
   target: {fileID: 0}
   isMoving: 0
   isIdle: 0
@@ -5269,6 +5276,8 @@ MonoBehaviour:
   lockDuration: 60
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
+  leader: {fileID: 0}
+  isLeader: 0
 --- !u!4 &1905800712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 207fab52263714a219bd69e488219b22, type: 3}
@@ -5337,7 +5346,7 @@ MonoBehaviour:
   entity: {fileID: 1905800711}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 100
-  maxIdleTime: 20
+  maxIdleTime: 1000
   strafeDistance: 100
 --- !u!1 &1907387494 stripped
 GameObject:

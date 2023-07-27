@@ -13,6 +13,7 @@ public class SmartMovement : MonoBehaviour
 
     // For patrolling movement
     public Vector3 walkPoint;
+    private bool walkPointSet = false;
     public float walkPointRange;
     public float maxIdleTime;
 
@@ -24,25 +25,116 @@ public class SmartMovement : MonoBehaviour
     private bool strafingSet = false;
     private float strafeAngle;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    private bool tooFarFromLeader;
+    private float timer1 = 1;   // Timer for CheckDistanceFromLeader()
+    private float timer2 = 1;   // Timer for ReturnToLeader()
 
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (!entity.isLockedOn)
+        // Specialized movement of entity if it has a leader (follows leader before attacking & patrolling on its own)
+        if (entity.leader != null)
         {
-            Idle();
-            Patrolling();
+            CheckDistanceFromLeader();
+            if (tooFarFromLeader)
+            {
+                ReturnToLeader();   // Executes every second- returning to leader always entity's highest priority
+            }
+            else if (entity.isLockedOn && entity.target != null)    // Entity enters combat
+            {
+                entity.isIdle = false;
+                Pursuing();
+            }
+            else 
+            {
+                if (entity.leader.tag.Equals("Player"))
+                {
+                    var animator = entity.leader.gameObject.GetComponent<Player>().animator;
+                    if (!animator.GetBool("isMoving"))
+                    {
+                        entity.isMoving = false;
+                        entity.isIdle = true;
+                        walkPointSet = false;
+                        entity.agent.ResetPath();
+                        entity.animator.SetBool("isMoving", false);
+                    }
+                    else
+                        Patrolling(entity.leader);
+                }
+                else
+                {
+                    var animator = entity.leader.gameObject.GetComponent<Entity>().animator;
+                    if (!animator.GetBool("isMoving"))
+                    {
+                        entity.isMoving = false;
+                        entity.isIdle = true;
+                        walkPointSet = false;
+                        entity.agent.ResetPath();
+                        entity.animator.SetBool("isMoving", false);
+                    }
+                    else
+                        Patrolling(entity.leader);
+                }
+            }
         }
-        else if (entity.isLockedOn && entity.target != null)
+        // How the entity normally moves and behaves without a leader (patrol around until target spotted- then attack)
+        else
         {
-            entity.isIdle = false;
-            Pursuing();
+            if (!entity.isLockedOn)
+            {
+                Idle();
+                Patrolling(null);
+            }
+            else if (entity.isLockedOn && entity.target != null)
+            {
+                entity.isIdle = false;
+                Pursuing();
+            }
         }
+    }
+
+    // Periodically check if entity is getting too far away from leader
+    void CheckDistanceFromLeader()
+    {
+        timer1 += Time.deltaTime;
+        if (timer1 >= 1f)   // Calculates distance every 1f second to save up cpu
+        {
+            timer1 = 0;
+            var distance = new Vector3(entity.leader.position.x - entity.transform.position.x, 0f,
+                           entity.leader.position.z - entity.transform.position.z);
+
+            if (distance.magnitude > entity.leashRange)
+            {
+                tooFarFromLeader = true;
+            }
+            else
+            {
+                tooFarFromLeader = false;
+            }
+        }
+    }
+
+    void ReturnToLeader()
+    {
+        timer2 += Time.deltaTime;
+
+        // Cancelling current path entity is taking if shortest angle between entity's front and leader >= 45 degrees
+        // so that entity sets down new walkpoint that's closer to leader
+        if (timer2 >= 1f)
+        {
+            timer2 = 0;
+            var angleToLeader = Vector3.Angle(transform.forward, new Vector3(entity.leader.position.x - entity.transform.position.x, 0f,
+                                                                entity.leader.position.z - entity.transform.position.z));
+            if (Mathf.Abs(angleToLeader) >= 45f)
+            {
+                walkPointSet = false;
+            }
+        }
+
+        entity.isIdle = false;
+        strafingSet = false;
+        Patrolling(entity.leader);   // Set for entity to patrol around player
     }
 
     void Idle()
@@ -53,7 +145,6 @@ public class SmartMovement : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
                 entity.isIdle = false;
-
         }
 
         // 50% probability of being idle if entity.agent isn't patrolling
@@ -61,51 +152,63 @@ public class SmartMovement : MonoBehaviour
         {
             timer = Random.value * maxIdleTime;
             entity.isIdle = true;
-            if (entity.animator != null)
-            {
-                entity.animator.SetBool("isMoving", false);
-            }
+            entity.isMoving = false;
+            walkPointSet = false;
+            entity.animator.SetBool("isMoving", false);
         }
     }
 
-    void Patrolling()
+    void Patrolling(Transform leader)
     {
-        if (!entity.isMoving && !entity.isIdle)
+        if (!walkPointSet && !entity.isIdle)
         {
-            SearchWalkPoint();
+            SearchWalkPoint(leader);
         }
 
         // If walkPoint is ready
-        else if (entity.isMoving)
+        else if (walkPointSet)
         {
             entity.agent.SetDestination(walkPoint);
 
             // Checking if destination is reached
-            Vector3 distanceToWalkPoint = walkPoint - transform.position;
-            if (distanceToWalkPoint.magnitude < 0.25f)
+            //Vector3 distanceToWalkPoint = walkPoint - transform.position;
+            Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
+            if (distanceToWalkPoint.magnitude < 1f)
             {
                 entity.isMoving = false;
+                walkPointSet = false;
             }
         }
     }
 
-    void SearchWalkPoint()
+    void SearchWalkPoint(Transform leader)
     {
-        //Picking random coordinates to travel
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+        // Entity moves around the leader's walk point range if it has one and moves around its own walk point range if not
+        if (leader == null)
+        {
+            //Picking random coordinates to travel
+            float randomZ = Random.Range(-walkPointRange, walkPointRange);
+            float randomX = Random.Range(-walkPointRange, walkPointRange);
+
+            walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+        }
+        else
+        {
+            //Picking random coordinates to travel
+            float randomZ = Random.Range(-entity.leashRange, entity.leashRange);
+            float randomX = Random.Range(-entity.leashRange, entity.leashRange);
+
+            walkPoint = new Vector3(leader.position.x + randomX, transform.position.y, leader.position.z + randomZ);
+        }
 
         // Checking if destination is within map     EXPERIMENTAL: have raycast go up as well if destination is at a higher
         //                                                          elevation (random coordinate assumes y position doesn't change)
         if (Physics.Raycast(walkPoint, -transform.up) || Physics.Raycast(walkPoint, -transform.up))
         {
             entity.isMoving = true;
-            if (entity.animator != null)
-            {
-                entity.animator.SetBool("isMoving", true);
-                //entity.animator.Play("ForwardWalk");
-            }
+            walkPointSet = true;
+            entity.animator.SetBool("isMoving", true);
         }
     }
 
@@ -114,8 +217,6 @@ public class SmartMovement : MonoBehaviour
         walkPoint = new Vector3(entity.target.position.x, entity.target.position.y, entity.target.position.z);
         entity.isMoving = true;
         entity.animator.SetBool("isMoving", true);
-
-        //Vector3 distanceToWalkPoint = new Vector3(entity.target.position.x - transform.position.x, 0f, entity.target.position.z - transform.position.z);
 
         // Entity will strafe in directions other than forward if target is within minimum range
         if (entity.distanceToTarget.magnitude <= entity.minRange)
@@ -131,7 +232,6 @@ public class SmartMovement : MonoBehaviour
         }
         else 
         {
-            //entity.animator.Play("ForwardWalk");
             strafingSet = false;
             FaceTarget();
             entity.agent.SetDestination(walkPoint); // Entity heads directly towards target if out of max range

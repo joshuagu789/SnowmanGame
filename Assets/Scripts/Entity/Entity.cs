@@ -56,6 +56,10 @@ public class Entity : MonoBehaviour
     [HideInInspector]
     public float angleToTarget;
 
+    // For simulating leadership
+    public Transform leader;
+    public bool isLeader;
+
     // Start is called before the first frame update
     void Start()
     {
