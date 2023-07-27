@@ -27,8 +27,6 @@ public class SnowmanMovement : MonoBehaviour
 
     [SerializeField]
     private bool tooFarFromPlayer = false;
-    [SerializeField]
-    private bool returningToPlayer = false;   //EXPERIMENTAL TO MAKE SNOWMAN CHANGE DESTINATION WHILE MOVING (perhaps not needed?)
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +58,6 @@ public class SnowmanMovement : MonoBehaviour
         }
         else
         {
-            returningToPlayer = false;
             Patrolling();
         }
     }
@@ -74,7 +71,6 @@ public class SnowmanMovement : MonoBehaviour
         if (distance.magnitude > entity.leashRange)
         {
             tooFarFromPlayer = true;
-            returningToPlayer = false;  // Means that entity is currently not approaching player which is why distance between is increasing
         }
         else
         {
@@ -86,21 +82,19 @@ public class SnowmanMovement : MonoBehaviour
 
     IEnumerator ReturnToPlayer()
     {
-        if (!returningToPlayer)
+
+        var angleToPlayer = Vector3.Angle(transform.forward, new Vector3(player.transform.position.x - entity.transform.position.x, 0f,
+                                                                        player.transform.position.z - entity.transform.position.z));
+
+        // Cancelling current path snowman is taking if shortest angle between snowman's front and player >= 45 degrees
+        // so that snowman sets down new walkpoint that's closer to player
+        if (Mathf.Abs(angleToPlayer) >= 45f)
         {
-            var angleToPlayer = Vector3.Angle(transform.forward, new Vector3(player.transform.position.x - entity.transform.position.x, 0f,
-                                                                            player.transform.position.z - entity.transform.position.z));
-
-            // Cancelling current path snowman is taking if shortest angle between snowman's front and player >= 45 degrees
-            // so that snowman sets down new walkpoint that's closer to player
-            if (Mathf.Abs(angleToPlayer) >= 45f)
-            {
-                walkPointSet = false;
-            }
-
-            strafingSet = false;
-            Patrolling();   // Set for snowman to patrol around player
+            walkPointSet = false;
         }
+
+        strafingSet = false;
+        Patrolling();   // Set for snowman to patrol around player
 
         yield return new WaitForSeconds(1f);
     }
@@ -114,7 +108,7 @@ public class SnowmanMovement : MonoBehaviour
 
     void Patrolling()
     {
-        if (!walkPointSet && !returningToPlayer) 
+        if (!walkPointSet) 
         {
             SearchWalkPoint();
         }
@@ -123,7 +117,6 @@ public class SnowmanMovement : MonoBehaviour
         if (walkPointSet)
         {
             entity.agent.SetDestination(walkPoint);
-            returningToPlayer = true;
 
             // Checking if destination is reached
             Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
@@ -131,7 +124,6 @@ public class SnowmanMovement : MonoBehaviour
             {
                 entity.isMoving = false;
                 walkPointSet = false;
-                returningToPlayer = false;
             }
         }
     }
@@ -149,7 +141,6 @@ public class SnowmanMovement : MonoBehaviour
         {
             entity.isMoving = true;
             walkPointSet = true;
-            returningToPlayer = true;
             entity.animator.SetBool("isMoving", true);
         }
     }

@@ -38,7 +38,7 @@ public class SmartMovement : MonoBehaviour
             Idle();
             Patrolling();
         }
-        else if (entity.isLockedOn)
+        else if (entity.isLockedOn && entity.target != null)
         {
             entity.isIdle = false;
             Pursuing();
@@ -54,8 +54,9 @@ public class SmartMovement : MonoBehaviour
             if (timer <= 0)
                 entity.isIdle = false;
 
-            // 50% probability of being idle if entity.agent isn't patrolling
         }
+
+        // 50% probability of being idle if entity.agent isn't patrolling
         else if (Random.value >= 0.5f && !entity.isMoving)
         {
             timer = Random.value * maxIdleTime;

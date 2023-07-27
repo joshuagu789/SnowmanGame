@@ -39,20 +39,20 @@ public class EntityTargeting : MonoBehaviour
 
     IEnumerator FindClosestTarget()
     {
-        bool targetFound = false;
-
         /*  
-           The code below goes through a loop to find the closest snowman in range
-            - the way it's done below is inefficient (does through entire list, runs at all times)
-              but will be improved on if performance drops
+            The code below goes through a loop to find the closest snowman in range
+                - the way it's done below is inefficient (does through entire list, runs at all times)
+                 but will be improved on if performance drops
         */
 
+        bool targetFound = false;
         Transform closestTarget = null;
         float minDist = Mathf.Infinity;
 
         foreach (Transform potentialTarget in targetList)
         {
-            float distance = Vector3.Distance(potentialTarget.position, transform.position);
+            //float distance = Vector3.Distance(potentialTarget.position, transform.position);
+            float distance = new Vector3(potentialTarget.position.x - transform.position.x, 0f, potentialTarget.position.z - transform.position.z).magnitude;
             if (distance < minDist && distance <= entity.detectionRange)
             {
                 closestTarget = potentialTarget;
