@@ -51,32 +51,8 @@ public class PlayerTargeting : MonoBehaviour
             player.isLockedOn = false;
         }
 
-        // Getting a target lock by player click in first person
-        if (Input.GetButtonDown("Fire2") && camera.firstPersonCam.enabled)
-        {
-            // Locking on target if it's in range by shooting out a ray and seeing if it hits a target
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // If the ray has hit an enemy within range
-            if (Physics.Raycast(ray, out hit, player.detectionRange) && hit.collider.gameObject.CompareTag("Enemy"))
-            {
-                // To remove any pre-existing locks
-                if (player.isLockedOn)
-                {
-                    Destroy(targetLockClone.gameObject);
-                }
-
-                // Instantiating lock on effect
-                player.target = hit.transform;
-                targetLockClone = Instantiate(targetLock, hit.collider.transform.position, hit.collider.transform.localRotation, hit.collider.transform);
-                targetLockClone.localScale = hit.collider.transform.localScale;
-                player.isLockedOn = true;
-            }
-        }
-
-        // Alternative method for getting a target lock if player in third person    
-        else if (Input.GetButtonDown("Fire2") && camera.thirdPersonCam.enabled)
+        // Getting a target lock when player right clicks based on where they're looking 
+        if (Input.GetButtonDown("Fire2") && camera.thirdPersonCam.enabled || Input.GetButtonDown("Fire2") && camera.firstPersonCam.enabled)
         {
             bool targetFound = false;
             Transform closestTarget = null;
@@ -113,14 +89,6 @@ public class PlayerTargeting : MonoBehaviour
                 targetLockClone.localScale = targetCollider.transform.localScale;
                 player.isLockedOn = true;
             }
-            /*
-            else
-            {
-                entity.isLockedOn = false;
-                entity.target = null;
-                entity.animator.SetBool("isLockedOn", false);
-            }
-            */
         }
     }
 
@@ -146,11 +114,13 @@ public class PlayerTargeting : MonoBehaviour
 
         if (targetLocalPos.x < 0)   // If target is left of player
         {
-            torso.localRotation = Quaternion.Euler(270f, 0f, -angle);
+            //torso.localRotation = Quaternion.Euler(270f, 0f, -angle);
+            torso.localRotation = Quaternion.Slerp(torso.localRotation, Quaternion.Euler(-90f, 0f, -angle), 10 * Time.deltaTime);
         }
         else if (targetLocalPos.x > 0)  // If target is right of player
         {
-            torso.localRotation = Quaternion.Euler(270f, 0f, angle);
+            //torso.localRotation = Quaternion.Euler(270f, 0f, angle);
+            torso.localRotation = Quaternion.Slerp(torso.localRotation, Quaternion.Euler(-90f, 0f, angle), 10 * Time.deltaTime);
         }
     }
 }
