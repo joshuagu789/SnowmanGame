@@ -59,6 +59,9 @@ public class Entity : MonoBehaviour
     // For simulating leadership
     public Transform leader;
     public bool isLeader;
+    public bool canJoinSquad;
+
+    private float timer = 0.25f;
 
     // Start is called before the first frame update
     void Start()
@@ -69,16 +72,21 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        if (isLockedOn & target != null)
+        if (isLockedOn & target != null) 
         {
-            StartCoroutine(UpdateVectors());
+            UpdateVectors();
         }
     }
 
-    IEnumerator UpdateVectors()
+    void UpdateVectors()
     {
-        distanceToTarget = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
-        angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
-        yield return new WaitForSeconds(0.2f);
+        timer += Time.deltaTime;
+
+        if (timer >= 0.25f)  // UpdateVectors() will execute every 0.25 seconds
+        {
+            timer = 0f;
+            distanceToTarget = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
+            angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
+        }
     }
 }

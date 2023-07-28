@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * Similar to snowman movement except there is no following a leader
- *  - Also similar to basic movement but with strafing both forward and backwards
+ * A combination of SnowmanMovement.cs and and BasicMovement.cs (which originally used exclusively for enemies)
+ *  - Script is now universal and can be used for both enemies and allies
+ *  - Features movement for staying near leader and also movement for acting on its own
+ *  - Can patrol, be idle, stay near leader (if there is one), and strafe target 360 degrees
  */
 
 public class SmartMovement : MonoBehaviour
@@ -48,6 +50,10 @@ public class SmartMovement : MonoBehaviour
             }
             else 
             {
+                /*
+                 * If and else section below for being idle if leader is idle- had to have two sections for player leader and entity leader
+                 * since player uses Player script to store isMoving bool and entity uses Entity script
+                 */
                 if (entity.leader.tag.Equals("Player"))
                 {
                     var animator = entity.leader.gameObject.GetComponent<Player>().animator;
@@ -60,7 +66,7 @@ public class SmartMovement : MonoBehaviour
                         entity.animator.SetBool("isMoving", false);
                     }
                     else
-                        Patrolling(entity.leader);
+                        Patrolling(entity.leader);  // Wandering around within leash range of leader
                 }
                 else
                 {
@@ -74,7 +80,7 @@ public class SmartMovement : MonoBehaviour
                         entity.animator.SetBool("isMoving", false);
                     }
                     else
-                        Patrolling(entity.leader);
+                        Patrolling(entity.leader);  // Wandering around within leash range of leader
                 }
             }
         }
@@ -171,7 +177,6 @@ public class SmartMovement : MonoBehaviour
             entity.agent.SetDestination(walkPoint);
 
             // Checking if destination is reached
-            //Vector3 distanceToWalkPoint = walkPoint - transform.position;
             Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
             if (distanceToWalkPoint.magnitude < 1f)
             {
@@ -252,7 +257,7 @@ public class SmartMovement : MonoBehaviour
 
         else if (strafingSet)
         {
-            // Making entity move left/right/backwards based on angle
+            // Making entity move left/right/backwards in animator based on angle
             if (strafeAngle >= 45 && strafeAngle <= 135)
                 entity.animator.SetTrigger("RightWalk");
             else if(strafeAngle >= 135 && strafeAngle <= 225)

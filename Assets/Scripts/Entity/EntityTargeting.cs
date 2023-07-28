@@ -13,6 +13,8 @@ public class EntityTargeting : MonoBehaviour
     public GameServer server;
     private List<Transform> targetList = new List<Transform>();
 
+    private float timer = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,13 +33,15 @@ public class EntityTargeting : MonoBehaviour
             targetList = server.enemiesList;
         }
 
-        if (!entity.isLockedOn)
+        timer += Time.deltaTime;
+        if (!entity.isLockedOn && timer >= 1f)  // Making entity search for target every second 
         {
-            StartCoroutine(FindClosestTarget());
+            timer = 0f;
+            FindClosestTarget();
         }
     }
 
-    IEnumerator FindClosestTarget()
+    void FindClosestTarget()
     {
         /*  
             The code below goes through a loop to find the closest snowman in range
@@ -74,8 +78,5 @@ public class EntityTargeting : MonoBehaviour
             entity.target = null;
             entity.animator.SetBool("isLockedOn", false);
         }
-
-        // Makes entity find closest target every 1f seconds instead of every frame to conserve CPU
-        yield return new WaitForSeconds(1f);
     }
 }
