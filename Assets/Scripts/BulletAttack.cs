@@ -32,12 +32,6 @@ public class BulletAttack : MonoBehaviour
     private int attackNumber;     
     private float cooldownTimer = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -46,12 +40,6 @@ public class BulletAttack : MonoBehaviour
         // Checking to see if the target meets requirements to be fired at 
         if (entity.target != null && entity.isLockedOn)
         {
-            /*
-            var distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
-                                                    entity.target.position.z - projectileOrigin.position.z);
-            var angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
-            */
-
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
             if (entity.distanceToTarget.magnitude <= entity.range && cooldownTimer > cooldown && entity.angleToTarget <= (20 + fireAngleDeviation))
             {

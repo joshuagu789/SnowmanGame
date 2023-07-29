@@ -10,7 +10,6 @@ public class EntityTargeting : MonoBehaviour
 {
 
     public Entity entity;
-    public GameServer server;
     private List<Transform> targetList = new List<Transform>();
 
     private float timer = 0f;
@@ -26,11 +25,11 @@ public class EntityTargeting : MonoBehaviour
     {
         if (entity.type.Equals("Enemy"))
         {
-            targetList = server.snowmenList;
+            targetList = entity.server.snowmenList;
         }
         else if (entity.type.Equals("Snowman"))
         {
-            targetList = server.enemiesList;
+            targetList = entity.server.enemiesList;
         }
 
         timer += Time.deltaTime;
