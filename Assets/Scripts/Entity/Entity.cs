@@ -24,10 +24,8 @@ public class Entity : MonoBehaviour
     public float temperature;
     public float minTemperature;
 
-    public float integrityRegen;
-    public float integrityLoss;
-    public float tempGain;
-    public float tempLoss;
+    public float energy;    // Attacks, repairs, dodges, & other actions use up energy
+    public float maxEnergy;
 
     public float speed;
     public float rotationSpeed;

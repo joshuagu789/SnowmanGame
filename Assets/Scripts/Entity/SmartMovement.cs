@@ -35,6 +35,8 @@ public class SmartMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (entity.isLockedOn)
+            FaceTarget();
         // Specialized movement of entity if it has a leader (follows leader before attacking & patrolling on its own)
         if (entity.leader != null)
         {
@@ -43,7 +45,7 @@ public class SmartMovement : MonoBehaviour
             {
                 ReturnToLeader();   // Executes every second- returning to leader always entity's highest priority
             }
-            else if (entity.isLockedOn && entity.target != null)    // Entity enters combat
+            else if (entity.isLockedOn && entity.target != null)    // Entity enters combat movement
             {
                 entity.isIdle = false;
                 Pursuing();
@@ -225,20 +227,13 @@ public class SmartMovement : MonoBehaviour
 
         // Entity will strafe in directions other than forward if target is within minimum range
         if (entity.distanceToTarget.magnitude <= entity.minRange)
-        {
             StrafeTarget(90f, 270f);
-            FaceTarget();
-        }
         // Entity will strafe towards target once within max range (min and max range determines when entity will strafe)
         else if (entity.distanceToTarget.magnitude <= entity.maxRange)
-        {
             StrafeTarget(0f, 360f);
-            FaceTarget();
-        }
         else 
         {
             strafingSet = false;
-            FaceTarget();
             entity.agent.SetDestination(walkPoint); // Entity heads directly towards target if out of max range
         }
     }

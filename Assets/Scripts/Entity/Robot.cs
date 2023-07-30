@@ -42,7 +42,7 @@ public class Robot : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         UpdateStats();
         UpdateLockState();
@@ -52,7 +52,7 @@ public class Robot : MonoBehaviour
         }
     }
 
-    void UpdateStats()
+    private void UpdateStats()
     {
 
         if (entity.register.hasTakenDamage)
@@ -64,7 +64,7 @@ public class Robot : MonoBehaviour
     }
 
     // To make target lock go away after a duration
-    void UpdateLockState()
+    private void UpdateLockState()
     {
         if (entity.isLockedOn)
         {
@@ -72,7 +72,7 @@ public class Robot : MonoBehaviour
         }
     }
 
-    IEnumerator LockLifetime()
+    private IEnumerator LockLifetime()
     {
         yield return new WaitForSeconds(entity.lockDuration);
 
