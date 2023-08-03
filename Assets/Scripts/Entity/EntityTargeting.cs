@@ -54,7 +54,6 @@ public class EntityTargeting : MonoBehaviour
 
         foreach (Transform potentialTarget in targetList)
         {
-            //float distance = Vector3.Distance(potentialTarget.position, transform.position);
             float distance = new Vector3(potentialTarget.position.x - transform.position.x, 0f, potentialTarget.position.z - transform.position.z).magnitude;
             if (distance < minDist && distance <= entity.detectionRange)
             {

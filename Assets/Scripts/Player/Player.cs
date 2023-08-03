@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     public Transform target;
     public float detectionRange = 100f;
 
+    public List<Transform> squadList = new List<Transform>();
+
     // Start is called before the first frame update
     void Start()
     {

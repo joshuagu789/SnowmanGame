@@ -64,12 +64,13 @@ public class Entity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent.speed = speed;
-        agent.angularSpeed = rotationSpeed;
     }
 
     private void Update()
     {
+        agent.speed = speed;
+        agent.angularSpeed = rotationSpeed;
+
         if (isLockedOn & target != null) 
         {
             UpdateVectors();

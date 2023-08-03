@@ -35,7 +35,7 @@ public class SmartMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (entity.isLockedOn)
+        if (entity.isLockedOn && entity.target != null)
             FaceTarget();
         // Specialized movement of entity if it has a leader (follows leader before attacking & patrolling on its own)
         if (entity.leader != null)
