@@ -35,16 +35,14 @@ public class SmartMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (entity.isLockedOn && entity.target != null)
+        if (entity.isLockedOn && entity.target != null && !entity.isDisabled)
             FaceTarget();
         // Specialized movement of entity if it has a leader (follows leader before attacking & patrolling on its own)
-        if (entity.leader != null)
+        if (entity.leader != null && !entity.isDisabled)
         {
             CheckDistanceFromLeader();
             if (tooFarFromLeader)
-            {
                 ReturnToLeader();   // Executes every second- returning to leader always entity's highest priority
-            }
             else if (entity.isLockedOn && entity.target != null)    // Entity enters combat movement
             {
                 entity.isIdle = false;
@@ -87,7 +85,7 @@ public class SmartMovement : MonoBehaviour
             }
         }
         // How the entity normally moves and behaves without a leader (patrol around until target spotted- then attack)
-        else
+        else if(!entity.isDisabled)
         {
             if (!entity.isLockedOn)
             {
@@ -113,13 +111,9 @@ public class SmartMovement : MonoBehaviour
                            entity.leader.position.z - entity.transform.position.z);
 
             if (distance.magnitude > entity.leashRange)
-            {
                 tooFarFromLeader = true;
-            }
             else
-            {
                 tooFarFromLeader = false;
-            }
         }
     }
 
@@ -135,9 +129,7 @@ public class SmartMovement : MonoBehaviour
             var angleToLeader = Vector3.Angle(transform.forward, new Vector3(entity.leader.position.x - entity.transform.position.x, 0f,
                                                                 entity.leader.position.z - entity.transform.position.z));
             if (Mathf.Abs(angleToLeader) >= 45f)
-            {
                 walkPointSet = false;
-            }
         }
 
         entity.isIdle = false;
@@ -169,9 +161,7 @@ public class SmartMovement : MonoBehaviour
     void Patrolling(Transform leader)
     {
         if (!walkPointSet && !entity.isIdle)
-        {
             SearchWalkPoint(leader);
-        }
 
         // If walkPoint is ready
         else if (walkPointSet)

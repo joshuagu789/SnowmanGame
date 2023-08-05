@@ -47,6 +47,8 @@ public class Entity : MonoBehaviour
     public bool isIdle = false;
     public bool isLockedOn = false;
     public float lockDuration;
+    [HideInInspector]
+    public bool isDisabled;
 
     // For targeting and aiming
     [HideInInspector]

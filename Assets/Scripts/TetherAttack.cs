@@ -43,15 +43,22 @@ public class TetherAttack : MonoBehaviour
         entity.animator.SetTrigger("Tether");
 
         var enemy = entity.target.GetComponent<Entity>();   // Accessing target's entity script
-        enemy.systemIntegrity -= integrityLoss * Time.deltaTime;
-        enemy.temperature -= temperatureLoss * Time.deltaTime;
-        enemy.energy -= energyLoss * Time.deltaTime;
-
-        if (steals) // Making entity gain the stats that target lost
+        if (enemy.systemIntegrity > 0)
         {
-            entity.systemIntegrity += integrityLoss * Time.deltaTime;
+            enemy.systemIntegrity -= integrityLoss * Time.deltaTime;
+            if(steals)
+                entity.systemIntegrity += integrityLoss * Time.deltaTime;   // Making entity gain the stats that target lost (same for temperature and energy)
+        }
+
+        enemy.temperature -= temperatureLoss * Time.deltaTime;
+        if(steals)
             entity.temperature += temperatureLoss * Time.deltaTime;
-            entity.energy += energyLoss * Time.deltaTime;
+
+        if (enemy.energy > 0)
+        {
+            enemy.energy -= energyLoss * Time.deltaTime;
+            if(steals)
+                entity.energy += energyLoss * Time.deltaTime;
         }
     }
 }

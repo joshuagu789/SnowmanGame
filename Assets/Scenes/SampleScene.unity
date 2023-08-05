@@ -637,6 +637,7 @@ MonoBehaviour:
   isIdle: 0
   isLockedOn: 0
   lockDuration: 0
+  isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 1907387495}
@@ -766,7 +767,7 @@ MonoBehaviour:
   teleportDistance: 100
   energyCost: 10
   cooldown: 0
-  activationDelay: 8.3
+  activationDelay: 8.2
   radius: 200
 --- !u!1 &302781105
 GameObject:
@@ -1328,7 +1329,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541687289}
-  m_LocalRotation: {x: 0.011560137, y: -3.703163e-10, z: 4.2811948e-12, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560135, y: 0.0000000024479005, z: -2.8299951e-11, w: 0.9999332}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1444,6 +1445,7 @@ MonoBehaviour:
   isIdle: 0
   isLockedOn: 0
   lockDuration: 0
+  isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 1907387495}
@@ -1903,6 +1905,7 @@ MonoBehaviour:
   isIdle: 0
   isLockedOn: 0
   lockDuration: 100
+  isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 0}
@@ -2773,7 +2776,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.011560133, y: -0.0000000010021877, z: 1.1586194e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560129, y: 0.0000000026190574, z: -3.027867e-11, w: 0.9999332}
   m_LocalPosition: {x: 2.2, y: -0.5999999, z: -11.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3147,8 +3150,8 @@ MonoBehaviour:
   maxIntegrity: 140
   temperature: 0
   minTemperature: 0
-  energy: 0
-  maxEnergy: 0
+  energy: 75
+  maxEnergy: 75
   speed: 4.5
   rotationSpeed: 180
   detectionRange: 80
@@ -3162,6 +3165,7 @@ MonoBehaviour:
   isIdle: 0
   isLockedOn: 0
   lockDuration: 0
+  isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 1907387495}
@@ -3789,6 +3793,7 @@ MonoBehaviour:
   isIdle: 0
   isLockedOn: 0
   lockDuration: 20
+  isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 0}
@@ -5694,6 +5699,7 @@ MonoBehaviour:
   isIdle: 0
   isLockedOn: 0
   lockDuration: 15
+  isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 1905800712}
@@ -5813,7 +5819,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831699312}
-  m_LocalRotation: {x: -0.021651436, y: -0.000000017269512, z: -3.7399744e-10, w: 0.9997656}
+  m_LocalRotation: {x: -0.021651415, y: 0.000000017168814, z: 3.7181633e-10, w: 0.9997656}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6472,6 +6478,7 @@ MonoBehaviour:
   isIdle: 0
   isLockedOn: 0
   lockDuration: 60
+  isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 0}

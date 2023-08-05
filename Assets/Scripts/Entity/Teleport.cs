@@ -5,7 +5,7 @@ using UnityEngine;
 /*
  * Script intended for player to teleport team across large distances by using ModelD's teleport ability
  *  - could possibly make entities use them independently without player's command
- *  - Planned: checks to see if destination is a good place to go with raycasts (don't want to teleport inside/below terrain)
+ *  - Planned: leader AIs can command entities to teleport squad by calling on public method?
  */
 
 public class Teleport : MonoBehaviour
@@ -50,6 +50,7 @@ public class Teleport : MonoBehaviour
     {
         entity.animator.SetBool("isMoving", false);
         entity.animator.SetTrigger("Teleport");
+        entity.isDisabled = true;
         entity.agent.isStopped = true;
 
         yield return new WaitForSeconds(activationDelay);
@@ -72,5 +73,6 @@ public class Teleport : MonoBehaviour
         }
 
         entity.agent.isStopped = false;
+        entity.isDisabled = false;
     }
 }
