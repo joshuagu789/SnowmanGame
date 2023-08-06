@@ -34,26 +34,25 @@ public class MeleeAttack : MonoBehaviour
         cooldownTimer += Time.deltaTime;
 
         // Checking to see if the target meets requirements to be fired at 
-        if (entity.target != null && entity.isLockedOn)
+        if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
             if (entity.distanceToTarget.magnitude != 0 && entity.distanceToTarget.magnitude <= range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring)
                 {
-                    entity.isMoving = false;
                     entity.animator.SetBool("isMoving", false);
                     entity.agent.isStopped = true;
                 }
 
                 cooldownTimer = 0;
                 attackNumber = (int)Random.Range(1, uniqueAttackNumber + 0.99f);    // Selecting random attack
+                entity.isDisabled = true;
                 entity.animator.SetBool("isAttacking", true);
                 entity.animator.SetTrigger("Melee" + attackNumber);
 
                 // Making target stop moving
                 enemy = entity.target.GetComponent<Entity>();   
-                enemy.isMoving = false;
                 enemy.animator.SetBool("isMoving", false);
                 enemy.agent.isStopped = true;
 
@@ -66,16 +65,27 @@ public class MeleeAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(firingDelay);
 
-        var enemyRegister = entity.target.GetComponentInChildren<Register>();
-
-        for (int x = 0; x < bulletCount; x++)
+        if (entity.target != null)
         {
-            enemyRegister.TakeDamage(transform, damage, 0);
-            yield return new WaitForSeconds(bulletInterval);
+            var enemyRegister = entity.target.GetComponentInChildren<Register>();
+
+            for (int x = 0; x < bulletCount; x++)
+            {
+                enemyRegister.TakeDamage(transform, damage, 0);
+                yield return new WaitForSeconds(bulletInterval);
+            }
+            entity.animator.SetBool("isAttacking", false);
+            entity.isDisabled = false;
+            if (isStationaryWhenFiring)
+                entity.agent.isStopped = false;
+            if (entity.target != null)
+                enemy.agent.isStopped = false;
         }
-        entity.animator.SetBool("isAttacking", false);
-        entity.agent.isStopped = false;
-        if(entity.target != null)
-            enemy.agent.isStopped = false;
+        else    // If the target is destroyed before the attack executes
+        {
+            entity.animator.SetBool("isAttacking", false);
+            entity.agent.isStopped = false;
+            entity.isDisabled = false;
+        }
     }
 }

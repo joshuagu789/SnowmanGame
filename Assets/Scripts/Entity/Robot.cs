@@ -7,10 +7,8 @@ using UnityEngine;
    (such as exploding and dropping spare parts when defeated)
 */
 
-public class Robot : MonoBehaviour
+public class Robot : Entity
 {
-    public Entity entity;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,34 +17,25 @@ public class Robot : MonoBehaviour
 
     private void Awake()
     {
-        if (entity.type.Equals("Enemy"))
-        {
-            entity.server.enemiesList.Add(transform);
-        }
-        else if (entity.type.Equals("Snowman"))
-        {
-            entity.server.snowmenList.Add(transform);
-        }
+        AddToServer();
     }
 
     private void OnDisable()
     {
-        if (entity.type.Equals("Enemy"))
-        {
-            entity.server.enemiesList.Remove(transform);
-        }
-        else if (entity.type.Equals("Snowman"))
-        {
-            entity.server.snowmenList.Remove(transform);
-        }
+        RemoveFromServer();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (isLockedOn & target != null)
+        {
+            UpdateVectors();
+        }
+
         UpdateStats();
         UpdateLockState();
-        if (entity.systemIntegrity <= 0)
+        if (systemIntegrity <= 0)
         {
             Destroy(gameObject);
         }
@@ -54,11 +43,13 @@ public class Robot : MonoBehaviour
 
     private void UpdateStats()
     {
+        agent.speed = speed;
+        agent.angularSpeed = rotationSpeed;
 
-        if (entity.register.hasTakenDamage)
+        if (register.hasTakenDamage)
         {
-            entity.systemIntegrity -= entity.register.damageTaken;
-            entity.register.hasTakenDamage = false;
+            systemIntegrity -= register.damageTaken;
+            register.hasTakenDamage = false;
         }
 
     }
@@ -66,7 +57,7 @@ public class Robot : MonoBehaviour
     // To make target lock go away after a duration
     private void UpdateLockState()
     {
-        if (entity.isLockedOn)
+        if (isLockedOn)
         {
             StartCoroutine(LockLifetime());
         }
@@ -74,14 +65,14 @@ public class Robot : MonoBehaviour
 
     private IEnumerator LockLifetime()
     {
-        yield return new WaitForSeconds(entity.lockDuration);
+        yield return new WaitForSeconds(lockDuration);
 
         // Removing the lock and resetting robot's states if target is outside detection range so robot can resume patrolling/being idle
-        if (entity.target != null && (entity.target.position - transform.position).magnitude > entity.detectionRange)
+        if (target != null && (target.position - transform.position).magnitude > detectionRange)
         {
-            entity.isLockedOn = false;
-            entity.isIdle = false;
-            entity.isMoving = false;
+            isLockedOn = false;
+            isIdle = false;
+            agent.ResetPath();
         }
     }
 }

@@ -59,7 +59,6 @@ public class SmartMovement : MonoBehaviour
                     var animator = entity.leader.gameObject.GetComponent<Player>().animator;
                     if (!animator.GetBool("isMoving"))
                     {
-                        entity.isMoving = false;
                         entity.isIdle = true;
                         walkPointSet = false;
                         entity.agent.ResetPath();
@@ -73,7 +72,6 @@ public class SmartMovement : MonoBehaviour
                     var animator = entity.leader.gameObject.GetComponent<Entity>().animator;
                     if (!animator.GetBool("isMoving"))
                     {
-                        entity.isMoving = false;
                         entity.isIdle = true;
                         walkPointSet = false;
                         entity.agent.ResetPath();
@@ -143,17 +141,16 @@ public class SmartMovement : MonoBehaviour
         if (entity.isIdle)
         {
             timer -= Time.deltaTime;
+            walkPointSet = false;
             if (timer <= 0)
                 entity.isIdle = false;
         }
 
         // 50% probability of being idle if entity.agent isn't patrolling
-        else if (Random.value >= 0.5f && !entity.isMoving)
+        else if (Random.value >= 0.5f && !walkPointSet)
         {
             timer = Random.value * maxIdleTime;
             entity.isIdle = true;
-            entity.isMoving = false;
-            walkPointSet = false;
             entity.animator.SetBool("isMoving", false);
         }
     }
@@ -164,15 +161,15 @@ public class SmartMovement : MonoBehaviour
             SearchWalkPoint(leader);
 
         // If walkPoint is ready
-        else if (walkPointSet)
+        else if (walkPointSet && !entity.isIdle)
         {
             entity.agent.SetDestination(walkPoint);
+            entity.animator.SetBool("isMoving", true);
 
             // Checking if destination is reached
             Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
             if (distanceToWalkPoint.magnitude < 1f)
             {
-                entity.isMoving = false;
                 walkPointSet = false;
             }
         }
@@ -203,16 +200,13 @@ public class SmartMovement : MonoBehaviour
         //                                                          elevation (random coordinate assumes y position doesn't change)
         if (Physics.Raycast(walkPoint, -transform.up) || Physics.Raycast(walkPoint, -transform.up))
         {
-            entity.isMoving = true;
             walkPointSet = true;
-            entity.animator.SetBool("isMoving", true);
         }
     }
 
     void Pursuing()
     {
         walkPoint = new Vector3(entity.target.position.x, entity.target.position.y, entity.target.position.z);
-        entity.isMoving = true;
         entity.animator.SetBool("isMoving", true);
 
         // Entity will strafe in directions other than forward if target is within minimum range
@@ -228,12 +222,11 @@ public class SmartMovement : MonoBehaviour
         }
     }
 
-    //private void StrafeTarget(Vector3 distanceToTarget, string direction)
     private void StrafeTarget(float minAngle, float maxAngle)
     {
         if (!strafingSet)
         {
-            // Sets a destination between angles -90 & 90 for entity to travel
+            // Sets a destination between two angles for entity to travel
             strafeAngle = Random.Range(minAngle, maxAngle);
             strafingDirection = Quaternion.AngleAxis(strafeAngle, entity.transform.up) * entity.distanceToTarget.normalized * strafeDistance;
 

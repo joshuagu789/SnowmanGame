@@ -51,12 +51,7 @@ public class ArcingProjectileAttack : MonoBehaviour
                 if (isStationaryWhenFiring)
                 {
                     // Robot can't move while firing
-                    entity.isMoving = false;
-
-                    if (entity.animator != null)
-                    {
-                        entity.animator.SetBool("isMoving", false);
-                    }
+                    entity.animator.SetBool("isMoving", false);
                     entity.agent.isStopped = true;
                 }
 
@@ -85,6 +80,8 @@ public class ArcingProjectileAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(firingDelay);
         SpawnProjectile();
+        if (isStationaryWhenFiring)
+            entity.agent.isStopped = false;
     }
 
     private void SpawnProjectile()
@@ -98,5 +95,6 @@ public class ArcingProjectileAttack : MonoBehaviour
         attackScript.hasGravity = true;
 
         entity.animator.SetBool("isAttacking", false);
+
     }
 }

@@ -59,7 +59,10 @@ public class Teleport : MonoBehaviour
         if (list != null)
         {
             foreach (Transform ally in list)
+            {
                 ally.transform.position += travelVector;
+                ally.GetComponent<Entity>().isIdle = false; // Find some way to clear walk points of entities
+            }
 
             // Moving the leader of the squad since list is leader's squad list & doesn't include itself
             if (leaderIsPlayer)

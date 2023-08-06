@@ -101,7 +101,6 @@ public class SnowmanMovement : MonoBehaviour
 
     void Idle()
     {
-        entity.isMoving = false;
         walkPointSet = false;
         entity.animator.SetBool("isMoving", false);
     }
@@ -122,7 +121,6 @@ public class SnowmanMovement : MonoBehaviour
             Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
             if (distanceToWalkPoint.magnitude < 1f)
             {
-                entity.isMoving = false;
                 walkPointSet = false;
             }
         }
@@ -139,7 +137,6 @@ public class SnowmanMovement : MonoBehaviour
         //                                                          elevation (random coordinate assumes y position doesn't change)
         if (Physics.Raycast(walkPoint, -transform.up) || Physics.Raycast(walkPoint, -transform.up))
         {
-            entity.isMoving = true;
             walkPointSet = true;
             entity.animator.SetBool("isMoving", true);
         }
@@ -148,7 +145,6 @@ public class SnowmanMovement : MonoBehaviour
     void Pursuing()
     {
         walkPoint = new Vector3(entity.target.position.x, entity.target.position.y, entity.target.position.z);
-        entity.isMoving = true;
         entity.animator.SetBool("isMoving", true);
 
         Vector3 distanceToWalkPoint = new Vector3(entity.target.position.x - transform.position.x, 0f, entity.target.position.z - transform.position.z);

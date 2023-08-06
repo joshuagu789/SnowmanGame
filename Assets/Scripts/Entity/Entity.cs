@@ -43,7 +43,6 @@ public class Entity : MonoBehaviour
     public Transform target = null;
 
     // For the robot's current state
-    public bool isMoving = false;
     public bool isIdle = false;
     public bool isLockedOn = false;
     public float lockDuration;
@@ -51,9 +50,9 @@ public class Entity : MonoBehaviour
     public bool isDisabled;
 
     // For targeting and aiming
-    [HideInInspector]
+    //[HideInInspector]
     public Vector3 distanceToTarget;
-    [HideInInspector]
+    //[HideInInspector]
     public float angleToTarget;
 
     // For simulating leadership
@@ -79,7 +78,31 @@ public class Entity : MonoBehaviour
         }
     }
 
-    void UpdateVectors()
+    public void AddToServer()
+    {
+        if (type.Equals("Enemy"))
+        {
+            server.enemiesList.Add(transform);
+        }
+        else if (type.Equals("Snowman"))
+        {
+            server.snowmenList.Add(transform);
+        }
+    }
+
+    public void RemoveFromServer()
+    {
+        if (type.Equals("Enemy"))
+        {
+            server.enemiesList.Remove(transform);
+        }
+        else if (type.Equals("Snowman"))
+        {
+            server.snowmenList.Remove(transform);
+        }
+    }
+
+    public void UpdateVectors()
     {
         timer += Time.deltaTime;
 
