@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class Snowman : Entity
 {
+    public float minTemperature;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,7 +62,7 @@ public class Snowman : Entity
     }
 
     // Keeping stats within the specified boundaries
-    private void ClampStats()
+    public void ClampStats()
     {
         temperature = Mathf.Clamp(temperature, minTemperature, Mathf.Infinity);
         systemIntegrity = Mathf.Clamp(systemIntegrity, 0, maxIntegrity);
@@ -93,7 +95,7 @@ public class Snowman : Entity
         }
     }
 
-    private void CheckMelt()
+    public void CheckMelt()
     {
         if (systemIntegrity <= 0f)
         {
@@ -103,7 +105,7 @@ public class Snowman : Entity
     }
 
     // Math formulas for converting energy into healh (aka integrity) and temperature repairs
-    private void RepairDamage()
+    public void RepairDamage()
     {
         // Drains energy quickly to repair if health falls below threshold
         if (systemIntegrity < maxIntegrity / 3 && energy > 0)
@@ -114,13 +116,14 @@ public class Snowman : Entity
         // Drains energy at log base 10 pace to repair if health still high
         else if (systemIntegrity < maxIntegrity && energy > 0)
         {
-            systemIntegrity += Mathf.Log10(maxIntegrity - systemIntegrity) * Time.deltaTime;
-            energy -= Mathf.Log10(maxIntegrity - systemIntegrity) * Time.deltaTime;
+            systemIntegrity += Mathf.Log10(maxIntegrity - systemIntegrity) * Time.deltaTime;    // Ratio of 2 integrity/health for 1 energy- 
+            energy -= Mathf.Log10(maxIntegrity - systemIntegrity) * 0.5f * Time.deltaTime;      // means repairing at high health more energy efficient
         }
         // Rate of temp repair increases as temperature increases
         if (temperature > minTemperature && energy > 0)
         {
-            temperature -= Mathf.Pow(1.5f, (temperature - minTemperature))/15f * Time.deltaTime;
+            temperature -= Mathf.Pow(1.25f, (temperature - minTemperature)/15f) * Time.deltaTime;
+            energy -= Mathf.Pow(1.25f, (temperature - minTemperature)/15f) * Time.deltaTime;
         }
     }
 }

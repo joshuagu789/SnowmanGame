@@ -22,7 +22,6 @@ public class Entity : MonoBehaviour
     public float maxIntegrity;
 
     public float temperature;
-    public float minTemperature;
 
     public float energy;    // Attacks, repairs, dodges, & other actions use up energy
     public float maxEnergy;
@@ -59,6 +58,7 @@ public class Entity : MonoBehaviour
     public Transform leader;
     public bool isLeader;
     public bool canJoinSquad;
+    public List<Transform> squadList = new List<Transform>();
 
     private float timer = 0.25f;
 

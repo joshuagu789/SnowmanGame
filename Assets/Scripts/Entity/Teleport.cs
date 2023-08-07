@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /*
  * Script intended for player to teleport team across large distances by using ModelD's teleport ability
@@ -38,7 +39,7 @@ public class Teleport : MonoBehaviour
             destination *= teleportDistance;
             var travelVector = destination - new Vector3(entity.leader.transform.position.x, 0f, entity.leader.transform.position.z);
 
-            StartCoroutine(MovePosition(entity.leader.GetComponent<Player>().squadList, travelVector, true));
+            StartCoroutine(MovePosition(entity.leader.GetComponent<Entity>().squadList, travelVector, true));
         }
         // Below two lines are experimental (for entities teleporting indepdendently)
         else if (entity.leader != null && cooldownTimer >= cooldown) { }
@@ -68,11 +69,11 @@ public class Teleport : MonoBehaviour
             if (leaderIsPlayer)
             {
                 yield return new WaitForSeconds(0.1f);
-                entity.leader.GetComponent<CharacterController>().Move(travelVector);   // Player moves using character controller
-                Instantiate(teleportVFX, effectLocation.position, transform.rotation);
+                entity.leader.GetComponent<CharacterController>().Move(travelVector); // Player moves using character controller 
             }
             else
                 entity.leader.gameObject.transform.Translate(travelVector);
+            Instantiate(teleportVFX, effectLocation.position, transform.rotation);
         }
 
         entity.agent.isStopped = false;

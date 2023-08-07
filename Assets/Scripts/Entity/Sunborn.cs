@@ -8,10 +8,8 @@ using UnityEngine;
  *  - similar to snowman script except higher temperature is good for sunborn while lower temperature harms it
  */
 
-public class Sunborn : MonoBehaviour
+public class Sunborn : Entity
 {
-    public Entity entity;
-
     public float maxTemperature;
 
     // Start is called before the first frame update
@@ -22,46 +20,40 @@ public class Sunborn : MonoBehaviour
 
     private void Awake()
     {
-        if (entity.type.Equals("Enemy"))
-        {
-            entity.server.enemiesList.Add(transform);
-        }
-        else if (entity.type.Equals("Snowman"))
-        {
-            entity.server.snowmenList.Add(transform);
-        }
+        AddToServer();
     }
 
     private void OnDisable()
     {
-        if (entity.type.Equals("Enemy"))
-        {
-            entity.server.enemiesList.Remove(transform);
-        }
-        else if (entity.type.Equals("Snowman"))
-        {
-            entity.server.snowmenList.Remove(transform);
-        }
+        RemoveFromServer();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (isLockedOn & target != null)
+        {
+            UpdateVectors();
+        }
+
         UpdateStats();
-        if (entity.systemIntegrity <= 0)
+        if (systemIntegrity <= 0)
             Destroy(gameObject);
-        else if (entity.systemIntegrity > 0)
+        else if (systemIntegrity > 0)
             RepairDamage();
     }
 
     private void UpdateStats()
     {
-        if (entity.register.hasTakenDamage)
+        agent.speed = speed;
+        agent.angularSpeed = rotationSpeed;
+
+        if (register.hasTakenDamage)
         {
-            entity.animator.SetTrigger("Dodge");
-            entity.systemIntegrity -= entity.register.damageTaken;
-            entity.temperature += entity.register.tempModifier;
-            entity.register.hasTakenDamage = false;
+            animator.SetTrigger("Dodge");
+            systemIntegrity -= register.damageTaken;
+            temperature += register.tempModifier;
+            register.hasTakenDamage = false;
         }
         ClampStats();
     }
@@ -69,20 +61,20 @@ public class Sunborn : MonoBehaviour
     // Keeping stats within the specified boundaries
     private void ClampStats()
     {
-        entity.temperature = Mathf.Clamp(entity.temperature, Mathf.NegativeInfinity, maxTemperature);
-        entity.systemIntegrity = Mathf.Clamp(entity.systemIntegrity, 0, entity.maxIntegrity);
-        entity.energy = Mathf.Clamp(entity.energy, 0, entity.maxEnergy);
+        temperature = Mathf.Clamp(temperature, Mathf.NegativeInfinity, maxTemperature);
+        systemIntegrity = Mathf.Clamp(systemIntegrity, 0, maxIntegrity);
+        energy = Mathf.Clamp(energy, 0, maxEnergy);
     }
 
     // Unlike Snowman.cs's RepairDamage(), this one repairs at a linear rate and can't repair temperature
     private void RepairDamage()
     {
-        if(entity.energy < entity.maxEnergy)
-            entity.energy += entity.temperature / 10 * Time.deltaTime;   // Sunborn enemies use temperature as a way to generate energy
-        if (entity.systemIntegrity < entity.maxIntegrity && entity.energy > 0)
+        if(energy < maxEnergy)
+            energy += temperature / 10 * Time.deltaTime;   // Sunborn enemies use temperature as a way to generate energy
+        if (systemIntegrity < maxIntegrity && energy > 0)
         {
-            entity.systemIntegrity += entity.maxEnergy / 10f * Time.deltaTime;
-            entity.energy -= entity.maxEnergy / 10f * Time.deltaTime;
+            systemIntegrity += maxEnergy / 10f * Time.deltaTime;
+            energy -= maxEnergy / 10f * Time.deltaTime;
         }
     }
 }

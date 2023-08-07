@@ -49,6 +49,8 @@ public class PlayerTargeting : MonoBehaviour
         if (player.target == null)
         {
             player.isLockedOn = false;
+            if (targetLockClone != null)
+                Destroy(targetLockClone);
         }
 
         // Getting a target lock when player right clicks based on where they're looking 

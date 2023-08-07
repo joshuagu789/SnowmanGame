@@ -49,7 +49,7 @@ public class AnomalyAI : MonoBehaviour
     {
         Idle();
         Patrolling();
-        BurnEnemies();
+        //BurnEnemies();
     }
 
     void Idle()
@@ -108,6 +108,7 @@ public class AnomalyAI : MonoBehaviour
         }
     }
 
+    /*
     void BurnEnemies()
     {
         Vector3 distanceFromSnowman = player.transform.position - rangeFinder.position;
@@ -126,4 +127,5 @@ public class AnomalyAI : MonoBehaviour
             extinguished = true;
         }
     }
+    */
 }

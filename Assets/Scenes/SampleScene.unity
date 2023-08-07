@@ -671,7 +671,6 @@ MonoBehaviour:
   systemIntegrity: 300
   maxIntegrity: 300
   temperature: 0
-  minTemperature: 0
   energy: 150
   maxEnergy: 150
   speed: 4
@@ -692,6 +691,8 @@ MonoBehaviour:
   leader: {fileID: 1907387495}
   isLeader: 0
   canJoinSquad: 0
+  squadList: []
+  minTemperature: 0
 --- !u!65 &302002765
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1323,7 +1324,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541687289}
-  m_LocalRotation: {x: 0.011560136, y: 9.857947e-10, z: -1.1396686e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560135, y: 0.0000000024479005, z: -2.8299951e-11, w: 0.9999332}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1410,7 +1411,6 @@ MonoBehaviour:
   systemIntegrity: 80
   maxIntegrity: 80
   temperature: 0
-  minTemperature: 0
   energy: 200
   maxEnergy: 400
   speed: 5
@@ -1431,6 +1431,8 @@ MonoBehaviour:
   leader: {fileID: 1907387495}
   isLeader: 0
   canJoinSquad: 0
+  squadList: []
+  minTemperature: 0
 --- !u!114 &570246544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1870,7 +1872,6 @@ MonoBehaviour:
   systemIntegrity: 20
   maxIntegrity: 20
   temperature: 0
-  minTemperature: 0
   energy: 35
   maxEnergy: 35
   speed: 4
@@ -1891,6 +1892,7 @@ MonoBehaviour:
   leader: {fileID: 0}
   isLeader: 0
   canJoinSquad: 0
+  squadList: []
 --- !u!1 &681024604
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,7 +2143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.08463522, y: 0.000000017144645, z: -0.0000000014562656, w: 0.99641204}
+  m_LocalRotation: {x: 0.08463522, y: -0.000000017144648, z: 0.000000001456266, w: 0.99641204}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2743,7 +2745,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.011560133, y: 0.0000000021073148, z: -2.4362462e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560129, y: 0.0000000026190574, z: -3.027867e-11, w: 0.9999332}
   m_LocalPosition: {x: 2.2, y: -0.5999999, z: -11.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3116,7 +3118,6 @@ MonoBehaviour:
   systemIntegrity: 140
   maxIntegrity: 140
   temperature: 0
-  minTemperature: 0
   energy: 75
   maxEnergy: 75
   speed: 4.5
@@ -3137,6 +3138,8 @@ MonoBehaviour:
   leader: {fileID: 1907387495}
   isLeader: 0
   canJoinSquad: 0
+  squadList: []
+  minTemperature: 0
 --- !u!4 &1151492749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dd8b4c326f31247e6996bb7fe4753e30, type: 3}
@@ -3731,7 +3734,6 @@ MonoBehaviour:
   systemIntegrity: 100
   maxIntegrity: 100
   temperature: 0
-  minTemperature: 0
   energy: 60
   maxEnergy: 60
   speed: 3.5
@@ -3752,6 +3754,7 @@ MonoBehaviour:
   leader: {fileID: 0}
   isLeader: 0
   canJoinSquad: 0
+  squadList: []
 --- !u!1 &1267574359
 GameObject:
   m_ObjectHideFlags: 0
@@ -5567,7 +5570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff24d13d3d3c4168b8d449682c5d02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1830757530}
+  entity: {fileID: 1830757531}
 --- !u!114 &1830757528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5580,7 +5583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982c1efdf63dc421fbabf6659e1eb625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1830757530}
+  entity: {fileID: 1830757531}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 50
   maxIdleTime: 20
@@ -5607,7 +5610,7 @@ NavMeshAgent:
   m_BaseOffset: 4
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1830757530
+--- !u!114 &1830757531
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5616,7 +5619,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1830757524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a08510d94d774c7ba5257560341a957, type: 3}
+  m_Script: {fileID: 11500000, guid: 246577bd34eb1444593c7cb11f83a2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   server: {fileID: 1186613834}
@@ -5627,7 +5630,6 @@ MonoBehaviour:
   systemIntegrity: 150
   maxIntegrity: 150
   temperature: 100
-  minTemperature: 0
   energy: 75
   maxEnergy: 75
   speed: 10
@@ -5641,26 +5643,14 @@ MonoBehaviour:
   target: {fileID: 0}
   isIdle: 0
   isLockedOn: 0
-  lockDuration: 15
+  lockDuration: 20
   isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 1905800712}
   isLeader: 0
   canJoinSquad: 0
---- !u!114 &1830757531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830757524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 246577bd34eb1444593c7cb11f83a2e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entity: {fileID: 1830757530}
+  squadList: []
   maxTemperature: 100
 --- !u!114 &1830757532
 MonoBehaviour:
@@ -5674,7 +5664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80e5318138fe419eb33a6df5fd658a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1830757530}
+  entity: {fileID: 1830757531}
   projectile: {fileID: 3551426065017335987, guid: a6ae48d26423c4678aebafb631ced76e, type: 3}
   projectileOrigin: {fileID: 1573363652}
   uniqueAttackNumber: 3
@@ -5762,7 +5752,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831699312}
-  m_LocalRotation: {x: -0.021651415, y: 0.000000017168814, z: 3.7181633e-10, w: 0.9997656}
+  m_LocalRotation: {x: -0.021651436, y: -0.000000017269512, z: -3.7399744e-10, w: 0.9997656}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6370,33 +6360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246577bd34eb1444593c7cb11f83a2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1905800711}
-  maxTemperature: 100
---- !u!114 &1905800710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905800707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eff24d13d3d3c4168b8d449682c5d02b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entity: {fileID: 1905800711}
---- !u!114 &1905800711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905800707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a08510d94d774c7ba5257560341a957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   server: {fileID: 1186613834}
   register: {fileID: 1644298253}
   animator: {fileID: 1905800708}
@@ -6405,7 +6368,6 @@ MonoBehaviour:
   systemIntegrity: 200
   maxIntegrity: 200
   temperature: 100
-  minTemperature: 0
   energy: 100
   maxEnergy: 100
   speed: 10
@@ -6426,6 +6388,21 @@ MonoBehaviour:
   leader: {fileID: 0}
   isLeader: 0
   canJoinSquad: 0
+  squadList: []
+  maxTemperature: 100
+--- !u!114 &1905800710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905800707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff24d13d3d3c4168b8d449682c5d02b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 1905800709}
 --- !u!4 &1905800712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 207fab52263714a219bd69e488219b22, type: 3}
@@ -6465,7 +6442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80e5318138fe419eb33a6df5fd658a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1905800711}
+  entity: {fileID: 1905800709}
   projectile: {fileID: 3551426065017335987, guid: a6ae48d26423c4678aebafb631ced76e, type: 3}
   projectileOrigin: {fileID: 1857371750}
   uniqueAttackNumber: 3
@@ -6491,7 +6468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982c1efdf63dc421fbabf6659e1eb625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1905800711}
+  entity: {fileID: 1905800709}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 100
   maxIdleTime: 20
@@ -6572,25 +6549,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10de88ad6fd94f629b64071f10c013a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1907387501}
   server: {fileID: 1186613834}
   register: {fileID: 1907387502}
+  animator: {fileID: 1907387501}
+  agent: {fileID: 0}
+  type: Snowman
   systemIntegrity: 100
   maxIntegrity: 100
   temperature: 0
-  minTemperature: 0
-  integrityRegen: 1
-  integrityLoss: 0
-  tempGain: 0
-  tempLoss: 1
+  energy: 60
+  maxEnergy: 60
   speed: 5
-  isLockedOn: 0
-  target: {fileID: 0}
+  rotationSpeed: 120
   detectionRange: 100
+  range: 75
+  fov: 0
+  minRange: 0
+  maxRange: 0
+  leashRange: 0
+  target: {fileID: 0}
+  isIdle: 0
+  isLockedOn: 0
+  lockDuration: 0
+  isDisabled: 0
+  distanceToTarget: {x: 0, y: 0, z: 0}
+  angleToTarget: 0
+  leader: {fileID: 0}
+  isLeader: 1
+  canJoinSquad: 0
   squadList:
   - {fileID: 302002767}
   - {fileID: 570246549}
   - {fileID: 1151492749}
+  minTemperature: 0
 --- !u!143 &1907387500
 CharacterController:
   m_ObjectHideFlags: 0
