@@ -10,7 +10,7 @@ public class MeleeAttack : MonoBehaviour
 {
     public Entity entity;
 
-    public float uniqueAttackNumber;    // If an entity has multiple unique attacks, they will be numbered from 1 to x
+    public int uniqueAttackNumber;    // If an entity has multiple unique attacks, they will be numbered from 1 to x
     public bool isStationaryWhenFiring;
 
     public float damage;
@@ -19,7 +19,7 @@ public class MeleeAttack : MonoBehaviour
     public float firingDelay;   // For projectile to appear with animation's timing
     public float range;
 
-    public float bulletCount;       // Number of punches thrown per salvo/attack
+    public int bulletCount;       // Number of punches thrown per salvo/attack
     public float bulletInterval;    // Seconds between each melee during a salvo/attack
 
     public float fireAngleDeviation;     // Max degrees that angle can deviate
@@ -37,7 +37,7 @@ public class MeleeAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTarget.magnitude != 0 && entity.distanceToTarget.magnitude <= range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
+            if (entity.distanceToTarget.magnitude != 0 && entity.distanceToTarget.sqrMagnitude <= range * range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring)
                 {

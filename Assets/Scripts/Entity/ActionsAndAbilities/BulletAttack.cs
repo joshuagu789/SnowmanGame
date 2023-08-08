@@ -14,7 +14,7 @@ public class BulletAttack : MonoBehaviour
     public GameObject projectile;
     public Transform projectileOrigin; // Where the projectile will be created
 
-    public float uniqueAttackNumber;    // If an entity has multiple unique attacks, they will be numbered from 1 to x
+    public int uniqueAttackNumber;    // If an entity has multiple unique attacks, they will be numbered from 1 to x
     public bool isStationaryWhenFiring;
 
     public float damage;
@@ -24,7 +24,7 @@ public class BulletAttack : MonoBehaviour
 
     public float bulletSpeed;
     public float bulletLifetime;
-    public float bulletCount;       // Number of bullets fired per salvo/attack
+    public int bulletCount;       // Number of bullets fired per salvo/attack
     public float bulletInterval;    // Seconds between each bullet during a salvo/attack
 
     public float fireAngleDeviation;     // Max degrees that angle can deviate
@@ -41,7 +41,7 @@ public class BulletAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTarget.magnitude <= entity.range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
+            if (entity.distanceToTarget.sqrMagnitude <= entity.range * entity.range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
             {
                 cooldownTimer = 0;
                 attackNumber = (int)Random.Range(1, uniqueAttackNumber + 0.99f);    // Selecting random attack

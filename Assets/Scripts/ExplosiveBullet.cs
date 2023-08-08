@@ -63,8 +63,7 @@ public class ExplosiveBullet : MonoBehaviour
 
             if (register != null)
             {
-                register.TakeDamage(null, damage, tempModifier);    // Will have to replace null with transform of furnace by having
-                                                                    // furnace pass that info onto projectile
+                register.TakeDamage(null, damage, tempModifier);    
             }
         }
     }

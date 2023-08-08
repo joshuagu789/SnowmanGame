@@ -736,7 +736,7 @@ MonoBehaviour:
   cooldown: 8
   firingDelay: 2.5
   range: 10
-  bulletCount: 1
+  bulletCount: 0
   bulletInterval: 1
   fireAngleDeviation: 50
 --- !u!114 &302002769
@@ -1324,7 +1324,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541687289}
-  m_LocalRotation: {x: 0.011560135, y: 0.0000000024479005, z: -2.8299951e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.0115601355, y: -0.0000000012665886, z: 1.4642915e-11, w: 0.9999332}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1593,6 +1593,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 602654fd305794df8a442cea0ead9186, type: 3}
   m_PrefabInstance: {fileID: 474375356}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &570246550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570246540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5618e36c053d4e09ac68af0759be1fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 570246542}
+  transferOrigin: {fileID: 1176499334}
+  tetherBeam: {fileID: 646973287622764878, guid: 9877022f02e714c82bd7d0c15e4873c2, type: 3}
+  range: 30
+  transferSpeed: 2
+  maxTethers: 1
 --- !u!1 &570931158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,7 +2161,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.08463522, y: -0.000000017144648, z: 0.000000001456266, w: 0.99641204}
+  m_LocalRotation: {x: 0.08463522, y: 0.000000017144645, z: -0.0000000014562656, w: 0.99641204}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2745,7 +2763,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.011560129, y: 0.0000000026190574, z: -3.027867e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560133, y: -0.0000000030674843, z: 3.5462897e-11, w: 0.9999332}
   m_LocalPosition: {x: 2.2, y: -0.5999999, z: -11.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5675,7 +5693,7 @@ MonoBehaviour:
   firingDelay: 1.2
   bulletSpeed: 30
   bulletLifetime: 2
-  bulletCount: 4
+  bulletCount: 0
   bulletInterval: 0.1
   fireAngleDeviation: 7.5
 --- !u!4 &1830757533 stripped
@@ -6453,7 +6471,7 @@ MonoBehaviour:
   firingDelay: 1.2
   bulletSpeed: 30
   bulletLifetime: 2
-  bulletCount: 2
+  bulletCount: 0
   bulletInterval: 0.1
   fireAngleDeviation: 5
 --- !u!114 &1905800715

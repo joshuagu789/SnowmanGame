@@ -28,11 +28,6 @@ public class ArcingProjectileAttack : MonoBehaviour
     private float netVelocity;
     private Vector3 distanceToTarget;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -46,7 +41,7 @@ public class ArcingProjectileAttack : MonoBehaviour
             var angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
 
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (distanceToTarget.magnitude <= entity.range && timer > cooldown && angleToTarget <= (20 + fireAngleDeviation))
+            if (distanceToTarget.sqrMagnitude <= entity.range * entity.range && timer > cooldown && angleToTarget <= (20 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring)
                 {
