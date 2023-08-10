@@ -37,6 +37,7 @@ public class PlayerUI: MonoBehaviour
 
     void UpdateText()
     {
+        Debug.Log("Width " + Screen.width + " Height " + Screen.height);
         TextShake();
 
         /*
