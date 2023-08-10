@@ -675,7 +675,7 @@ MonoBehaviour:
   maxEnergy: 150
   speed: 4
   rotationSpeed: 90
-  detectionRange: 50
+  detectionRange: 75
   range: 5
   fov: 45
   minRange: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
   target: {fileID: 0}
   isIdle: 0
   isLockedOn: 0
-  lockDuration: 0
+  lockDuration: 5
   isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
@@ -1324,7 +1324,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541687289}
-  m_LocalRotation: {x: 0.0115601355, y: -0.0000000012665886, z: 1.4642915e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560135, y: 0.0000000024479005, z: -2.8299951e-11, w: 0.9999332}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1415,16 +1415,16 @@ MonoBehaviour:
   maxEnergy: 400
   speed: 5
   rotationSpeed: 180
-  detectionRange: 50
+  detectionRange: 55
   range: 30
   fov: 90
-  minRange: 15
+  minRange: 30
   maxRange: 50
   leashRange: 10
   target: {fileID: 0}
   isIdle: 0
   isLockedOn: 0
-  lockDuration: 0
+  lockDuration: 8
   isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
@@ -1609,8 +1609,8 @@ MonoBehaviour:
   transferOrigin: {fileID: 1176499334}
   tetherBeam: {fileID: 646973287622764878, guid: 9877022f02e714c82bd7d0c15e4873c2, type: 3}
   range: 30
-  transferSpeed: 2
-  maxTethers: 1
+  transferSpeed: 3
+  maxTethers: 3
 --- !u!1 &570931158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,7 +2161,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.08463522, y: 0.000000017144645, z: -0.0000000014562656, w: 0.99641204}
+  m_LocalRotation: {x: 0.08463522, y: -0.000000017144648, z: 0.000000001456266, w: 0.99641204}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2763,7 +2763,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.011560133, y: -0.0000000030674843, z: 3.5462897e-11, w: 0.9999332}
+  m_LocalRotation: {x: 0.011560129, y: 0.0000000026190574, z: -3.027867e-11, w: 0.9999332}
   m_LocalPosition: {x: 2.2, y: -0.5999999, z: -11.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3149,7 +3149,7 @@ MonoBehaviour:
   target: {fileID: 0}
   isIdle: 0
   isLockedOn: 0
-  lockDuration: 0
+  lockDuration: 10
   isDisabled: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
@@ -3179,8 +3179,8 @@ MonoBehaviour:
   projectile: {fileID: 9089406099736675579, guid: c0e572f3bf3174a31ab423f7bf80709b, type: 3}
   projectileOrigin: {fileID: 758878302}
   isStationaryWhenFiring: 0
-  damage: 1
-  explosionRadius: 10
+  damage: 15
+  explosionRadius: 15
   cooldown: 5
   firingDelay: 0
   fireAngle: 45
@@ -5280,8 +5280,8 @@ MonoBehaviour:
   player: {fileID: 1907387499}
   PlayerTargeting: {fileID: 1907387497}
   laserOrigin: {fileID: 302781106}
-  damage: 15
-  tempModifier: -15
+  damage: 10
+  tempModifier: -7
   weaponRange: 75
   laserDuration: 1
   recoil: 2
@@ -5687,13 +5687,13 @@ MonoBehaviour:
   projectileOrigin: {fileID: 1573363652}
   uniqueAttackNumber: 3
   isStationaryWhenFiring: 0
-  damage: 1
+  damage: 10
   explosionRadius: 5
   cooldown: 5
   firingDelay: 1.2
   bulletSpeed: 30
   bulletLifetime: 2
-  bulletCount: 0
+  bulletCount: 4
   bulletInterval: 0.1
   fireAngleDeviation: 7.5
 --- !u!4 &1830757533 stripped
@@ -6465,13 +6465,13 @@ MonoBehaviour:
   projectileOrigin: {fileID: 1857371750}
   uniqueAttackNumber: 3
   isStationaryWhenFiring: 0
-  damage: 1
+  damage: 10
   explosionRadius: 10
   cooldown: 5
   firingDelay: 1.2
   bulletSpeed: 30
   bulletLifetime: 2
-  bulletCount: 0
+  bulletCount: 2
   bulletInterval: 0.1
   fireAngleDeviation: 5
 --- !u!114 &1905800715

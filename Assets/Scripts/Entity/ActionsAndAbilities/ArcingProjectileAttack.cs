@@ -34,7 +34,7 @@ public class ArcingProjectileAttack : MonoBehaviour
         timer += Time.deltaTime;
 
         // Checking to see if the target meets requirements to be fired at 
-        if (entity.target != null && entity.isLockedOn)
+        if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
                                                     entity.target.position.z - projectileOrigin.position.z);

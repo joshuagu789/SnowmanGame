@@ -68,7 +68,7 @@ public class Robot : Entity
         yield return new WaitForSeconds(lockDuration);
 
         // Removing the lock and resetting robot's states if target is outside detection range so robot can resume patrolling/being idle
-        if (target != null && (target.position - transform.position).magnitude > detectionRange)
+        if (target != null && distanceToTarget.sqrMagnitude > detectionRange * detectionRange)
         {
             isLockedOn = false;
             isIdle = false;

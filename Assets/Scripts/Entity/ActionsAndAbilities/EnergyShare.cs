@@ -53,22 +53,6 @@ public class EnergyShare : MonoBehaviour
                 var transferTarget = new List<Object> { character.transform, beam };
                 activeTethers.Add(character.gameObject.GetInstanceID(), transferTarget);
             }
-            /*
-            // WARNING: below code doesnt remove target once too far away because its no longer in allcolliders in the first place
-            // If target is already in list
-            else if (character != null && activeTethers.ContainsKey(character.gameObject.GetInstanceID()))
-            {
-                var distanceToTarget = new Vector3(potentialTarget.transform.position.x - entity.transform.position.x, 0f, potentialTarget.transform.position.z -
-                                           entity.transform.position.z);
-                print(range*range + ", " + (distanceToTarget.sqrMagnitude));
-                // If target is outside range (square magnitude compared to range squared is same as magnitude compared to range but more efficient)
-                if (distanceToTarget.sqrMagnitude > (range * range))
-                {
-                    Destroy(activeTethers[character.gameObject.GetInstanceID()][1]);    // Destroys beam and its line renderer
-                    activeTethers.Remove(character.gameObject.GetInstanceID());         // Removes target from Dictionary 
-                }
-            }
-            */
         }
     }
 
@@ -98,7 +82,7 @@ public class EnergyShare : MonoBehaviour
             }
             else 
             {
-                Destroy(beam);                  // Removing from list
+                Destroy(activeTethers[key][1]);                  // Removing from list
                 activeTethers.Remove(key);
             }
         }

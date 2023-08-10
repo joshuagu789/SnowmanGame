@@ -69,7 +69,10 @@ public class Teleport : MonoBehaviour
             if (leaderIsPlayer)
             {
                 yield return new WaitForSeconds(0.1f);
-                entity.leader.GetComponent<CharacterController>().Move(travelVector); // Player moves using character controller 
+                var player = entity.leader.GetComponent<CharacterController>(); // Player moves using character controller
+                player.Move(new Vector3(0f, 100f, 0f));     // To clear player of any obstacles
+                player.Move(travelVector); 
+                player.Move(new Vector3(0f, -100f, 0f));    // Setting player back down
             }
             else
                 entity.leader.gameObject.transform.Translate(travelVector);

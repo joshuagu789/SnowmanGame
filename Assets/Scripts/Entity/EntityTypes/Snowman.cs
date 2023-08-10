@@ -87,8 +87,9 @@ public class Snowman : Entity
         yield return new WaitForSeconds(lockDuration);
 
         // Removing the lock and resetting states if target is outside detection range so entity can resume patrolling/being idle
-        if (target != null && (target.position - transform.position).magnitude > detectionRange)
+        if (target != null && distanceToTarget.sqrMagnitude > detectionRange * detectionRange)
         {
+            distanceToTarget = new Vector3(0f, 0f, 0f);
             isLockedOn = false;
             isIdle = false;
             agent.ResetPath();

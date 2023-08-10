@@ -38,7 +38,7 @@ public class BulletAttack : MonoBehaviour
         cooldownTimer += Time.deltaTime;
 
         // Checking to see if the target meets requirements to be fired at 
-        if (entity.target != null && entity.isLockedOn)
+        if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
             if (entity.distanceToTarget.sqrMagnitude <= entity.range * entity.range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
