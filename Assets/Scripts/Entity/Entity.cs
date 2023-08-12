@@ -49,9 +49,9 @@ public class Entity : MonoBehaviour
     public bool isDisabled;
 
     // For targeting and aiming
-    //[HideInInspector]
+    [HideInInspector]
     public Vector3 distanceToTarget;
-    //[HideInInspector]
+    [HideInInspector]
     public float angleToTarget;
 
     // For simulating leadership

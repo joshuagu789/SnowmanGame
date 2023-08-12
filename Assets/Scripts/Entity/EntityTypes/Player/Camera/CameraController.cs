@@ -16,6 +16,8 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         // Starting off in third person view
         firstPersonCam.enabled = false;
         thirdPersonCam.enabled = true;
