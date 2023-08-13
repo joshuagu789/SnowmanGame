@@ -47,7 +47,7 @@ public class Teleport : MonoBehaviour
     }
 
     // Either moves everyone inside list (which includes itself) or just moves itself
-    private IEnumerator MovePosition(List<Transform> list, Vector3 travelVector, bool leaderIsPlayer)
+    private IEnumerator MovePosition(List<Entity> list, Vector3 travelVector, bool leaderIsPlayer)
     {
         entity.animator.SetBool("isMoving", false);
         entity.animator.SetTrigger("Teleport");
@@ -59,10 +59,10 @@ public class Teleport : MonoBehaviour
 
         if (list != null)
         {
-            foreach (Transform ally in list)
+            foreach (Entity ally in list)
             {
-                ally.transform.position += travelVector;
-                ally.GetComponent<Entity>().isIdle = false; // Find some way to clear walk points of entities
+                ally.transform.position += travelVector;    // Teleporting
+                ally.isIdle = false; 
             }
 
             // Moving the leader of the squad since list is leader's squad list & doesn't include itself

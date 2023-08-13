@@ -24,13 +24,13 @@ public class SquadMemberUI : MonoBehaviour
     public TextMeshProUGUI dialogueBox;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         dialogueBox.SetText("");
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         UpdatePortrait();
     }
@@ -47,8 +47,10 @@ public class SquadMemberUI : MonoBehaviour
             imageField.sprite = normal;
     }
 
-    public IEnumerator Speak(string quote)
+    // Outputs dialogue a character at a time for readability- can also be called on by outside scripts
+    private IEnumerator Speak(string quote)
     {
+        Debug.Log("request received");
         string output = "";
         foreach (char letter in quote)
         {
@@ -57,6 +59,14 @@ public class SquadMemberUI : MonoBehaviour
             if (!letter.Equals(" "))
                 yield return new WaitForSeconds(0.05f);
         }
+        yield return new WaitForSeconds(6f);
+        if(dialogueBox.text.Equals(output))
+            dialogueBox.SetText("");
     }
 
+    // Forces character to speak even if it is not time yet
+    public void OverrideSpeak(string quote)
+    {
+        StartCoroutine(Speak(quote));
+    }
 }

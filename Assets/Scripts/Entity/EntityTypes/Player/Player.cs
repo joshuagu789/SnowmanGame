@@ -29,6 +29,8 @@ public class Player : Snowman
     // Update is called once per frame
     void Update()
     {
+        agent.ResetPath();  // Player has a NavMeshAgent so that their allies will stop bumping into them- 
+                            // constantly resetting path since agent is not used for travel but rather WASD controls
         if (isLockedOn & target != null)
         {
             UpdateVectors();

@@ -69,8 +69,13 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(moveDirection.normalized * player.speed * Time.deltaTime);
 
             animator.SetBool("isMoving", true);
-        } else
+            player.isIdle = false;
+        }
+        else
+        {
             animator.SetBool("isMoving", false);
+            player.isIdle = true;
+        }
     }
 
     void ApplyGravity()

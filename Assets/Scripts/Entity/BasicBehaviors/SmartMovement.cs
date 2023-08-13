@@ -48,39 +48,17 @@ public class SmartMovement : MonoBehaviour
                 entity.isIdle = false;
                 Pursuing();
             }
-            else 
+            else if (entity.leader.GetComponent<Entity>().isIdle)   // Entity stops when it finishes current path and when leader stops
             {
-                /*
-                 * If and else section below for being idle if leader is idle- had to have two sections for player leader and entity leader
-                 * since player uses Player script to store isMoving bool and entity uses Entity script
-                 */
-                if (entity.leader.tag.Equals("Player"))
-                {
-                    var animator = entity.leader.gameObject.GetComponent<Player>().animator;
-                    if (!animator.GetBool("isMoving"))
-                    {
-                        entity.isIdle = true;
-                        walkPointSet = false;
-                        entity.agent.ResetPath();
-                        entity.animator.SetBool("isMoving", false);
-                    }
-                    else
-                        Patrolling(entity.leader);  // Wandering around within leash range of leader
-                }
-                else
-                {
-                    var animator = entity.leader.gameObject.GetComponent<Entity>().animator;
-                    if (!animator.GetBool("isMoving"))
-                    {
-                        entity.isIdle = true;
-                        walkPointSet = false;
-                        entity.agent.ResetPath();
-                        entity.animator.SetBool("isMoving", false);
-                    }
-                    else
-                        Patrolling(entity.leader);  // Wandering around within leash range of leader
+                entity.isIdle = true;
+                walkPointSet = false;
+                if (entity.agent.remainingDistance <= entity.agent.radius) {
+                    entity.animator.SetBool("isMoving", false);
+                    entity.agent.ResetPath();
                 }
             }
+            else
+                Patrolling(entity.leader);  
         }
         // How the entity normally moves and behaves without a leader (patrol around until target spotted- then attack)
         else if(!entity.isDisabled)
@@ -168,7 +146,7 @@ public class SmartMovement : MonoBehaviour
 
             // Checking if destination is reached
             Vector3 distanceToWalkPoint = new Vector3(walkPoint.x - transform.position.x, 0f, walkPoint.z - transform.position.z);
-            if (distanceToWalkPoint.magnitude < 1f)
+            if (distanceToWalkPoint.sqrMagnitude < entity.agent.radius * entity.agent.radius)
             {
                 walkPointSet = false;
             }
@@ -200,6 +178,7 @@ public class SmartMovement : MonoBehaviour
         //                                                          elevation (random coordinate assumes y position doesn't change)
         if (Physics.Raycast(walkPoint, -transform.up) || Physics.Raycast(walkPoint, -transform.up))
         {
+            entity.isIdle = false;
             walkPointSet = true;
         }
     }

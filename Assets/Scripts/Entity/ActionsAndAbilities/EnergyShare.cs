@@ -20,8 +20,7 @@ public class EnergyShare : MonoBehaviour
     public int maxTethers;
 
     // Float key stores instance ID of energy share targets which unlocks the position (Transform) and visual energy beam (LineRenderer) of target
-    //private Dictionary<int, Dictionary<Transform, LineRenderer>> activeTethers = new Dictionary<int, Dictionary<Transform, LineRenderer>>();
-    public Dictionary<int, List<Object>> activeTethers = new Dictionary<int, List<Object>>();
+    private Dictionary<int, List<Object>> activeTethers = new Dictionary<int, List<Object>>();
     private float timer = 1;
 
     // Update is called once per frame

@@ -41,7 +41,7 @@ public class Entity : MonoBehaviour
     public float leashRange;    // Maximum distance from leader that entity can be (usually for snowmen & player)
     public Transform target = null;
 
-    // For the robot's current state
+    // For the entity's current state
     public bool isIdle = false;
     public bool isLockedOn = false;
     public float lockDuration;
@@ -58,7 +58,7 @@ public class Entity : MonoBehaviour
     public Transform leader;
     public bool isLeader;
     public bool canJoinSquad;
-    public List<Transform> squadList = new List<Transform>();
+    public List<Entity> squadList = new List<Entity>();
 
     private float timer = 0.25f;
 
