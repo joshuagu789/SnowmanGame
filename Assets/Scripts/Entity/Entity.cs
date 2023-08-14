@@ -39,6 +39,8 @@ public class Entity : MonoBehaviour
     public float maxRange;      // Maximum distance from target that entity can be
 
     public float leashRange;    // Maximum distance from leader that entity can be (usually for snowmen & player)
+    [HideInInspector]
+    public float defaultLeashRange;
     public Transform target = null;
 
     // For the entity's current state
@@ -65,6 +67,7 @@ public class Entity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        defaultLeashRange = leashRange;
     }
 
     private void Update()
@@ -112,5 +115,13 @@ public class Entity : MonoBehaviour
             distanceToTarget = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
             angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
         }
+    }
+
+    // Below methods are for commands from other entities or for itself if it has an intelligence script
+    public void FocusFire(Transform target) { isLockedOn = true; this.target = target; }
+
+    public void IncrementLeashRange(int increment)
+    {
+        if (increment * defaultLeashRange + leashRange >= agent.radius){ leashRange = increment * defaultLeashRange + leashRange; }
     }
 }

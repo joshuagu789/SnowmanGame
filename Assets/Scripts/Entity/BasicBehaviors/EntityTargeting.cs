@@ -33,7 +33,7 @@ public class EntityTargeting : MonoBehaviour
         }
 
         timer += Time.deltaTime;
-        if (!entity.isLockedOn && timer >= 1f)  // Making entity search for target every second 
+        if (!entity.isLockedOn && entity.target == null && timer >= 1f)  // Making entity search for target every second 
         {
             timer = 0f;
             FindClosestTarget();
@@ -43,7 +43,7 @@ public class EntityTargeting : MonoBehaviour
     void FindClosestTarget()
     {
         /*  
-            The code below goes through a loop to find the closest snowman in range
+            The code below goes through a loop to find the closest enemy in range
                 - the way it's done below is inefficient (does through entire list, runs at all times)
                  but will be improved on if performance drops
         */
@@ -63,7 +63,7 @@ public class EntityTargeting : MonoBehaviour
             }
         }
 
-        // Deciding if enemy found a potential target
+        // Deciding if entity found a potential target
         if (targetFound)
         {
             entity.isLockedOn = true;

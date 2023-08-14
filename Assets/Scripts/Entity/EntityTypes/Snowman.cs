@@ -10,6 +10,8 @@ using UnityEngine;
 public class Snowman : Entity
 {
     public float minTemperature;
+    private bool readyToCheckLock = true;
+    private float lockTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +19,9 @@ public class Snowman : Entity
 
     }
 
-    private void Awake()
+    private void OnEnable()
     {
+        defaultLeashRange = leashRange;
         AddToServer();
     }
 
@@ -73,27 +76,30 @@ public class Snowman : Entity
     private void UpdateLockState()
     {
         if (target == null)
-        {
             isLockedOn = false;
-        }
-        if (isLockedOn)
+        if (readyToCheckLock && isLockedOn && distanceToTarget.sqrMagnitude > detectionRange * detectionRange)
         {
-            StartCoroutine(LockLifetime());
+            readyToCheckLock = false;
+            lockTimer = 0;
+            LockLifetime(target);
         }
     }
 
-    private IEnumerator LockLifetime()
+    private void LockLifetime(Transform expectedTarget)
     {
-        yield return new WaitForSeconds(lockDuration);
-
+        lockTimer += Time.deltaTime;
         // Removing the lock and resetting states if target is outside detection range so entity can resume patrolling/being idle
-        if (target != null && distanceToTarget.sqrMagnitude > detectionRange * detectionRange)
+        if (lockTimer >= lockDuration && target != null && distanceToTarget.sqrMagnitude > detectionRange * detectionRange && expectedTarget == target) // If the target of time lockDuration ago is still locked on
         {
             distanceToTarget = new Vector3(0f, 0f, 0f);
             isLockedOn = false;
+            target = null;
+            readyToCheckLock = true;
             isIdle = false;
             agent.ResetPath();
         }
+        else
+            readyToCheckLock = true;
     }
 
     public void CheckMelt()

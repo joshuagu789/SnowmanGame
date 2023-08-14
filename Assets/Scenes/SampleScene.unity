@@ -914,6 +914,18 @@ MonoBehaviour:
   death: {fileID: 0}
   lockedOnDeath: {fileID: 21300000, guid: 0b170230a8dec4c6aa3431c3cb1ec20c, type: 3}
   dialogueBox: {fileID: 1656997822}
+  affirmativeVoiceLines:
+  - Understood.
+  - As you wish.
+  - It will be done.
+  - Very well.
+  - By your command.
+  readyVoiceLines:
+  - What is it?
+  - At the ready.
+  - Yes?
+  - I hear you.
+  - Need something?
 --- !u!1 &302781105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1795,20 @@ MonoBehaviour:
   death: {fileID: 21300000, guid: 10c59c8d465ef49c3ae741939e2a4b54, type: 3}
   lockedOnDeath: {fileID: 21300000, guid: 6c4341d48765d48148e2c6d13d1029ca, type: 3}
   dialogueBox: {fileID: 590069451}
+  affirmativeVoiceLines:
+  - Understood.
+  - As you wish.
+  - It will be done.
+  - With pleasure.
+  - By your command.
+  - Got it.
+  readyVoiceLines:
+  - What is it?
+  - At the ready.
+  - Yes?
+  - How can I help?
+  - Reporting.
+  - What do you need?
 --- !u!1 &570931158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3302,7 +3328,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.04387286, y: -0.0000000042974535, z: 1.887233e-10, w: 0.99903715}
+  m_LocalRotation: {x: 0.04387286, y: 0.0000000042974535, z: -1.887233e-10, w: 0.99903715}
   m_LocalPosition: {x: 2.2, y: 0.4000001, z: -10.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3840,6 +3866,19 @@ MonoBehaviour:
   death: {fileID: 21300000, guid: b4afeaa1438264c4f915acd5dcdcb825, type: 3}
   lockedOnDeath: {fileID: 21300000, guid: 619c2d120961b4f6a853c8544304b137, type: 3}
   dialogueBox: {fileID: 1495188129}
+  affirmativeVoiceLines:
+  - Understood.
+  - As you wish.
+  - It will be done.
+  - Very well.
+  - By your command.
+  - Affirmative.
+  readyVoiceLines:
+  - Orders?
+  - At the ready.
+  - Ready.
+  - Reporting.
+  - Leader.
 --- !u!1 &1170183721
 GameObject:
   m_ObjectHideFlags: 3
@@ -6976,7 +7015,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831699312}
-  m_LocalRotation: {x: 0.04387286, y: -0.0000000021487268, z: 9.436166e-11, w: 0.99903715}
+  m_LocalRotation: {x: 0.04387286, y: 0.0000000021487268, z: -9.436166e-11, w: 0.99903715}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8115,6 +8154,18 @@ MonoBehaviour:
   death: {fileID: 21300000, guid: c39a0bac63754428fa74315ca9525667, type: 3}
   lockedOnDeath: {fileID: 0}
   dialogueBox: {fileID: 0}
+  affirmativeVoiceLines:
+  - Understood.
+  - As you wish.
+  - It will be done.
+  - With pleasure.
+  - By your command.
+  readyVoiceLines:
+  - What is it?
+  - At the ready.
+  - Yes?
+  - I hear you.
+  - Reporting.
   integrityText: {fileID: 85404753}
   tempText: {fileID: 1903247894}
   energyText: {fileID: 129291612}

@@ -16,13 +16,10 @@ public class PlayerCommands : MonoBehaviour
     public TextMeshProUGUI outputTitle;
     public TextMeshProUGUI outputBox;
 
-    //private Dictionary<int, string> outputChoices = new Dictionary<int, string>();
     private Dictionary<int, KeyCode> keycodes = new Dictionary<int, KeyCode> { {1, KeyCode.Alpha1 }, {2, KeyCode.Alpha2 }, {3, KeyCode.Alpha3 },
     {4, KeyCode.Alpha4 }, {5, KeyCode.Alpha5 }, {6, KeyCode.Alpha6 }, {7, KeyCode.Alpha7 }, {8, KeyCode.Alpha8 }, {9, KeyCode.Alpha9 }, {10, KeyCode.Alpha0 } };
 
-    private List<string> affirmativeVoiceLines = new List<string> { "Understood.", "As you wish.", "It will be done.", "With pleasure.", "By your command." };
-    private List<string> readyVoiceLines = new List<string> { "What is it?", "At the ready.", "Yes?", "I hear you.", "Reporting." };
-
+    private List<Entity> targetAudience;    // Target to which the player commands
     private int counter;
     private bool toggleOn = false;
     private bool readyToSendOrder = false;
@@ -68,39 +65,66 @@ public class PlayerCommands : MonoBehaviour
             outputTitle.text = "Select Target:";
             outputBox.text = output;
         }
+        else if (readyToSendOrder)
+        {
+            outputTitle.text = "Give Command:";
+            outputBox.text = "1. Focus fire \n2. Hold fire \n3. Group up \n4. Spread out \n5. Ability \n6. Build \n7. Cancel";
+        }
     }
 
     // Checking to see if an input corresponds with command option
     private void CheckCommands()
     {
         if (toggleOn && Input.anyKeyDown)
-        {
             foreach (int index in keycodes.Keys)
-            {
                 if (index <= counter && Input.GetKeyDown(keycodes[index]))
-                {
-                    Debug.Log(index);
-                    ExecuteCommand(index);
-                }
-            }
-        }
+                    ExecuteCommand(index); 
     }
 
     // Executing command as indicated by what option corresponded with the number displayed in command bar
     private void ExecuteCommand(int optionNumber)
     {
-        if (toggleOn && !readyToSendOrder && optionNumber <= player.squadList.Capacity + 1)
+        // Alerting allies to await command
+        if (toggleOn && !readyToSendOrder && optionNumber <= player.squadList.Capacity + 1) 
         {
-            List<Entity> targetAudience = new List<Entity>(); ;
-            if (optionNumber == 1) { targetAudience = player.squadList; }   // Option 1 selects all members of squad
-            else if (optionNumber != 0) { targetAudience.Add(player.squadList[optionNumber - 2]); }   // Selecting only the Entity corresponding with option
+            targetAudience = new List<Entity>();
+            if (optionNumber == 1)
+                targetAudience = player.squadList;    // Option 1 selects all members of squad
+            else if (optionNumber != 0)
+                targetAudience.Add(player.squadList[optionNumber - 2]);   // Selecting only the Entity corresponding with option
 
             foreach (Entity ally in targetAudience)
             {
-                Debug.Log("speaking: " + readyVoiceLines[(int)UnityEngine.Random.Range(0, readyVoiceLines.Count)]);
-                ally.gameObject.GetComponentInChildren<SquadMemberUI>().OverrideSpeak(readyVoiceLines[(int) UnityEngine.Random.Range(0, readyVoiceLines.Count)]);    // Giving ally a random ready response
+                ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakReady();    // Giving ally a random ready response
             }
-            //readyToSendOrder = true;
+            readyToSendOrder = true;
+            toggleOn = false;
+        }
+
+        // Giving command to allies depending on option selected
+        else if (toggleOn && readyToSendOrder)
+        {
+            if (optionNumber == 1)
+            {
+                foreach (Entity ally in targetAudience)
+                {
+                    ally.FocusFire(player.target);  // All allies get player's target
+                    ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();    // Giving ally a random ready response
+                }
+            }
+            else if (optionNumber == 3 || optionNumber == 4)
+            {
+                int increment = 0;
+                if (optionNumber == 3) { increment = -2; }
+                else if (optionNumber == 4) { increment = 2; }
+
+                foreach (Entity ally in targetAudience)
+                {
+                    ally.IncrementLeashRange(increment);  // All allies change leash range by increment * default leash range
+                    ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();   
+                }
+            }
+            readyToSendOrder = false;
             toggleOn = false;
         }
     }

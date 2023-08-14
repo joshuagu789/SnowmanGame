@@ -15,7 +15,7 @@ public class Robot : Entity
         
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         AddToServer();
     }
@@ -71,6 +71,7 @@ public class Robot : Entity
         if (target != null && distanceToTarget.sqrMagnitude > detectionRange * detectionRange)
         {
             isLockedOn = false;
+            target = null;
             isIdle = false;
             agent.ResetPath();
         }

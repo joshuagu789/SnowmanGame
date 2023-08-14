@@ -23,6 +23,10 @@ public class SquadMemberUI : MonoBehaviour
 
     public TextMeshProUGUI dialogueBox;
 
+    // For dialogue when ordered around
+    public List<string> affirmativeVoiceLines = new List<string>();
+    public List<string> readyVoiceLines = new List<string>();
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -50,23 +54,28 @@ public class SquadMemberUI : MonoBehaviour
     // Outputs dialogue a character at a time for readability- can also be called on by outside scripts
     private IEnumerator Speak(string quote)
     {
-        Debug.Log("request received");
         string output = "";
         foreach (char letter in quote)
         {
             output += letter;
             dialogueBox.SetText(output);
             if (!letter.Equals(" "))
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.03f);
         }
         yield return new WaitForSeconds(6f);
         if(dialogueBox.text.Equals(output))
             dialogueBox.SetText("");
     }
 
-    // Forces character to speak even if it is not time yet
-    public void OverrideSpeak(string quote)
+    // Forces character to speak when prompted by player even if it is not time yet
+    public void SpeakReady()
     {
-        StartCoroutine(Speak(quote));
+        StartCoroutine(Speak(readyVoiceLines[(int) Random.Range(0, readyVoiceLines.Count)]));
+    }
+
+    // Also forces character to speak when prompted by player
+    public void SpeakAffirmative()
+    {
+        StartCoroutine(Speak(affirmativeVoiceLines[(int)Random.Range(0, affirmativeVoiceLines.Count)]));
     }
 }

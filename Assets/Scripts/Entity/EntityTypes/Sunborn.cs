@@ -18,7 +18,7 @@ public class Sunborn : Entity
 
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         AddToServer();
     }
