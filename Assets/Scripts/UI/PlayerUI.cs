@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;    // Needed for TextMeshPro UI
 
 /* 
- * Script in charge of managing player's UI such as health, temperature, energy, textboxes
+ * Script in charge of managing player's UI such as health, temperature, energy, textboxes, and their target lock
  *  - Is child of SquadMemberUI- allows PlayerUI to update character portrait and have dialogue
  *  - Later make the text boxes resizable
  */
@@ -23,6 +23,12 @@ public class PlayerUI: SquadMemberUI
     public TextMeshProUGUI energyText;
     private Vector3 energyOriginalPos;
     private Vector3 energyOriginalScale;
+
+    // For managing current target's display 
+    public GameObject targetLockImage;
+    public TextMeshProUGUI targetLockText;
+    public Camera targetLockCamera;
+    private Entity enemy;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +53,14 @@ public class PlayerUI: SquadMemberUI
         UpdateColors();
         UpdateText();
         UpdatePortrait();
+        if (snowman.isLockedOn && snowman.target != null)
+        {
+            enemy = snowman.target.gameObject.GetComponent<Entity>();
+            targetLockImage.SetActive(true);
+            UpdateTarget();
+        }
+        else
+            targetLockImage.SetActive(false);
     }
 
     private void UpdateText()
@@ -137,5 +151,18 @@ public class PlayerUI: SquadMemberUI
             tempText.color = new Color32(218, 224, 26, 255); // Yellow
         else
             tempText.color = new Color32(32, 205, 44, 255); // Green
+    }
+
+    // Target Lock UI
+    private void UpdateTarget()
+    {
+        // Displaying target's stats
+        targetLockText.text = "HP: " + Mathf.Round(enemy.systemIntegrity) + " / " + enemy.maxIntegrity + "\nTemp: " + Mathf.Round(enemy.temperature)
+                               + "\nNRG: " + Mathf.Round(enemy.energy) + " / " + enemy.maxEnergy;
+
+        // Making secondary camera look at target
+        targetLockCamera.transform.LookAt(enemy.transform);
+        targetLockCamera.transform.position = enemy.transform.position + new Vector3(snowman.transform.position.x - enemy.transform.position.x, 0f, // Camera is positioned between enemy and player
+                                              snowman.transform.position.z - enemy.transform.position.z).normalized * 3 * enemy.agent.radius;   // By adding vector to player to enemy's position (3 * radius so that camera is not inside target)
     }
 }

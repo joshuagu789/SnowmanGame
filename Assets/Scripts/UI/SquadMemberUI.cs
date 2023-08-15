@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class SquadMemberUI : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class SquadMemberUI : MonoBehaviour
     public List<string> affirmativeVoiceLines = new List<string>();
     public List<string> readyVoiceLines = new List<string>();
 
+    private bool ableToSpeak;
+    private bool showingStatus = false;
+    private float displayTimer = 0;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -37,6 +42,10 @@ public class SquadMemberUI : MonoBehaviour
     private void Update()
     {
         UpdatePortrait();
+        if (showingStatus)
+            DisplayStatus();
+        else
+            displayTimer = 0;
     }
 
     public void UpdatePortrait()
@@ -51,31 +60,76 @@ public class SquadMemberUI : MonoBehaviour
             imageField.sprite = normal;
     }
 
-    // Outputs dialogue a character at a time for readability- can also be called on by outside scripts
-    private IEnumerator Speak(string quote)
+    // Outputs dialogue one character at a time for readability- can also be called on by outside scripts
+    private IEnumerator Output(string quote)
     {
-        string output = "";
-        foreach (char letter in quote)
+        if (ableToSpeak)
         {
-            output += letter;
-            dialogueBox.SetText(output);
-            if (!letter.Equals(" "))
-                yield return new WaitForSeconds(0.03f);
+            showingStatus = false;
+            ableToSpeak = false;
+
+            string output = "";
+            foreach (char letter in quote)
+            {
+                output += letter;
+                dialogueBox.SetText(output);
+                if (!letter.Equals(" "))
+                    yield return new WaitForSeconds(0.03f);
+            }
+            yield return new WaitForSeconds(6f);
+
+            if (dialogueBox.text.Equals(output))    // If text after 6 seconds is still the same text
+            {
+                ableToSpeak = true;
+                dialogueBox.SetText("");
+            }
         }
-        yield return new WaitForSeconds(6f);
-        if(dialogueBox.text.Equals(output))
-            dialogueBox.SetText("");
     }
 
-    // Forces character to speak when prompted by player even if it is not time yet
+    // Makes entity output a random voice line from readyVoiceLines (also overrides)
     public void SpeakReady()
     {
-        StartCoroutine(Speak(readyVoiceLines[(int) Random.Range(0, readyVoiceLines.Count)]));
+        ableToSpeak = true;
+        StartCoroutine(Output(readyVoiceLines[(int) UnityEngine.Random.Range(0, readyVoiceLines.Count)]));
     }
 
-    // Also forces character to speak when prompted by player
+    // Makes entity output a random voice line from affirmativeVoiceLines (also overrides)
     public void SpeakAffirmative()
     {
-        StartCoroutine(Speak(affirmativeVoiceLines[(int)Random.Range(0, affirmativeVoiceLines.Count)]));
+        ableToSpeak = true;
+        StartCoroutine(Output(affirmativeVoiceLines[(int) UnityEngine.Random.Range(0, affirmativeVoiceLines.Count)]));
+    }
+
+    // Displays health (systemIntegrity), temperature, energy, combat state
+    public void DisplayStatus()
+    {
+        showingStatus = true;
+        displayTimer += Time.deltaTime;
+        dialogueBox.SetText("HP: " + Mathf.Round(snowman.systemIntegrity) + " / " + snowman.maxIntegrity + "\nTemp: " +
+                                MathF.Round(snowman.temperature) + "\nNRG: " + MathF.Round(snowman.energy) + " / " + snowman.maxEnergy);
+        if (displayTimer >= 6f) // Display lasts 6 seconds
+        {
+            showingStatus = false;
+            dialogueBox.SetText("");
+        }
+    }
+
+    // Forces character to speak even if it is not time yet
+    public void OverrideSpeak(string quote)
+    {
+        ableToSpeak = true;
+        StartCoroutine(Output(quote));
+    }
+
+    public void Speak(string quote)
+    {
+        StartCoroutine(quote);
+    }
+
+    public SquadMemberUI Compare(SquadMemberUI a, SquadMemberUI b)
+    {
+        if (a.gameObject.name.CompareTo(b.gameObject.name) < 0)
+            return a;
+        return b;
     }
 }

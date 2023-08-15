@@ -65,10 +65,11 @@ public class PlayerCommands : MonoBehaviour
             outputTitle.text = "Select Target:";
             outputBox.text = output;
         }
+        // Displaying all possible commands
         else if (readyToSendOrder)
         {
             outputTitle.text = "Give Command:";
-            outputBox.text = "1. Focus fire \n2. Hold fire \n3. Group up \n4. Spread out \n5. Ability \n6. Build \n7. Cancel";
+            outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. Ability1 \n6. Ability2 \n7. Build \n8. Cancel";
         }
     }
 
@@ -112,6 +113,15 @@ public class PlayerCommands : MonoBehaviour
                     ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();    // Giving ally a random ready response
                 }
             }
+            // Making ally report their systemIntegrity (health), temperature, energy
+            else if (optionNumber == 2)
+            {
+                foreach (Entity ally in targetAudience)
+                {
+                    ally.gameObject.GetComponentInChildren<SquadMemberUI>().DisplayStatus();
+                }
+            }
+            // Increasing/Decreasing ally Entity's leash range
             else if (optionNumber == 3 || optionNumber == 4)
             {
                 int increment = 0;
@@ -121,7 +131,7 @@ public class PlayerCommands : MonoBehaviour
                 foreach (Entity ally in targetAudience)
                 {
                     ally.IncrementLeashRange(increment);  // All allies change leash range by increment * default leash range
-                    ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();   
+                    ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();
                 }
             }
             readyToSendOrder = false;

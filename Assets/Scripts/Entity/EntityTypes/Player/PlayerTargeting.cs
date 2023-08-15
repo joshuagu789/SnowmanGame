@@ -89,6 +89,7 @@ public class PlayerTargeting : MonoBehaviour
                 player.target = closestTarget;
                 targetLockClone = Instantiate(targetLock, targetCollider.transform.position, targetCollider.transform.localRotation, targetCollider.transform);
                 targetLockClone.localScale = targetCollider.transform.localScale;
+                targetLockClone.gameObject.layer = 8;   // 8 corresponds with TargetLock layer
                 player.isLockedOn = true;
             }
         }
