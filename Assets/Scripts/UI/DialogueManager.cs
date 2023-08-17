@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     private Dictionary<int, List<string>> playerVoiceLines = new Dictionary<int, List<string>>
     // Player's chatter voice lines
     { {0, new List<string>{"Focus, we enter combat!",}}, {1, new List<string>{"How are we on energy?","How is everyone on energy?","Report energy."}}, {2, new List<string>{"Lets try to conserve as much as possible.",}},
-    {3, new List<string>{"Any enemies approaching us?","Report: any enemies see us?"}}, {4, new List<string>{"I don't think so.","I shouldn't answer. Model B's optics are better for this."}},
+    {3, new List<string>{"Any enemies approaching us?","Report: any enemies watching us?"}}, {4, new List<string>{"I don't think so.","Maybe. Stay alert."}},
     {5, new List<string>{"Let's hurry, before dawn breaks.","Keep moving, and stay alert."}}, {6, new List<string>{""}}, };
 
 
