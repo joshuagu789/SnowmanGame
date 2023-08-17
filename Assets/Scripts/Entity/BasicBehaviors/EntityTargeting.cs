@@ -65,12 +65,8 @@ public class EntityTargeting : MonoBehaviour
 
         // Deciding if entity found a potential target
         if (targetFound)
-        {
-            entity.isLockedOn = true;
-            entity.target = closestTarget;
-            entity.animator.SetBool("isLockedOn", true);
-        }
-        else
+            entity.FocusFire(closestTarget);
+        else 
         {
             entity.isLockedOn = false;
             entity.target = null;

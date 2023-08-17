@@ -118,7 +118,7 @@ public class Entity : MonoBehaviour
     }
 
     // Below methods are for commands from other entities or for itself if it has an intelligence script
-    public void FocusFire(Transform target) { isLockedOn = true; this.target = target; }
+    public void FocusFire(Transform target) { isLockedOn = true; this.target = target; animator.SetBool("isLockedOn", true); }
 
     public void IncrementLeashRange(int increment)
     {

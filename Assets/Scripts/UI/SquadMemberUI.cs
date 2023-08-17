@@ -28,7 +28,8 @@ public class SquadMemberUI : MonoBehaviour
     public List<string> affirmativeVoiceLines = new List<string>();
     public List<string> readyVoiceLines = new List<string>();
 
-    private bool ableToSpeak;
+    [HideInInspector]
+    public bool ableToSpeak = true;
     private bool showingStatus = false;
     private float displayTimer = 0;
 
@@ -73,7 +74,9 @@ public class SquadMemberUI : MonoBehaviour
             {
                 output += letter;
                 dialogueBox.SetText(output);
-                if (!letter.Equals(" "))
+                if (letter.Equals(".") || letter.Equals(",") || letter.Equals("!") || letter.Equals("?") || letter.Equals(":"))
+                    yield return new WaitForSeconds(1f);
+                else if (!letter.Equals(" "))
                     yield return new WaitForSeconds(0.03f);
             }
             yield return new WaitForSeconds(6f);
@@ -123,13 +126,10 @@ public class SquadMemberUI : MonoBehaviour
 
     public void Speak(string quote)
     {
-        StartCoroutine(quote);
-    }
-
-    public SquadMemberUI Compare(SquadMemberUI a, SquadMemberUI b)
-    {
-        if (a.gameObject.name.CompareTo(b.gameObject.name) < 0)
-            return a;
-        return b;
+        StartCoroutine(Output(quote));
+        /*
+        if(dialogueBox != null)
+        dialogueBox.SetText(quote);
+        */
     }
 }

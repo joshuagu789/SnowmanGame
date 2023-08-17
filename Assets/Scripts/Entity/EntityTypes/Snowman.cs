@@ -11,7 +11,6 @@ public class Snowman : Entity
 {
     public float minTemperature;
     private bool readyToCheckLock = true;
-    private float lockTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -77,19 +76,21 @@ public class Snowman : Entity
     {
         if (target == null)
             isLockedOn = false;
+        else
+            animator.SetBool("isLockedOn", true);
         if (readyToCheckLock && isLockedOn && distanceToTarget.sqrMagnitude > detectionRange * detectionRange)
         {
             readyToCheckLock = false;
-            lockTimer = 0;
-            LockLifetime(target);
+            StartCoroutine(LockLifetime(target));
         }
     }
 
-    private void LockLifetime(Transform expectedTarget)
+    private IEnumerator LockLifetime(Transform expectedTarget)
     {
-        lockTimer += Time.deltaTime;
+        yield return new WaitForSeconds(lockDuration);
+
         // Removing the lock and resetting states if target is outside detection range so entity can resume patrolling/being idle
-        if (lockTimer >= lockDuration && target != null && distanceToTarget.sqrMagnitude > detectionRange * detectionRange && expectedTarget == target) // If the target of time lockDuration ago is still locked on
+        if (target != null && distanceToTarget.sqrMagnitude > detectionRange * detectionRange && expectedTarget == target) // If the target of time lockDuration ago is still locked on
         {
             distanceToTarget = new Vector3(0f, 0f, 0f);
             isLockedOn = false;

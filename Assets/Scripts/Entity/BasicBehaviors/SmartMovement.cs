@@ -52,13 +52,17 @@ public class SmartMovement : MonoBehaviour
             {
                 entity.isIdle = true;
                 walkPointSet = false;
-                if (entity.agent.remainingDistance <= entity.agent.radius) {
+                if (entity.agent.remainingDistance <= entity.agent.radius)
+                {
                     entity.animator.SetBool("isMoving", false);
                     entity.agent.ResetPath();
                 }
             }
             else
-                Patrolling(entity.leader);  
+            {
+                entity.isIdle = false;
+                Patrolling(entity.leader);
+            }
         }
         // How the entity normally moves and behaves without a leader (patrol around until target spotted- then attack)
         else if(!entity.isDisabled)
