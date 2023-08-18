@@ -56,8 +56,8 @@ public class DialogueManager : MonoBehaviour
     private float timer = 0f;
     private bool ableToTalk = true;
     private float timerThreshold = 7f;
-    private float maxTimeInterval = 20f;
-    private float minTimeInterval = 5f;
+    private float maxTimeInterval = 25f;
+    private float minTimeInterval = 10f;
 
     // Start is called before the first frame update
     void Start()
