@@ -16,7 +16,9 @@ public class PlayerTargeting : MonoBehaviour
     public GameServer server;
     public Transform targetLock;
     Player player;
-    public Transform targetLockClone;
+    private Transform targetLockClone;
+
+    private Quaternion lookRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -28,16 +30,19 @@ public class PlayerTargeting : MonoBehaviour
     void Update()
     {
         CheckLockState();
+        // Resetting torso's rotation if there is no target lock
+        if(!player.isLockedOn)
+        {
+            Transform torso = transform.Find("Armature").Find("Torso");
+            torso.localRotation = Quaternion.Slerp(torso.localRotation, Quaternion.Euler(-90f, 0f, 0f), 2 * Time.deltaTime);
+        }
+    }
+
+    private void LateUpdate()   // Rotating a bone that's in an animator to override it (LateUpdate calls after animations update)
+    {
         if (player.isLockedOn)
         {
             AdjustRotation();
-        }
-        // Resetting torso's rotation is there is no target lock
-        else
-        {
-            // Can this be used for AdjustRotation() to make life easier?
-            Transform torso = transform.Find("Armature").Find("Torso");
-            torso.localRotation = Quaternion.Slerp(torso.localRotation, Quaternion.Euler(-90f, 0f, 0f), 2 * Time.deltaTime);
         }
     }
 
@@ -100,7 +105,6 @@ public class PlayerTargeting : MonoBehaviour
     {
         // Retrieving torso with its parent's parent 
         Transform torso = transform.Find("Armature").Find("Torso");
-
         /*
             The below code can usually be done simply with LookAt() except because of Blender to Unity export issues the torso part has
             its y axis as its forward (but also backwards) so had to use Vector3.Angle() to find angle to swivel z axis to face target
@@ -117,13 +121,16 @@ public class PlayerTargeting : MonoBehaviour
 
         if (targetLocalPos.x < 0)   // If target is left of player
         {
-            //torso.localRotation = Quaternion.Euler(270f, 0f, -angle);
-            torso.localRotation = Quaternion.Slerp(torso.localRotation, Quaternion.Euler(-90f, 0f, -angle), 10 * Time.deltaTime);
+            //torso.rotation = Quaternion.SlerpUnclamped(torso.localRotation, Quaternion.Euler(-90f, 0f, -angle), 10 * Time.deltaTime);
+            print("left: " + (-angle));
+            lookRotation = Quaternion.Slerp(lookRotation, Quaternion.Euler(-90f, 0f, -angle), 10 * Time.deltaTime);  // Not sure how putting lookRotation on right of equals sign works yet but it overrides animation without jitters
         }
         else if (targetLocalPos.x > 0)  // If target is right of player
         {
-            //torso.localRotation = Quaternion.Euler(270f, 0f, angle);
-            torso.localRotation = Quaternion.Slerp(torso.localRotation, Quaternion.Euler(-90f, 0f, angle), 10 * Time.deltaTime);
+            //torso.rotation = Quaternion.SlerpUnclamped(torso.localRotation, Quaternion.Euler(-90f, 0f, angle), 10 * Time.deltaTime);
+            print("right: " + angle);
+            lookRotation = Quaternion.Slerp(lookRotation, Quaternion.Euler(-90f, 0f, angle), 10 * Time.deltaTime);  // Not sure how putting lookRotation on right of equals sign works yet but it overrides animation without jitters
         }
+        torso.localRotation = lookRotation;
     }
 }

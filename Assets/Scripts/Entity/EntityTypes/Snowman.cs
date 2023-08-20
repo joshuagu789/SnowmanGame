@@ -108,6 +108,7 @@ public class Snowman : Entity
         if (systemIntegrity <= 0f)
         {
             animator.SetBool("isMelting", true);
+            isDisabled = true;
             speed = 1f;
         }
     }

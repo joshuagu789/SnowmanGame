@@ -27,11 +27,13 @@ public class SquadMemberUI : MonoBehaviour
     // For dialogue when ordered around
     public List<string> affirmativeVoiceLines = new List<string>();
     public List<string> readyVoiceLines = new List<string>();
+    public List<string> deathVoiceLines = new List<string>();
 
     [HideInInspector]
     public bool ableToSpeak = true;
     private bool showingStatus = false;
     private float displayTimer = 0;
+    private bool hasSpokenDeathVoiceLine;
 
     // Start is called before the first frame update
     private void Start()
@@ -47,6 +49,11 @@ public class SquadMemberUI : MonoBehaviour
             DisplayStatus();
         else
             displayTimer = 0;
+        if (snowman.animator.GetBool("isMelting") & !hasSpokenDeathVoiceLine)
+        {
+            hasSpokenDeathVoiceLine = true;
+            OverrideSpeak(deathVoiceLines[(int)UnityEngine.Random.Range(0, deathVoiceLines.Count)]);
+        }
     }
 
     public void UpdatePortrait()

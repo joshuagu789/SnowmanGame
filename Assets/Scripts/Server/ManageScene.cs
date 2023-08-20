@@ -8,10 +8,6 @@ public class ManageScene : MonoBehaviour
 {
     public PlayableDirector director;
     public Playable timeline;
-    PlayableGraph graph;
-
-    private bool isPlaying = false;
-    private float x = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +22,7 @@ public class ManageScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        x += Time.deltaTime;
-        print(x);
-        if (isPlaying)
-        {
-            director.Play();
-            director.DeferredEvaluate();
-            director.playableGraph.Evaluate(Time.deltaTime);
-        }
+
     }
 
     private void Awake()
@@ -64,8 +53,6 @@ public class ManageScene : MonoBehaviour
         //director.Resume();
         print(director.state);
         director.playableGraph.GetRootPlayable(0).SetSpeed(1);
-        print(director.playableGraph.GetRootPlayable(0).GetSpeed());
-        //isPlaying = true;
-        
+        print(director.playableGraph.GetRootPlayable(0).GetSpeed());        
     }
 }
