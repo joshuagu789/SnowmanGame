@@ -16,7 +16,7 @@ public class Player : Snowman
     {
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         AddToServer();
     }

@@ -15,7 +15,7 @@ public class Sunborn : Entity
     // Start is called before the first frame update
     void Start()
     {
-
+        defaultLeashRange = leashRange;
     }
 
     private void OnEnable()

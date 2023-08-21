@@ -49,10 +49,14 @@ public class Entity : MonoBehaviour
     public float lockDuration;
     [HideInInspector]
     public bool isDisabled;
+    [HideInInspector]
+    public bool walkPointSet;   // Means the entity's NavMeshAgent has a destination
+    private Vector3 walkPoint;
 
     // For targeting and aiming
     [HideInInspector]
-    public Vector3 distanceToTarget;
+    public Vector3 vectorToTarget;
+    public float distanceToTargetSqr;   // Is the squared distance since taking sqrRoot is costly- better to compare squared values w/ squared values
     [HideInInspector]
     public float angleToTarget;
 
@@ -112,16 +116,26 @@ public class Entity : MonoBehaviour
         if (timer >= 0.25f)  // UpdateVectors() will execute every 0.25 seconds
         {
             timer = 0f;
-            distanceToTarget = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
-            angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
+            vectorToTarget = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
+            angleToTarget = Vector3.Angle(transform.forward, vectorToTarget);
+            distanceToTargetSqr = vectorToTarget.sqrMagnitude;
         }
     }
 
-    // Below methods are for commands from other entities or for itself if it has an intelligence script
+    // Below methods are for commands from other entities or for itself if it has the right script for it
     public void FocusFire(Transform target) { isLockedOn = true; this.target = target; animator.SetBool("isLockedOn", true); }
 
     public void IncrementLeashRange(int increment)
     {
         if (increment * defaultLeashRange + leashRange >= agent.radius){ leashRange = increment * defaultLeashRange + leashRange; }
     }
+
+    public void MoveTo(Vector3 location)
+    {
+        isIdle = false;
+        walkPointSet = true;
+        walkPoint = location;
+    }
+
+    public Vector3 GetWalkPoint() { return walkPoint; }
 }

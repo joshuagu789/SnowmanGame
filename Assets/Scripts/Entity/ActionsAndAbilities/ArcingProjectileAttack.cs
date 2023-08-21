@@ -26,7 +26,6 @@ public class ArcingProjectileAttack : MonoBehaviour
 
     private float timer = 0;
     private float netVelocity;
-    private Vector3 distanceToTarget;
 
     // Update is called once per frame
     void Update()
@@ -36,29 +35,24 @@ public class ArcingProjectileAttack : MonoBehaviour
         // Checking to see if the target meets requirements to be fired at 
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
-            distanceToTarget = new Vector3(entity.target.position.x - projectileOrigin.position.x, 0f,
-                                                    entity.target.position.z - projectileOrigin.position.z);
-            var angleToTarget = Vector3.Angle(transform.forward, distanceToTarget);
-
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (distanceToTarget.sqrMagnitude <= entity.range * entity.range && timer > cooldown && angleToTarget <= (20 + fireAngleDeviation))
+            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= entity.range * entity.range && timer > cooldown && entity.angleToTarget <= (20 + fireAngleDeviation))
             {
-                if (isStationaryWhenFiring)
+                if (isStationaryWhenFiring) // Making entity stop when firing
                 {
-                    // Robot can't move while firing
                     entity.animator.SetBool("isMoving", false);
                     entity.agent.isStopped = true;
                 }
 
                 entity.animator.SetBool("isAttacking", true);
                 timer = 0;
-                CalculateTrajectory(distanceToTarget);
+                CalculateSpeed(entity.vectorToTarget.magnitude);
                 StartCoroutine(ShootArc());
             }
         }
     }
 
-    private void CalculateTrajectory(Vector3 distance)
+    private void CalculateSpeed(float distance)
     {
         projectileOrigin.localRotation = Quaternion.Euler(-fireAngle + Random.Range(-fireAngleDeviation, fireAngleDeviation),
                                                           Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
@@ -68,7 +62,7 @@ public class ArcingProjectileAttack : MonoBehaviour
         // NOTE: t for vertical component is half of time of t of horizontal component
 
                                                 // Offset by 1.4 factor bc equation assumes start and end are at same height but not in reality
-        netVelocity = Mathf.Sqrt((float)((9.8 * (distance.magnitude/1.4)) / (2 * Mathf.Sin(fireAngle) * Mathf.Cos(fireAngle))));
+        netVelocity = Mathf.Sqrt((float)((9.8 * (distance/1.4)) / (2 * Mathf.Sin(fireAngle) * Mathf.Cos(fireAngle))));
     }
 
     IEnumerator ShootArc()

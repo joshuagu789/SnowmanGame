@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 5604292529476388489}
   - component: {fileID: 5604292529476388492}
   - component: {fileID: 5604292529476388495}
+  - component: {fileID: -2806402089248886291}
   m_Layer: 0
   m_Name: PatrolBot
   m_TagString: Enemy
@@ -208,7 +209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 5604292529476388495}
-  walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 30
   maxIdleTime: 30
   strafeDistance: 10
@@ -264,12 +264,30 @@ MonoBehaviour:
   isLockedOn: 0
   lockDuration: 0
   isDisabled: 0
-  distanceToTarget: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  vectorToTarget: {x: 0, y: 0, z: 0}
+  distanceToTargetSqr: 0
   angleToTarget: 0
   leader: {fileID: 0}
   isLeader: 0
   canJoinSquad: 1
   squadList: []
+--- !u!114 &-2806402089248886291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4685744231708164528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c3bb97902504a22a72f40567e6bf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 5604292529476388495}
+  range: 60
+  energyCost: 1
+  detectionSpeed: 0.075
 --- !u!1 &5604292529053840236
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class TetherAttack : MonoBehaviour
     private void Update()
     {
         // Checking to see if the target meets requirements to be fired at 
-        if (entity.target != null && entity.isLockedOn && entity.distanceToTarget.sqrMagnitude <= range * range && entity.angleToTarget <= (15 + fireAngleDeviation) && !entity.isDisabled)
+        if (entity.target != null && entity.isLockedOn && entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && entity.angleToTarget <= (15 + fireAngleDeviation) && !entity.isDisabled)
         {
             StartTether();
         }

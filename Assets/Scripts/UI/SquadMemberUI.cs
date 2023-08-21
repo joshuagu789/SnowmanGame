@@ -33,7 +33,8 @@ public class SquadMemberUI : MonoBehaviour
     public bool ableToSpeak = true;
     private bool showingStatus = false;
     private float displayTimer = 0;
-    private bool hasSpokenDeathVoiceLine;
+    [HideInInspector]
+    public bool hasSpokenDeathVoiceLine;
 
     // Start is called before the first frame update
     private void Start()

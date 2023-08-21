@@ -39,26 +39,25 @@ public class Spawner : MonoBehaviour
         {
             SpawnRandom("enemy", 1, 4, player, 100, 100);
         }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SpawnRandom("snowman", 1, 3, player, 20, 20);
-        }
     }
 
     // Instantiates random entities from a list which is determined by type and tier (type being either "Snowmen" or "Enemy")
     public void SpawnRandom(string type, int tier, int amount, Transform location, int minRange, int maxRange)
     {
-        ChooseList(type);
-        SelectSpawnLocation(location, minRange, maxRange, 10);
-        var tierListSize = entityList[tier].Count;
-
-        for (int i = 0; i < amount; i++)
+        if (amount > 0)
         {
-            var index = Random.Range(0, tierListSize);
-            var spawnedEntity = Instantiate(entityList[tier][index], spawnLocation, transform.rotation);
+            ChooseList(type);
+            SelectSpawnLocation(location, minRange, maxRange, 10);
+            var tierListSize = entityList[tier].Count;
 
-            spawnedEntity.GetComponent<Entity>().server = gameServer;
-            spawnedEntity.GetComponent<Entity>().AddToServer();
+            for (int i = 0; i < amount; i++)
+            {
+                var index = Random.Range(0, tierListSize);
+                var spawnedEntity = Instantiate(entityList[tier][index], spawnLocation, transform.rotation);
+
+                spawnedEntity.GetComponent<Entity>().server = gameServer;
+                spawnedEntity.GetComponent<Entity>().AddToServer();
+            }
         }
     }
 

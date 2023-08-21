@@ -740,7 +740,7 @@ MonoBehaviour:
   animator: {fileID: 7273081864868537768}
   agent: {fileID: 3856691800209668360}
   type: Snowman
-  systemIntegrity: 80
+  systemIntegrity: 10
   maxIntegrity: 80
   temperature: 0
   energy: 200
@@ -759,6 +759,7 @@ MonoBehaviour:
   isLockedOn: 0
   lockDuration: 8
   isDisabled: 0
+  walkPointSet: 0
   distanceToTarget: {x: 0, y: 0, z: 0}
   angleToTarget: 0
   leader: {fileID: 0}
@@ -792,7 +793,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 3856691800209668363}
-  walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 10
   maxIdleTime: 30
   strafeDistance: 10
@@ -871,6 +871,7 @@ MonoBehaviour:
   deathVoiceLines:
   - WAIT AT LEAST SAVE MY CORE
   ableToSpeak: 1
+  hasSpokenDeathVoiceLine: 0
 --- !u!1 &5491148497889446217
 GameObject:
   m_ObjectHideFlags: 0

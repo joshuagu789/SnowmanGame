@@ -37,7 +37,7 @@ public class MeleeAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTarget.magnitude != 0 && entity.distanceToTarget.sqrMagnitude <= range * range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
+            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring)
                 {

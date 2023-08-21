@@ -61,6 +61,11 @@ public class PlayerUI: SquadMemberUI
         }
         else
             targetLockImage.SetActive(false);
+        if (snowman.animator.GetBool("isMelting") & !hasSpokenDeathVoiceLine)
+        {
+            hasSpokenDeathVoiceLine = true;
+            OverrideSpeak(deathVoiceLines[(int)UnityEngine.Random.Range(0, deathVoiceLines.Count)]);
+        }
     }
 
     private void UpdateText()

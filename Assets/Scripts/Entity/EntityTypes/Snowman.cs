@@ -78,7 +78,7 @@ public class Snowman : Entity
             isLockedOn = false;
         else
             animator.SetBool("isLockedOn", true);
-        if (readyToCheckLock && isLockedOn && distanceToTarget.sqrMagnitude > detectionRange * detectionRange)
+        if (readyToCheckLock && isLockedOn && distanceToTargetSqr > detectionRange * detectionRange)
         {
             readyToCheckLock = false;
             StartCoroutine(LockLifetime(target));
@@ -90,9 +90,10 @@ public class Snowman : Entity
         yield return new WaitForSeconds(lockDuration);
 
         // Removing the lock and resetting states if target is outside detection range so entity can resume patrolling/being idle
-        if (target != null && distanceToTarget.sqrMagnitude > detectionRange * detectionRange && expectedTarget == target) // If the target of time lockDuration ago is still locked on
+        if (target != null && distanceToTargetSqr > detectionRange * detectionRange && expectedTarget == target) // If the target of time lockDuration ago is still locked on
         {
-            distanceToTarget = new Vector3(0f, 0f, 0f);
+            vectorToTarget = new Vector3(0f, 0f, 0f);
+            distanceToTargetSqr = 0;
             isLockedOn = false;
             target = null;
             readyToCheckLock = true;

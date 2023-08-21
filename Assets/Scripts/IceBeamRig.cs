@@ -72,7 +72,7 @@ public class IceBeamRig : MonoBehaviour
         // Laser beam always hit target if player is locked on in PlayerTargeting script
         if (player.isLockedOn && player.target != null)
         {
-            if (player.distanceToTarget.magnitude <= weaponRange)
+            if (player.distanceToTargetSqr <= weaponRange * weaponRange)
             {
                 laser.SetPosition(0, laserOrigin.position);
                 laser.SetPosition(1, player.target.position);

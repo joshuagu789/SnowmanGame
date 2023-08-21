@@ -61,14 +61,16 @@ public class Teleport : MonoBehaviour
             foreach (Entity ally in list)
             {
                 ally.agent.enabled = false;
-                /*
+                
                 ally.transform.Translate(new Vector3(0f, 100f, 0f));
                 ally.transform.Translate(travelVector);    // Teleporting
                 ally.transform.Translate(new Vector3(0f, -100f, 0f));
-                */
+                
+                /*
                 ally.transform.position += new Vector3(0f, 100f, 0f);
                 ally.transform.position += travelVector;
                 ally.transform.position -= new Vector3(0f, 100f, 0f);
+                */
 
                 ally.agent.enabled = true;
                 ally.isIdle = false; 
