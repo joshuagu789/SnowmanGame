@@ -61,12 +61,19 @@ public class Teleport : MonoBehaviour
             foreach (Entity ally in list)
             {
                 ally.agent.enabled = false;
-                
+
+                RaycastHit hit;
+                // If destination is below/above the ground
+                if (Physics.Raycast(ally.transform.position + travelVector, transform.up, out hit, 1000) || Physics.Raycast(ally.transform.position + travelVector, -transform.up, out hit, 1000))
+                    if (hit.collider.gameObject.tag.Equals("Ground"))
+                        ally.transform.position = hit.point;    // Setting ally's position to where the raycast hit the ground
+
+                /*
                 ally.transform.Translate(new Vector3(0f, 100f, 0f));
                 ally.transform.Translate(travelVector);    // Teleporting
                 ally.transform.Translate(new Vector3(0f, -100f, 0f));
                 
-                /*
+                
                 ally.transform.position += new Vector3(0f, 100f, 0f);
                 ally.transform.position += travelVector;
                 ally.transform.position -= new Vector3(0f, 100f, 0f);

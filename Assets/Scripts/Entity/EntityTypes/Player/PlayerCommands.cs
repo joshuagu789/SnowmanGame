@@ -25,7 +25,7 @@ public class PlayerCommands : MonoBehaviour
     private bool readyToSendOrder = false;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         // Making command bar transparent
         commandBar.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.75f);

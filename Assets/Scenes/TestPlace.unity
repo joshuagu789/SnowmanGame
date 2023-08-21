@@ -1247,7 +1247,7 @@ MonoBehaviour:
     FieldOfView: 75
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 5000
+    FarClipPlane: 500
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -1642,7 +1642,7 @@ MonoBehaviour:
     FieldOfView: 75
     OrthographicSize: 10
     NearClipPlane: 0.001
-    FarClipPlane: 5000
+    FarClipPlane: 500
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -1829,7 +1829,7 @@ MonoBehaviour:
     FieldOfView: 75
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 5000
+    FarClipPlane: 500
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -1850,7 +1850,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.006435588, y: -0.00000001723409, z: 1.109138e-10, w: 0.9999793}
+  m_LocalRotation: {x: 0.0064355843, y: -0.000000017236042, z: 1.10926296e-10, w: 0.9999793}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2475,7 +2475,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 5000
+  far clip plane: 500
   field of view: 75
   orthographic: 0
   orthographic size: 10
@@ -3371,8 +3371,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snowmenList: []
   enemiesList: []
+  spawner: {fileID: 1186613838}
+  player: {fileID: 1907387499}
+  detectionThreshold: 3
   threatLevel: 0
-  gameTime: 0
 --- !u!4 &1186613835
 Transform:
   m_ObjectHideFlags: 0
@@ -6348,7 +6350,7 @@ MonoBehaviour:
     FieldOfView: 75
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 5000
+    FarClipPlane: 500
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -7084,7 +7086,9 @@ MonoBehaviour:
   isLockedOn: 0
   lockDuration: 0
   isDisabled: 0
-  distanceToTarget: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  vectorToTarget: {x: 0, y: 0, z: 0}
+  distanceToTargetSqr: 0
   angleToTarget: 0
   leader: {fileID: 0}
   isLeader: 1
@@ -7218,6 +7222,7 @@ MonoBehaviour:
   deathVoiceLines:
   - ...I'm doomed
   ableToSpeak: 1
+  hasSpokenDeathVoiceLine: 0
   integrityText: {fileID: 85404753}
   tempText: {fileID: 1903247894}
   energyText: {fileID: 129291612}
@@ -7433,7 +7438,7 @@ MonoBehaviour:
     FieldOfView: 75
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 5000
+    FarClipPlane: 500
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -8366,7 +8371,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146281282}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &2146281284
 Camera:
   m_ObjectHideFlags: 0
@@ -8390,8 +8395,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0.1
+  far clip plane: 500
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -8618,10 +8623,18 @@ PrefabInstance:
       propertyPath: dialogueBox
       value: 
       objectReference: {fileID: 1656997822}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: deathVoiceLines.Array.data[0]
+      value: IM FALLING APART
+      objectReference: {fileID: 0}
     - target: {fileID: 545863580471765322, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 545863580471765322, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: teleportDistance
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 545863580471765335, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: leader
       value: 
@@ -8781,6 +8794,10 @@ PrefabInstance:
     - target: {fileID: 1240747218549083647, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
       propertyPath: m_Name
       value: EmberElite
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240747218549083647, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1906101989588883269, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
       propertyPath: m_RootOrder
@@ -9219,6 +9236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PatrolBot
       objectReference: {fileID: 0}
+    - target: {fileID: 4685744231708164528, guid: 8e310e51891bb46c682818d01321b275, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5353877403623840522, guid: 8e310e51891bb46c682818d01321b275, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -9267,7 +9288,8 @@ PrefabInstance:
       propertyPath: server
       value: 
       objectReference: {fileID: 1186613834}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8e310e51891bb46c682818d01321b275, type: 3}
 --- !u!4 &5646858321975820753
 Transform:
@@ -9382,6 +9404,10 @@ PrefabInstance:
     - target: {fileID: 5863845421879499884, guid: f1247e221651a4645afbdb3a09ffe1da, type: 3}
       propertyPath: m_Name
       value: Ember
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863845421879499884, guid: f1247e221651a4645afbdb3a09ffe1da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6497358335373592278, guid: f1247e221651a4645afbdb3a09ffe1da, type: 3}
       propertyPath: m_RootOrder

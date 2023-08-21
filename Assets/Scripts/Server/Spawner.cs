@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour
     private Vector3 spawnLocation;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         enemiesList.Add(1, tierOneEnemies);
         enemiesList.Add(2, tierTwoEnemies);

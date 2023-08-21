@@ -20,14 +20,17 @@ public class GameServer : MonoBehaviour
     public float detectionThreshold;
     public float threatLevel = 0f;
 
-    private float maxEntities;
+    private int maxEntities = 100;
     private float gameTime = 0f;
     private float sunRiseTime = 600f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < 6; i++)
+        {
+            spawner.SpawnRandom("Enemies", (int)Random.Range(1, 2), (int)Random.Range(2, 5), player.transform, 500, 1000);
+        }
     }
 
     // Update is called once per frame
@@ -36,18 +39,18 @@ public class GameServer : MonoBehaviour
         // To make gameTime reflect seconds passed since game started
         gameTime += Time.deltaTime;
 
-        if (detectionLevel >= detectionThreshold)
+        if (detectionLevel >= detectionThreshold && snowmenList.Count + enemiesList.Count <= maxEntities)
         {
             detectionLevel = 0;
-            StartCoroutine(StartWaveEvent());
+            StartCoroutine(StartWaveEvent(6f));
             print("spawning wave");
         }
     }
 
-    private IEnumerator StartWaveEvent()
+    private IEnumerator StartWaveEvent(float time)
     {
         MoveAllEnemies(player.transform.position);
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(time);
 
         for (int i = 0; i < 3; i++)
         {
@@ -61,7 +64,7 @@ public class GameServer : MonoBehaviour
     {
         foreach (Transform enemy in enemiesList)
         {
-            enemy.GetComponent<Entity>().MoveTo(new Vector3(location.x + Random.Range(-50f,50f), location.y, location.z + Random.Range(-50f,50f)));
+            enemy.GetComponent<Entity>().MoveTo(new Vector3(location.x + Random.Range(-150f, 150f), location.y, location.z + Random.Range(-150f, 150f)));
         }
     }
 
