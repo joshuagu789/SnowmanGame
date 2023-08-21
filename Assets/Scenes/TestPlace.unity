@@ -1850,7 +1850,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.0064355843, y: -0.000000017236042, z: 1.10926296e-10, w: 0.9999793}
+  m_LocalRotation: {x: 0.0064355806, y: 0.000000017345968, z: -1.11633695e-10, w: 0.9999793}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3373,7 +3373,7 @@ MonoBehaviour:
   enemiesList: []
   spawner: {fileID: 1186613838}
   player: {fileID: 1907387499}
-  detectionThreshold: 3
+  detectionThreshold: 2
   threatLevel: 0
 --- !u!4 &1186613835
 Transform:
@@ -3435,10 +3435,10 @@ MonoBehaviour:
   player: {fileID: 1907387495}
   tierOneEnemies:
   - {fileID: 4685744231708164528, guid: 8e310e51891bb46c682818d01321b275, type: 3}
-  - {fileID: 3350671054496642245, guid: 7c0b37d5fc90f4c91b7e0b01bdd4ecc8, type: 3}
   tierTwoEnemies:
   - {fileID: 1240747218549083647, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
   - {fileID: 5863845421879499884, guid: f1247e221651a4645afbdb3a09ffe1da, type: 3}
+  - {fileID: 3350671054496642245, guid: 7c0b37d5fc90f4c91b7e0b01bdd4ecc8, type: 3}
   tierOneSnowmen:
   - {fileID: 1090575682137268354, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
   - {fileID: 4126653042107786600, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
@@ -8542,11 +8542,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
---- !u!4 &543450652672077067 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1906101989588883269, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
-  m_PrefabInstance: {fileID: 2159877155606329934}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &543450653444967029
 Transform:
   m_ObjectHideFlags: 0
@@ -8791,13 +8786,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 341418487005720987, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
+      propertyPath: recruitRange
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 1240747218549083647, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
       propertyPath: m_Name
       value: EmberElite
       objectReference: {fileID: 0}
     - target: {fileID: 1240747218549083647, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1906101989588883269, guid: a60e6caa5869f449db99d206d2af96f3, type: 3}
       propertyPath: m_RootOrder
@@ -9456,7 +9455,7 @@ PrefabInstance:
     - target: {fileID: 6746948071148317461, guid: f1247e221651a4645afbdb3a09ffe1da, type: 3}
       propertyPath: leader
       value: 
-      objectReference: {fileID: 543450652672077067}
+      objectReference: {fileID: 0}
     - target: {fileID: 6746948071148317461, guid: f1247e221651a4645afbdb3a09ffe1da, type: 3}
       propertyPath: server
       value: 

@@ -85,6 +85,13 @@ public class Entity : MonoBehaviour
         }
     }
 
+    public void OnDestroy()
+    {
+        if (leader != null)
+            leader.GetComponent<Entity>().squadList.Remove(this);
+        print("removing");
+    }
+
     public void AddToServer()
     {
         if (type.Equals("Enemy") && server != null)

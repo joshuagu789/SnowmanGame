@@ -257,12 +257,12 @@ MonoBehaviour:
   fov: 180
   minRange: 25
   maxRange: 30
-  leashRange: 0
+  leashRange: 200
   defaultLeashRange: 0
   target: {fileID: 0}
   isIdle: 0
   isLockedOn: 0
-  lockDuration: 0
+  lockDuration: 15
   isDisabled: 0
   walkPointSet: 0
   vectorToTarget: {x: 0, y: 0, z: 0}

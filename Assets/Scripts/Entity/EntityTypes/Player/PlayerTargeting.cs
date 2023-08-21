@@ -40,7 +40,7 @@ public class PlayerTargeting : MonoBehaviour
 
     private void LateUpdate()   // Rotating a bone that's in an animator to override it (LateUpdate calls after animations update)
     {
-        if (player.isLockedOn)
+        if (player.isLockedOn && player.target != null)
         {
             AdjustRotation();
         }
