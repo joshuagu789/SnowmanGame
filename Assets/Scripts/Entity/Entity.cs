@@ -83,11 +83,11 @@ public class Entity : MonoBehaviour
 
     public void AddToServer()
     {
-        if (type.Equals("Enemy"))
+        if (type.Equals("Enemy") && server != null)
         {
             server.enemiesList.Add(transform);
         }
-        else if (type.Equals("Snowman"))
+        else if (type.Equals("Snowman") && server != null)
         {
             server.snowmenList.Add(transform);
         }

@@ -120,17 +120,10 @@ public class PlayerTargeting : MonoBehaviour
         Vector3 targetLocalPos = transform.InverseTransformPoint(player.target.position);  // Storing target's location relative to player
 
         if (targetLocalPos.x < 0)   // If target is left of player
-        {
-            //torso.rotation = Quaternion.SlerpUnclamped(torso.localRotation, Quaternion.Euler(-90f, 0f, -angle), 10 * Time.deltaTime);
-            print("left: " + (-angle));
             lookRotation = Quaternion.Slerp(lookRotation, Quaternion.Euler(-90f, 0f, -angle), 10 * Time.deltaTime);  // Not sure how putting lookRotation on right of equals sign works yet but it overrides animation without jitters
-        }
         else if (targetLocalPos.x > 0)  // If target is right of player
-        {
-            //torso.rotation = Quaternion.SlerpUnclamped(torso.localRotation, Quaternion.Euler(-90f, 0f, angle), 10 * Time.deltaTime);
-            print("right: " + angle);
             lookRotation = Quaternion.Slerp(lookRotation, Quaternion.Euler(-90f, 0f, angle), 10 * Time.deltaTime);  // Not sure how putting lookRotation on right of equals sign works yet but it overrides animation without jitters
-        }
+
         torso.localRotation = lookRotation;
     }
 }

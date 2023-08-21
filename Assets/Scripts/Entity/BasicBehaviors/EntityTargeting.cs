@@ -8,7 +8,6 @@ using UnityEngine;
 
 public class EntityTargeting : MonoBehaviour
 {
-
     public Entity entity;
     private List<Transform> targetList = new List<Transform>();
 

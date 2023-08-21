@@ -35,8 +35,7 @@ public class Teleport : MonoBehaviour
             cooldownTimer = 0;
             entity.energy -= energyCost;
 
-            destination = new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z);
-            destination *= teleportDistance;
+            destination = new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z) * teleportDistance + entity.leader.transform.position;
             var travelVector = destination - new Vector3(entity.leader.transform.position.x, 0f, entity.leader.transform.position.z);
 
             StartCoroutine(MovePosition(entity.leader.GetComponent<Entity>().squadList, travelVector, true));
@@ -61,7 +60,17 @@ public class Teleport : MonoBehaviour
         {
             foreach (Entity ally in list)
             {
-                ally.transform.position += travelVector;    // Teleporting
+                ally.agent.enabled = false;
+                /*
+                ally.transform.Translate(new Vector3(0f, 100f, 0f));
+                ally.transform.Translate(travelVector);    // Teleporting
+                ally.transform.Translate(new Vector3(0f, -100f, 0f));
+                */
+                ally.transform.position += new Vector3(0f, 100f, 0f);
+                ally.transform.position += travelVector;
+                ally.transform.position -= new Vector3(0f, 100f, 0f);
+
+                ally.agent.enabled = true;
                 ally.isIdle = false; 
             }
 
