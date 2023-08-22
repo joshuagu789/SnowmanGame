@@ -358,8 +358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 2503597064581390583}
-  walkPointRange: 30
-  maxIdleTime: 30
+  walkPointRange: 50
+  maxIdleTime: 150
   strafeDistance: 0
 --- !u!114 &2503597064581390580
 MonoBehaviour:

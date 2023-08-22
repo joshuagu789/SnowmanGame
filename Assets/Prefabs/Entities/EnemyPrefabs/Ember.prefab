@@ -499,8 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 6746948071148317461}
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 50
+  walkPointRange: 250
   maxIdleTime: 20
   strafeDistance: 100
 --- !u!195 &6746948071148317463
@@ -561,7 +560,9 @@ MonoBehaviour:
   isLockedOn: 0
   lockDuration: 20
   isDisabled: 0
-  distanceToTarget: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  vectorToTarget: {x: 0, y: 0, z: 0}
+  distanceToTargetSqr: 0
   angleToTarget: 0
   leader: {fileID: 0}
   isLeader: 0

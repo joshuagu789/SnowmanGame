@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueManager : MonoBehaviour
+public class BackgroundDialogue : MonoBehaviour
 {
     /*
      * Each ally (including the player) has a personal dictionary storing all their chatter voice lines (background chit-chat in the game).
@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
     private Dictionary<int, List<string>> modelB_VoiceLines = new Dictionary<int, List<string>>
     // Model B's chatter voice lines
     { {0, new List<string>{"Enough chatter, I have eyes on target!",}}, {1, new List<string>{"How are we on energy?","How is our energy?"}}, {2, new List<string>{"I just hope it lasts.","We just need enough to last the night.","I will make do with what I have left."}},
-    {3, new List<string>{"My side is clear. Any enemies on the others?",}}, {4, new List<string>{"I don't think so.","No."}},
+    {3, new List<string>{"My side is clear. Any enemies on the others?",}}, {4, new List<string>{"I don't think so.","No.","None close enough to pose a threat."}},
     {5, new List<string>{"Stay calm, and we survive the night."}}, {6, new List<string>{""}}, };
 
 

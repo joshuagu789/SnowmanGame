@@ -39,7 +39,7 @@ public class GameServer : MonoBehaviour
         // To make gameTime reflect seconds passed since game started
         gameTime += Time.deltaTime;
 
-        if (detectionLevel >= detectionThreshold && snowmenList.Count + enemiesList.Count <= maxEntities)
+        if (detectionLevel >= detectionThreshold)
         {
             detectionLevel = 0;
             StartCoroutine(StartWaveEvent(6f));
@@ -52,9 +52,12 @@ public class GameServer : MonoBehaviour
         MoveAllEnemies(player.transform.position);
         yield return new WaitForSeconds(time);
 
-        for (int i = 0; i < 3; i++)
+        if (snowmenList.Count + enemiesList.Count <= maxEntities)
         {
-            spawner.SpawnRandom("Enemies",1,2,(int)Random.Range(2,5),player.transform,300,500);
+            for (int i = 0; i < 3; i++)
+            {
+                spawner.SpawnRandom("Enemies", 1, 2, (int)Random.Range(2, 5), player.transform, 300, 500);
+            }
         }
 
         MoveAllEnemies(player.transform.position);

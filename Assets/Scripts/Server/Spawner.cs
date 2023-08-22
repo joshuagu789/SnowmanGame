@@ -51,7 +51,7 @@ public class Spawner : MonoBehaviour
 
             for (int i = 0; i < amount; i++)
             {
-                var tierList = entityList[(int)Random.Range(minTier, maxTier)]; // Selecting random tier to spawn units from and assigning the list containing the units to variable
+                var tierList = entityList[(int)Random.Range(minTier, maxTier + 1)]; // Selecting random tier to spawn units from and assigning the list containing the units to variable
                 var index = Random.Range(0, tierList.Count);    // Choosing random unit within the list of units corresponding to a tier
                 var spawnedEntity = Instantiate(tierList[index], spawnLocation, transform.rotation);
 

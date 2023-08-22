@@ -13,6 +13,15 @@ public class Detector : MonoBehaviour
     public float energyCost;
     public float detectionSpeed;
 
+    // Entity alerts server when destroyed as well
+    private void OnDestroy()
+    {
+        if (entity.energy > 0)
+        {
+            entity.server.RaiseDetectionLevel(detectionSpeed * 4);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
