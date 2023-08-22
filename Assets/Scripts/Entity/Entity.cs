@@ -89,7 +89,6 @@ public class Entity : MonoBehaviour
     {
         if (leader != null)
             leader.GetComponent<Entity>().squadList.Remove(this);
-        print("removing");
     }
 
     public void AddToServer()

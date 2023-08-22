@@ -2217,7 +2217,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.006435585, y: -0.000000017504508, z: 1.1265408e-10, w: 0.9999793}
+  m_LocalRotation: {x: 0.0064355843, y: 0.000000017236042, z: -1.10926296e-10, w: 0.9999793}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2904,6 +2904,7 @@ GameObject:
   - component: {fileID: 963194231}
   - component: {fileID: 963194232}
   - component: {fileID: 963194233}
+  - component: {fileID: 963194234}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3137,6 +3138,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &963194234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a6b14990ded417d9f586eab609fc37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 963194233}
+  gameStartMusic: []
+  waveMusic:
+  - {fileID: 8300000, guid: 8de22bed388644930b50322d1623a3ad, type: 3}
 --- !u!1 &1003831983
 GameObject:
   m_ObjectHideFlags: 0
@@ -3818,6 +3835,7 @@ GameObject:
   - component: {fileID: 1186613836}
   - component: {fileID: 1186613837}
   - component: {fileID: 1186613838}
+  - component: {fileID: 1186613839}
   m_Layer: 0
   m_Name: GameServer
   m_TagString: Untagged
@@ -3839,9 +3857,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snowmenList: []
   enemiesList: []
+  broadcaster: {fileID: 1186613839}
+  music: {fileID: 963194234}
   spawner: {fileID: 1186613838}
   player: {fileID: 1907387499}
-  detectionThreshold: 2
+  detectionThreshold: 1.5
   threatLevel: 0
 --- !u!4 &1186613835
 Transform:
@@ -3912,6 +3932,28 @@ MonoBehaviour:
   - {fileID: 4126653042107786600, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
   - {fileID: 815756098006390459, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
   tierTwoSnowmen: []
+--- !u!114 &1186613839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186613833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c86987626efc421d9145484cf70fd4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1907387499}
+  partyList:
+  - {fileID: 1907387506}
+  - {fileID: 5866666021881493243}
+  - {fileID: 5866666021569878319}
+  - {fileID: 5866666020254354787}
+  broadcaster: {fileID: 869754041}
+  broadcastText: {fileID: 217875804}
+  image: {fileID: 1676374814}
+  imageBackground: {fileID: 298184}
 --- !u!54 &1209957789
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7765,6 +7807,10 @@ MonoBehaviour:
   - Reporting.
   deathVoiceLines:
   - ...I'm doomed
+  alertVoiceLines:
+  - ...We...we have been spotted...
+  alertResponseVoiceLines:
+  - Form up, and follow my directions if you want to live!
   ableToSpeak: 1
   hasSpokenDeathVoiceLine: 0
   integrityText: {fileID: 85404753}
@@ -9028,6 +9074,22 @@ PrefabInstance:
       propertyPath: dialogueBox
       value: 
       objectReference: {fileID: 1495188129}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: alertVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: alertVoiceLines.Array.data[0]
+      value: The fog of war shifts... not good!
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: alertResponseVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: alertResponseVoiceLines.Array.data[0]
+      value: Get ready.
+      objectReference: {fileID: 0}
     - target: {fileID: 280323923983135799, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: leader
       value: 
@@ -9163,8 +9225,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1656997822}
     - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: alertVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: alertVoiceLines.Array.data[0]
+      value: ...Anyone else hear that?
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: deathVoiceLines.Array.data[0]
       value: IM FALLING APART
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: alertResponseVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: alertResponseVoiceLines.Array.data[0]
+      value: LETS MOVE WHILE WE STILL CAN
       objectReference: {fileID: 0}
     - target: {fileID: 545863580471765322, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: camera
@@ -9688,6 +9766,22 @@ PrefabInstance:
       propertyPath: dialogueBox
       value: 
       objectReference: {fileID: 590069451}
+    - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: alertVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: alertVoiceLines.Array.data[0]
+      value: Multiple energy signatures gathering... wait do they know?
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: alertResponseVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: alertResponseVoiceLines.Array.data[0]
+      value: ...Are you all ready?
+      objectReference: {fileID: 0}
     - target: {fileID: 4126653042107786600, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
       propertyPath: m_Name
       value: Model C

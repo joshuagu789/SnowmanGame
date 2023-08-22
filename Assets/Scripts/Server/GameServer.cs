@@ -13,6 +13,8 @@ public class GameServer : MonoBehaviour
     public List<Transform> snowmenList = new List<Transform>();   // Includes player
     public List<Transform> enemiesList = new List<Transform>();
 
+    public BroadcastDialogue broadcaster;
+    public MusicManager music;
     public Spawner spawner;
     public Player player;
 
@@ -36,6 +38,7 @@ public class GameServer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q)) { detectionLevel += 0.1f; }
         // To make gameTime reflect seconds passed since game started
         gameTime += Time.deltaTime;
 
@@ -43,7 +46,8 @@ public class GameServer : MonoBehaviour
         {
             detectionLevel = 0;
             StartCoroutine(StartWaveEvent(6f));
-            print("spawning wave");
+            broadcaster.StartWaveDialogue();
+            music.PlayWaveMusic();
         }
     }
 

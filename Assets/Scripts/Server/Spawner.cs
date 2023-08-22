@@ -32,15 +32,6 @@ public class Spawner : MonoBehaviour
         snowmenList.Add(2, tierTwoSnowmen);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SpawnRandom("enemy", 1, 1, 4, player, 100, 100);
-        }
-    }
-
     // Instantiates random entities from a list which is determined by type and tier (type being either "Snowmen" or "Enemy")
     public void SpawnRandom(string type, int minTier, int maxTier,int amount, Transform location, int minRange, int maxRange)
     {

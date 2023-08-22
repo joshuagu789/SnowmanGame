@@ -24,10 +24,12 @@ public class SquadMemberUI : MonoBehaviour
 
     public TextMeshProUGUI dialogueBox;
 
-    // For dialogue when ordered around
+    // For dialogue that is often used repetitively
     public List<string> affirmativeVoiceLines = new List<string>();
     public List<string> readyVoiceLines = new List<string>();
     public List<string> deathVoiceLines = new List<string>();
+    public List<string> alertVoiceLines = new List<string>();
+    public List<string> alertResponseVoiceLines = new List<string>();
 
     [HideInInspector]
     public bool ableToSpeak = true;
@@ -135,9 +137,5 @@ public class SquadMemberUI : MonoBehaviour
     public void Speak(string quote)
     {
         StartCoroutine(Output(quote));
-        /*
-        if(dialogueBox != null)
-        dialogueBox.SetText(quote);
-        */
     }
 }
