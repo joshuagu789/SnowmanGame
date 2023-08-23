@@ -594,7 +594,7 @@ MonoBehaviour:
   bulletLifetime: 2
   bulletCount: 4
   bulletInterval: 0.1
-  fireAngleDeviation: 7.5
+  fireAngleDeviation: 15
 --- !u!1 &6746948071404720205
 GameObject:
   m_ObjectHideFlags: 0

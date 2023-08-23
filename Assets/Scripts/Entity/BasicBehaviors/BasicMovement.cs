@@ -143,9 +143,7 @@ public class BasicMovement : MonoBehaviour
             // Checking if destination is reached
             Vector3 distanceToWalkPoint = new Vector3(entity.GetWalkPoint().x - transform.position.x, 0f, entity.GetWalkPoint().z - transform.position.z);
             if (distanceToWalkPoint.magnitude < 1f)
-            {
                 entity.walkPointSet = false;
-            }
         }
     }
 
@@ -173,10 +171,8 @@ public class BasicMovement : MonoBehaviour
 
         // Checking if destination is within map     EXPERIMENTAL: have raycast go up as well if destination is at a higher
         //                                                          elevation (random coordinate assumes y position doesn't change)
-        if (Physics.Raycast(walkPoint, -transform.up) || Physics.Raycast(walkPoint, transform.up))
-        {
+        if (Physics.Raycast(walkPoint, -Vector3.up) || Physics.Raycast(walkPoint, Vector3.up))
             entity.MoveTo(walkPoint);
-        }
     }
 
     void Pursuing()

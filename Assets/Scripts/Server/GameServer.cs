@@ -20,16 +20,18 @@ public class GameServer : MonoBehaviour
 
     private float detectionLevel = 0f;
     public float detectionThreshold;
+    private float waveCooldown = 180f;
     public float threatLevel = 0f;
 
     private int maxEntities = 100;
-    private float gameTime = 0f;
     private float sunRiseTime = 600f;
+    private float cooldownTimer;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 6; i++)
+        cooldownTimer = waveCooldown;
+        for (int i = 0; i < 10; i++)
         {
             spawner.SpawnRandom("Enemies", 1, 1, (int)Random.Range(2, 5), player.transform, 500, 1000);
         }
@@ -38,12 +40,13 @@ public class GameServer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) { detectionLevel += 0.1f; }
-        // To make gameTime reflect seconds passed since game started
-        gameTime += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Q)) { detectionLevel += 0.3f; }
 
-        if (detectionLevel >= detectionThreshold)
+        cooldownTimer += Time.deltaTime;
+
+        if (detectionLevel >= detectionThreshold && cooldownTimer >= waveCooldown)
         {
+            cooldownTimer = 0;
             detectionLevel = 0;
             StartCoroutine(StartWaveEvent(6f));
             broadcaster.StartWaveDialogue();
@@ -75,5 +78,9 @@ public class GameServer : MonoBehaviour
         }
     }
 
-    public void RaiseDetectionLevel(float amount) { detectionLevel += amount; }
+    public void RaiseDetectionLevel(float amount)
+    {
+        if(cooldownTimer >= waveCooldown)
+            detectionLevel += amount;
+    }
 }

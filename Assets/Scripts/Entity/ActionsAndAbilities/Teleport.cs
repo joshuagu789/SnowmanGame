@@ -54,47 +54,48 @@ public class Teleport : MonoBehaviour
         entity.agent.isStopped = true;
 
         yield return new WaitForSeconds(activationDelay);
-        Instantiate(teleportVFX, effectLocation.position, transform.rotation);
+        //Instantiate(teleportVFX, effectLocation.position, transform.rotation);
 
         if (list != null)
         {
+            //list.Add(entity.leader.GetComponent<Entity>());
             foreach (Entity ally in list)
             {
                 ally.agent.enabled = false;
+                Instantiate(teleportVFX, ally.transform.position, transform.rotation);
 
                 RaycastHit hit;
                 // If destination is below/above the ground
-                if (Physics.Raycast(ally.transform.position + travelVector, transform.up, out hit, 1000) || Physics.Raycast(ally.transform.position + travelVector, -transform.up, out hit, 1000))
+                if (Physics.Raycast(ally.transform.position + travelVector, Vector3.up, out hit, 1000) || Physics.Raycast(ally.transform.position + travelVector, -Vector3.up, out hit, 1000))
+                {
+                    print("hit");
                     if (hit.collider.gameObject.tag.Equals("Ground"))
-                        ally.transform.position = hit.point;    // Setting ally's position to where the raycast hit the ground
-
-                /*
-                ally.transform.Translate(new Vector3(0f, 100f, 0f));
-                ally.transform.Translate(travelVector);    // Teleporting
-                ally.transform.Translate(new Vector3(0f, -100f, 0f));
-                
-                
-                ally.transform.position += new Vector3(0f, 100f, 0f);
-                ally.transform.position += travelVector;
-                ally.transform.position -= new Vector3(0f, 100f, 0f);
-                */
+                    {
+                        print("ground");
+                        ally.gameObject.transform.position = hit.point;    // Setting ally's position to where the raycast hit the ground
+                    }
+                }
 
                 ally.agent.enabled = true;
-                ally.isIdle = false; 
+                ally.isIdle = false;
+                Instantiate(teleportVFX, ally.transform.position, transform.rotation);
             }
-
+            
             // Moving the leader of the squad since list is leader's squad list & doesn't include itself
             if (leaderIsPlayer)
             {
                 yield return new WaitForSeconds(0.1f);
                 var player = entity.leader.GetComponent<CharacterController>(); // Player moves using character controller
+                Instantiate(teleportVFX, player.transform.position, transform.rotation);
                 player.Move(new Vector3(0f, 100f, 0f));     // To clear player of any obstacles
                 player.Move(travelVector); 
-                player.Move(new Vector3(0f, -100f, 0f));    // Setting player back down
+                player.Move(new Vector3(0f, -200f, 0f));    // Setting player back down
+                Instantiate(teleportVFX, player.transform.position, transform.rotation);
             }
             else
                 entity.leader.gameObject.transform.Translate(travelVector);
-            Instantiate(teleportVFX, effectLocation.position, transform.rotation);
+            
+            //Instantiate(teleportVFX, effectLocation.position, transform.rotation);
         }
 
         entity.agent.isStopped = false;

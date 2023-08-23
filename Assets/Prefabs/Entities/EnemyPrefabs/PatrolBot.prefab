@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 5604292529476388495}
-  walkPointRange: 500
+  walkPointRange: 1000
   maxIdleTime: 60
   strafeDistance: 10
 --- !u!114 &5604292529476388492
@@ -250,7 +250,7 @@ MonoBehaviour:
   temperature: 0
   energy: 35
   maxEnergy: 35
-  speed: 4
+  speed: 5
   rotationSpeed: 90
   detectionRange: 100
   range: 50
@@ -332,7 +332,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9056604, g: 0.57708144, b: 0.07262372, a: 1}
-  m_Intensity: 10
+  m_Intensity: 2
   m_Range: 75
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

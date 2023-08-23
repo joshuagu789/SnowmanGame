@@ -322,7 +322,7 @@ MonoBehaviour:
   target: {fileID: 0}
   isIdle: 0
   isLockedOn: 0
-  lockDuration: 60
+  lockDuration: 50
   isDisabled: 0
   walkPointSet: 0
   vectorToTarget: {x: 0, y: 0, z: 0}
