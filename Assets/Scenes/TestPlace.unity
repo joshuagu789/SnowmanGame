@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: c952174474e2143709de0e5498626a96, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 697dcc1a69e1a2c4ea5db483875ede85, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -2217,7 +2217,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.006435586, y: 0.000000017060886, z: -1.09799066e-10, w: 0.9999793}
+  m_LocalRotation: {x: 0.0064355824, y: -0.00000001723781, z: 1.10937634e-10, w: 0.9999793}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3862,7 +3862,7 @@ MonoBehaviour:
   music: {fileID: 963194234}
   spawner: {fileID: 1186613838}
   player: {fileID: 1907387499}
-  detectionThreshold: 1.5
+  detectionThreshold: 1
   threatLevel: 0
 --- !u!4 &1186613835
 Transform:
