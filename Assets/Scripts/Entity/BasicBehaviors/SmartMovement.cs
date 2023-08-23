@@ -171,7 +171,7 @@ public class SmartMovement : MonoBehaviour
 
         // Checking if destination is within map     EXPERIMENTAL: have raycast go up as well if destination is at a higher
         //                                                          elevation (random coordinate assumes y position doesn't change)
-        if (Physics.Raycast(walkPoint, -Vector3.up) || Physics.Raycast(walkPoint, Vector3.up))
+        if (Physics.Raycast(walkPoint, Vector3.down) || Physics.Raycast(walkPoint, Vector3.up))
             entity.MoveTo(walkPoint);
     }
 

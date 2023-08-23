@@ -35,8 +35,7 @@ public class Teleport : MonoBehaviour
             cooldownTimer = 0;
             entity.energy -= energyCost;
 
-            destination = new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z) * teleportDistance + entity.leader.transform.position;
-            var travelVector = destination - new Vector3(entity.leader.transform.position.x, 0f, entity.leader.transform.position.z);
+            var travelVector = new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z) * teleportDistance;
 
             StartCoroutine(MovePosition(entity.leader.GetComponent<Entity>().squadList, travelVector, true));
         }
@@ -52,9 +51,8 @@ public class Teleport : MonoBehaviour
         entity.animator.SetTrigger("Teleport");
         entity.isDisabled = true;
         entity.agent.isStopped = true;
-
+        print(travelVector);
         yield return new WaitForSeconds(activationDelay);
-        //Instantiate(teleportVFX, effectLocation.position, transform.rotation);
 
         if (list != null)
         {
@@ -66,15 +64,12 @@ public class Teleport : MonoBehaviour
 
                 RaycastHit hit;
                 // If destination is below/above the ground
-                if (Physics.Raycast(ally.transform.position + travelVector, Vector3.up, out hit, 1000) || Physics.Raycast(ally.transform.position + travelVector, -Vector3.up, out hit, 1000))
-                {
-                    print("hit");
+                if (Physics.Raycast(ally.transform.position + travelVector, transform.up, out hit, Mathf.Infinity) || Physics.Raycast(ally.transform.position + travelVector, -transform.up, out hit, Mathf.Infinity))
                     if (hit.collider.gameObject.tag.Equals("Ground"))
-                    {
-                        print("ground");
                         ally.gameObject.transform.position = hit.point;    // Setting ally's position to where the raycast hit the ground
-                    }
-                }
+
+                if (hit.point == null || hit.point.x == 0 && hit.point.y == 0 && hit.point.z == 0)
+                    ally.gameObject.transform.position = ally.transform.position + travelVector;    // Risky- might place entitiy out of nav mesh range but raycast hit just sometimes doesn't work
 
                 ally.agent.enabled = true;
                 ally.isIdle = false;
