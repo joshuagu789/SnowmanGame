@@ -22,7 +22,7 @@ public class Robot : Entity
         AddToServer();
     }
 
-    private void OnDisable()
+    public virtual void OnDisable()
     {
         RemoveFromServer();
     }
@@ -30,11 +30,7 @@ public class Robot : Entity
     // Update is called once per frame
     private void Update()
     {
-        if (isLockedOn & target != null)
-        {
-            UpdateVectors();
-        }
-
+        UpdateVectors();
         UpdateStats();
         UpdateLockState();
         if (systemIntegrity <= 0)
@@ -43,30 +39,47 @@ public class Robot : Entity
         }
     }
 
-    private void UpdateStats()
+    public void UpdateStats()
     {
-        agent.speed = speed;
-        agent.angularSpeed = rotationSpeed;
+        if (agent != null)
+        {
+            agent.speed = speed;
+            agent.angularSpeed = rotationSpeed;
+        }
 
         if (register.hasTakenDamage)
         {
             systemIntegrity -= register.damageTaken;
             register.hasTakenDamage = false;
         }
+        ClampStats();
+    }
 
+
+    // Keeping stats within the specified boundaries
+    private void ClampStats()
+    {
+        systemIntegrity = Mathf.Clamp(systemIntegrity, 0, maxIntegrity);
+        energy = Mathf.Clamp(energy, 0, maxEnergy);
     }
 
     // To make target lock go away after a duration
-    private void UpdateLockState()
+    public virtual void UpdateLockState()
     {
-        if (target == null)
-            isLockedOn = false;
-        else
-            animator.SetBool("isLockedOn", true);
-        if (readyToCheckLock && isLockedOn && distanceToTargetSqr > detectionRange * detectionRange)
+        if (target == null || !isLockedOn) 
         {
-            readyToCheckLock = false;
-            StartCoroutine(LockLifetime(target));
+            isLockedOn = false;
+            animator.SetBool("isLockedOn", false);
+        }
+        else
+        {
+            animator.SetBool("isLockedOn", true);
+            isLockedOn = true;
+            if (readyToCheckLock && distanceToTargetSqr > detectionRange * detectionRange)
+            {
+                readyToCheckLock = false;
+                StartCoroutine(LockLifetime(target));
+            }
         }
     }
 

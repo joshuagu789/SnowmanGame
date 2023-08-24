@@ -80,10 +80,7 @@ public class Entity : MonoBehaviour
         agent.speed = speed;
         agent.angularSpeed = rotationSpeed;
 
-        if (isLockedOn & target != null) 
-        {
-            UpdateVectors();
-        }
+        UpdateVectors();
     }
 
     public void OnDestroy()
@@ -116,16 +113,19 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public void UpdateVectors()
+    public virtual void UpdateVectors()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= 0.25f)  // UpdateVectors() will execute every 0.25 seconds
+        if (target != null && isLockedOn)
         {
-            timer = 0f;
-            vectorToTarget = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
-            angleToTarget = Vector3.Angle(transform.forward, vectorToTarget);
-            distanceToTargetSqr = vectorToTarget.sqrMagnitude;
+            timer += Time.deltaTime;
+
+            if (timer >= 0.25f)  // UpdateVectors() will execute every 0.25 seconds
+            {
+                timer = 0f;
+                vectorToTarget = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
+                angleToTarget = Vector3.Angle(transform.forward, vectorToTarget);
+                distanceToTargetSqr = vectorToTarget.sqrMagnitude;
+            }
         }
     }
 
