@@ -385,6 +385,7 @@ MonoBehaviour:
   projectileOrigin: {fileID: 2159877154975794216}
   uniqueAttackNumber: 3
   isStationaryWhenFiring: 0
+  range: 60
   damage: 10
   explosionRadius: 10
   cooldown: 5
