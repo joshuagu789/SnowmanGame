@@ -12,12 +12,17 @@ public class ExplosiveBullet : MonoBehaviour
 
     public GameObject explosion;
 
+    [HideInInspector]
     public float explosionRadius;
+    [HideInInspector]
     public float damage;
+    [HideInInspector]
     public float tempModifier;
 
     // If bullet doesn't use gravity
-    public float lifeTime; 
+    [HideInInspector]
+    public float lifeTime;
+    [HideInInspector]
     public bool hasGravity;  
 
     // Start is called before the first frame update

@@ -56,6 +56,7 @@ public class Entity : MonoBehaviour
     // For targeting and aiming
     [HideInInspector]
     public Vector3 vectorToTarget;
+    [HideInInspector]
     public float distanceToTargetSqr;   // Is the squared distance since taking sqrRoot is costly- better to compare squared values w/ squared values
     [HideInInspector]
     public float angleToTarget;

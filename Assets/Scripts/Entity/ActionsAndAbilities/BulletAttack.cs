@@ -17,6 +17,7 @@ public class BulletAttack : MonoBehaviour
     public int uniqueAttackNumber;    // If an entity has multiple unique attacks, they will be numbered from 1 to x
     public bool isStationaryWhenFiring;
 
+    public float range;
     public float damage;
     public float explosionRadius;
     public float cooldown;      // Time until entity can attack again
@@ -41,7 +42,7 @@ public class BulletAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= entity.range * entity.range && cooldownTimer > cooldown && entity.angleToTarget <= (15 + fireAngleDeviation))
+            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && cooldownTimer > cooldown && entity.angleToTarget <= (5 + fireAngleDeviation))
             {
                 cooldownTimer = 0;
                 attackNumber = (int)Random.Range(1, uniqueAttackNumber + 0.99f);    // Selecting random attack

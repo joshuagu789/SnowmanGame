@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * Sets a lifetime for an explosion VFX and destroys it once the timer runs out
+ * Sets a lifetime for a game object and destroys it once the timer runs out
  */
 
-public class ExplosionVFX : MonoBehaviour
+public class Lifetime : MonoBehaviour
 {
     public float lifeTime;
 

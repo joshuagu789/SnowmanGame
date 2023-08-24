@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* 
- * This script activates only if the Entity script has found a target within range. It then calculates the trajectory to fire
- * the projectile using the kinematic equations of physics since one unit in Unity is equal to a meter. 
+ * This script activates only if the Entity script has found a target within range. It then calculates the speed to fire
+ * the projectile at using the kinematic equations of physics since one unit in Unity is equal to a meter. 
  */
 
 public class ArcingProjectileAttack : MonoBehaviour
@@ -20,7 +20,6 @@ public class ArcingProjectileAttack : MonoBehaviour
     public float explosionRadius;
     public float cooldown;      // Time until entity can attack again
     public float firingDelay;   // For projectile to appear with animation's timing
-    //public float horizontalVelocity;
     public float fireAngle;        // Angle that projectile should be fired at
     public float fireAngleDeviation;     // Max degrees that angle can deviate
 
@@ -36,7 +35,7 @@ public class ArcingProjectileAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= entity.range * entity.range && timer > cooldown && entity.angleToTarget <= (20 + fireAngleDeviation))
+            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= entity.range * entity.range && timer > cooldown && entity.angleToTarget <= (5 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring) // Making entity stop when firing
                 {

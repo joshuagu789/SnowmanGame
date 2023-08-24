@@ -40,7 +40,7 @@ public class GameServer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) { detectionLevel += 0.3f; }
+        if (Input.GetKeyDown(KeyCode.Z)) { detectionLevel += 0.3f; }
 
         cooldownTimer += Time.deltaTime;
 
