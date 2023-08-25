@@ -152,7 +152,7 @@ public class Entity : MonoBehaviour
         if (increment * defaultLeashRange + leashRange >= agent.radius){ leashRange = increment * defaultLeashRange + leashRange; }
     }
 
-    public void MoveTo(Vector3 location)
+    public virtual void MoveTo(Vector3 location)
     {
         isIdle = false;
         walkPointSet = true;

@@ -12,6 +12,7 @@ public class Turret : Robot
 {
     public Entity owner;    // Entity to which the turret is attached to
     public bool focusFires; // Entity will target owner's target if bool is true
+    public bool spotsTargets;   // Entity will tell owner to target enemy if owner has no target yet
 
     private float vectorTimer = 1f;
 
@@ -68,5 +69,10 @@ public class Turret : Robot
                 distanceToTargetSqr = vectorToTarget.sqrMagnitude;
             }
         }
+    }
+
+    public override void MoveTo(Vector3 location)
+    {
+        owner.MoveTo(location);
     }
 }

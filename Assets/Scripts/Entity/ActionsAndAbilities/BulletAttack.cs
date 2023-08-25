@@ -46,9 +46,6 @@ public class BulletAttack : MonoBehaviour
             if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && cooldownTimer > cooldown && entity.angleToTarget <= (5 + fireAngleDeviation))
             {
                 cooldownTimer = 0;
-                attackNumber = (int)Random.Range(1, uniqueAttackNumber + 0.99f);    // Selecting random attack
-                entity.animator.SetBool("isAttacking", true);
-                entity.animator.SetTrigger("Attack" + attackNumber);
                 StartCoroutine(Shoot());
             }
         }
@@ -56,6 +53,10 @@ public class BulletAttack : MonoBehaviour
 
     IEnumerator Shoot()
     {
+        attackNumber = (int)Random.Range(1, uniqueAttackNumber + 0.99f);    // Selecting random attack
+        entity.animator.SetBool("isAttacking", true);
+        entity.animator.SetTrigger("Attack" + attackNumber);
+
         yield return new WaitForSeconds(firingDelay);
         for (int x = 0; x < bulletCount; x++)
         {
