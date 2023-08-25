@@ -10,9 +10,10 @@ using UnityEngine;
 public class HuntingProjectileAttack : ArcingProjectileAttack
 {
     public float spotRadius;
+    public bool movesToTarget;  // Whether the entity or not follows where its shots go when hunting
 
-    public Vector3 possibleTargetPosition;
-    public bool hasFoundTarget = false;
+    private Vector3 possibleTargetPosition;
+    private bool hasFoundTarget = false;
 
     private float targetTimer = 0;
     private float cooldowntimer = 0;
@@ -67,7 +68,7 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
         if (attack.GetComponent<SpotterProjectile>() != null)
         {
             var attackScript = attack.GetComponent<SpotterProjectile>();
-            attackScript.SetStats(spotRadius, this);
+            attackScript.SetStats(spotRadius, entity.type, this);
         }
         if (attack.GetComponent<ExplosiveBullet>() != null)
         {
@@ -85,6 +86,8 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
     // If one of the fired projectiles has found an enemy
     public void ReportTarget(Vector3 location)
     {
+        if(movesToTarget)
+            entity.MoveTo(location);
         possibleTargetPosition = location;
         hasFoundTarget = true;
         targetTimer = 0;
