@@ -10,13 +10,13 @@ public class SpinningProjectileEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var projectile = gameObject.GetComponent<Rigidbody>();
-        projectile.AddTorque(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized, ForceMode.Impulse);
+        StartCoroutine(ApplyTorque());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator ApplyTorque()
     {
-        
+        yield return new WaitForSeconds(0.05f);     // Brief delay so that torque won't interfere with projectile's trajectory
+        var projectile = gameObject.GetComponent<Rigidbody>();
+        projectile.AddTorque(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized, ForceMode.Impulse);
     }
 }

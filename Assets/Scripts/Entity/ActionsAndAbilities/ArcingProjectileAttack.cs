@@ -61,10 +61,9 @@ public class ArcingProjectileAttack : MonoBehaviour
         // From the formula Vx * time = distance aka Vcos(angle) * time = distance (Vx is horizontal component of velocity)
         // Along with Vyf = Vyi + at aka 0 = Vsin(angle) - 9.8t with t isolated and substituted into Vcos(angle) * time = distance
         // NOTE: t for vertical component is half of time of t of horizontal component
-        print("distance: " + distance);
-                                                // Offset by 1.4 factor bc equation assumes start and end are at same height but not in reality
-        netVelocity = Mathf.Sqrt((float)((9.8f * (distance/1.4f)) / (2f * Mathf.Sin(fireAngle) * Mathf.Cos(fireAngle))));
-        print("a");
+
+        float denominator = 2f * Mathf.Sin(fireAngle * Mathf.PI / 180f) * Mathf.Cos(fireAngle * Mathf.PI / 180f);   // Converting fireAngle to radians from degrees
+        netVelocity = Mathf.Sqrt(9.8f * distance / denominator);
     }
 
     public void ShootAtLocation(Vector3 vectorToLocation)
@@ -93,14 +92,14 @@ public class ArcingProjectileAttack : MonoBehaviour
 
     public virtual void SpawnProjectile()
     {
-        // Adding inaccuracy to shot by making projectileOrigin rotate a bit
-        projectileOrigin.localRotation = Quaternion.Euler(-fireAngle + Random.Range(-fireAngleDeviation, fireAngleDeviation),
-                                                  Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
-
         var attack = Instantiate(projectile, projectileOrigin.position, projectileOrigin.localRotation);        // Creating projectile
+
         var attackScript = attack.GetComponent<ExplosiveBullet>();
 
-        attack.GetComponent<Rigidbody>().velocity = netVelocity * projectileOrigin.forward;     // Applying initial velocity to make object fly
+        // Applying initial velocity to make object fly as well as inaccuracy to the shot by rotating the vector to apply velocity with
+        attack.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-fireAngleDeviation, fireAngleDeviation), Vector3.left) *
+        Quaternion.AngleAxis(Random.Range(-fireAngleDeviation, fireAngleDeviation), Vector3.up) * projectileOrigin.forward * netVelocity;
+
         attackScript.damage = damage;
         attackScript.explosionRadius = explosionRadius;
         attackScript.hasGravity = true;

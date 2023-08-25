@@ -61,10 +61,6 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
 
     public override void SpawnProjectile()
     {
-        // Adding inaccuracy to shot by making projectileOrigin rotate a bit
-        projectileOrigin.localRotation = Quaternion.Euler(-fireAngle + Random.Range(-fireAngleDeviation, fireAngleDeviation),
-                                                  Random.Range(-fireAngleDeviation, fireAngleDeviation), 0f);
-
         var attack = Instantiate(projectile, projectileOrigin.position, projectileOrigin.localRotation);        // Creating projectile
 
         // Setting the information of the projectile depending on if it can explode & deal damage or spot enemies or both
@@ -80,8 +76,10 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
             attackScript.explosionRadius = explosionRadius;
             attackScript.hasGravity = true;
         }
-        print(netVelocity);
-        attack.GetComponent<Rigidbody>().velocity = netVelocity * projectileOrigin.forward;     // Applying initial velocity to make object fly
+
+        // Applying initial velocity to make object fly as well as inaccuracy to the shot by rotating the vector to apply velocity with
+        attack.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-fireAngleDeviation, fireAngleDeviation), Vector3.left) *
+        Quaternion.AngleAxis(Random.Range(-fireAngleDeviation, fireAngleDeviation), Vector3.up) * projectileOrigin.forward * netVelocity;     
     }
 
     // If one of the fired projectiles has found an enemy
