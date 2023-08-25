@@ -33,6 +33,8 @@ public class BroadcastDialogue : MonoBehaviour
     private IEnumerator Broadcast(List<SquadMemberUI> allies, List<string> dialogueList)
     {
         imageBackground.SetActive(false);
+        broadcastText.SetText("");
+        image.sprite = null;
 
         // Creates special effect where the broadcast box turns on and off multiple times ending with broadcaster on
         for (int i = 0; i < 3; i++)

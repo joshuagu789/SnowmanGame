@@ -59,17 +59,14 @@ public class Teleport : MonoBehaviour
             //list.Add(entity.leader.GetComponent<Entity>());
             foreach (Entity ally in list)
             {
-                ally.agent.enabled = false;
+                //ally.agent.enabled = false;
                 Instantiate(teleportVFX, ally.transform.position, transform.rotation);
 
                 RaycastHit hit;
                 // If destination is below/above the ground
-                if (Physics.Raycast(ally.transform.position + travelVector, transform.up, out hit, Mathf.Infinity) || Physics.Raycast(ally.transform.position + travelVector, -transform.up, out hit, Mathf.Infinity))
+                if (Physics.Raycast(ally.transform.position + travelVector + transform.up * -1000, transform.up, out hit, Mathf.Infinity) || Physics.Raycast(ally.transform.position + travelVector + transform.up * 1000, -transform.up, out hit, Mathf.Infinity))
                     if (hit.collider.gameObject.tag.Equals("Ground"))
-                        ally.gameObject.transform.position = hit.point;    // Setting ally's position to where the raycast hit the ground
-
-                if (hit.point == null || hit.point.x == 0 && hit.point.y == 0 && hit.point.z == 0)
-                    ally.gameObject.transform.position = ally.transform.position + travelVector;    // Risky- might place entitiy out of nav mesh range but raycast hit just sometimes doesn't work
+                        ally.agent.Warp(hit.point);
 
                 ally.agent.enabled = true;
                 ally.isIdle = false;

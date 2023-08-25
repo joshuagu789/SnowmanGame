@@ -37,7 +37,7 @@ public class PlayerCommands : MonoBehaviour
     private void Update()
     {
         // Updating if the command bar should be displayed
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Z))
             toggleOn = !toggleOn;
         if (toggleOn)
             DisplayCommands();

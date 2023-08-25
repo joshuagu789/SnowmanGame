@@ -58,7 +58,7 @@ public class ExplosiveBullet : MonoBehaviour
 
     private void ApplyDamage()
     {
-        var explosionInstance = Instantiate(explosion, transform.position, transform.rotation);
+        Instantiate(explosion, transform.position, transform.rotation);
 
         var surroundingTargets = Physics.OverlapSphere(transform.position, explosionRadius);
 

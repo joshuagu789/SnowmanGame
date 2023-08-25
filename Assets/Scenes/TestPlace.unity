@@ -2217,7 +2217,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: 0.0064355824, y: 0.00000001723781, z: -1.10937634e-10, w: 0.9999793}
+  m_LocalRotation: {x: 0.006435586, y: -0.000000017060886, z: 1.09799066e-10, w: 0.9999793}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3048,6 +3048,7 @@ MonoBehaviour:
   entity: {fileID: 950541917}
   projectile: {fileID: 3846957070246456012, guid: a2567328e57f346c0b04f6f175fae88d, type: 3}
   projectileOrigin: {fileID: 904050287}
+  spawnVFX: {fileID: 5808908797220504748, guid: a800382e2d01546988348e0cdf1180b8, type: 3}
   uniqueAttackNumber: 1
   isStationaryWhenFiring: 0
   range: 60
@@ -3398,6 +3399,7 @@ MonoBehaviour:
   waveMusic:
   - {fileID: 8300000, guid: 8de22bed388644930b50322d1623a3ad, type: 3}
   - {fileID: 8300000, guid: dbd6c857a83c740ec833ebf5056c672e, type: 3}
+  - {fileID: 8300000, guid: e99ca09547d75480cb2474183d0f5723, type: 3}
 --- !u!1 &1003831983
 GameObject:
   m_ObjectHideFlags: 0
@@ -3519,7 +3521,7 @@ MonoBehaviour:
   entity: {fileID: 1023781618}
   walkPointRange: 750
   maxIdleTime: 0
-  strafeDistance: 50
+  strafeDistance: 20
 --- !u!114 &1023781618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3548,7 +3550,7 @@ MonoBehaviour:
   range: 0
   fov: 360
   minRange: 15
-  maxRange: 55
+  maxRange: 45
   leashRange: 135
   defaultLeashRange: 0
   target: {fileID: 0}
@@ -8438,10 +8440,13 @@ MonoBehaviour:
   - Reporting.
   deathVoiceLines:
   - ...I'm doomed
+  - This is the end...
   alertVoiceLines:
   - ...We...we have been spotted...
   alertResponseVoiceLines:
   - Form up, and follow my directions if you want to live!
+  - MOVE!!! NOW!!
+  - FORM UP! AWAIT MY COMMAND!
   ableToSpeak: 1
   hasSpokenDeathVoiceLine: 0
   integrityText: {fileID: 85404753}
@@ -9821,19 +9826,27 @@ PrefabInstance:
       objectReference: {fileID: 1495188129}
     - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: alertVoiceLines.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: alertVoiceLines.Array.data[0]
       value: The fog of war shifts... not good!
       objectReference: {fileID: 0}
     - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: alertVoiceLines.Array.data[1]
+      value: Incoming artillery! No- DROPSHIPS
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: alertResponseVoiceLines.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: alertResponseVoiceLines.Array.data[0]
       value: Get ready.
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: alertResponseVoiceLines.Array.data[1]
+      value: Keep calling the orders!
       objectReference: {fileID: 0}
     - target: {fileID: 280323923983135799, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: leader
@@ -9983,11 +9996,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: alertResponseVoiceLines.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: alertResponseVoiceLines.Array.data[0]
       value: LETS MOVE WHILE WE STILL CAN
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: alertResponseVoiceLines.Array.data[1]
+      value: Will it ever end?
       objectReference: {fileID: 0}
     - target: {fileID: 545863580471765322, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: camera

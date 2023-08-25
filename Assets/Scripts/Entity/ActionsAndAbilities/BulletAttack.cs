@@ -13,6 +13,7 @@ public class BulletAttack : MonoBehaviour
     public Entity entity;
     public GameObject projectile;
     public Transform projectileOrigin; // Where the projectile will be created
+    public GameObject spawnVFX;
 
     public int uniqueAttackNumber;    // If an entity has multiple unique attacks, they will be numbered from 1 to x
     public bool isStationaryWhenFiring;
@@ -67,6 +68,9 @@ public class BulletAttack : MonoBehaviour
     void SpawnBullets()
     {
         var bullet = Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
+        // Creating VFX if the attack has one
+        if(spawnVFX != null)
+            Instantiate(spawnVFX, projectileOrigin.position, projectileOrigin.rotation);
 
         // Adding inaccuracy to shot by adjusting rotations by random range using var fireAngleDeviation
         bullet.transform.LookAt(entity.target);
