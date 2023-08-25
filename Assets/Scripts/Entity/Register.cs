@@ -27,7 +27,12 @@ public class Register : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!hasTakenDamage)
+        {
+            damageSource = null;
+            damageTaken = 0;
+            tempModifier = 0;
+        }
     }
 
     public void TakeDamage(Transform damageSource, float damageTaken, float tempModifier)

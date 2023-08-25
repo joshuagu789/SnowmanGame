@@ -36,6 +36,7 @@ public class Sunborn : Entity
             UpdateVectors();
         }
 
+        CheckDamage();
         UpdateStats();
         if (systemIntegrity <= 0)
             Destroy(gameObject);
@@ -43,11 +44,8 @@ public class Sunborn : Entity
             RepairDamage();
     }
 
-    private void UpdateStats()
+    public override void CheckDamage()
     {
-        agent.speed = speed;
-        agent.angularSpeed = rotationSpeed;
-
         if (register.hasTakenDamage)
         {
             animator.SetTrigger("Dodge");
@@ -55,12 +53,14 @@ public class Sunborn : Entity
             temperature += register.tempModifier;
             register.hasTakenDamage = false;
         }
-        ClampStats();
     }
 
     // Keeping stats within the specified boundaries
-    private void ClampStats()
+    private void UpdateStats()
     {
+        agent.speed = speed;
+        agent.angularSpeed = rotationSpeed;
+
         temperature = Mathf.Clamp(temperature, Mathf.NegativeInfinity, maxTemperature);
         systemIntegrity = Mathf.Clamp(systemIntegrity, 0, maxIntegrity);
         energy = Mathf.Clamp(energy, 0, maxEnergy);

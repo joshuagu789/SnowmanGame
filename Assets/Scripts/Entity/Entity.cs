@@ -113,6 +113,21 @@ public class Entity : MonoBehaviour
         }
     }
 
+    public virtual void CheckDamage()
+    {
+        if (register.hasTakenDamage)
+        {
+            // Makes entity target its attacker if the attack allows for it
+            if (register.damageSource != null && !register.damageSource.gameObject.GetComponentInParent<Entity>().type.Equals(type))
+            {
+                target = register.damageSource;
+            }
+            systemIntegrity -= register.damageTaken;
+            temperature += register.tempModifier;
+            register.hasTakenDamage = false;
+        }
+    }
+
     public virtual void UpdateVectors()
     {
         if (target != null && isLockedOn)

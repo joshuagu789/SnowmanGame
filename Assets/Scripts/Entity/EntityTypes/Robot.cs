@@ -31,6 +31,7 @@ public class Robot : Entity
     private void Update()
     {
         UpdateVectors();
+        CheckDamage();
         UpdateStats();
         UpdateLockState();
         if (systemIntegrity <= 0)
@@ -39,6 +40,7 @@ public class Robot : Entity
         }
     }
 
+    // Keeping stats within the specified boundaries
     public void UpdateStats()
     {
         if (agent != null)
@@ -46,19 +48,6 @@ public class Robot : Entity
             agent.speed = speed;
             agent.angularSpeed = rotationSpeed;
         }
-
-        if (register.hasTakenDamage)
-        {
-            systemIntegrity -= register.damageTaken;
-            register.hasTakenDamage = false;
-        }
-        ClampStats();
-    }
-
-
-    // Keeping stats within the specified boundaries
-    private void ClampStats()
-    {
         systemIntegrity = Mathf.Clamp(systemIntegrity, 0, maxIntegrity);
         energy = Mathf.Clamp(energy, 0, maxEnergy);
     }

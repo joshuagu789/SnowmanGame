@@ -11,6 +11,8 @@ using UnityEngine;
 public class Turret : Robot
 {
     public Entity owner;    // Entity to which the turret is attached to
+    public bool focusFires; // Entity will target owner's target if bool is true
+
     private float vectorTimer = 1f;
 
     public override void OnDisable()
@@ -22,6 +24,7 @@ public class Turret : Robot
     void Update()
     {
         UpdateVectors();
+        CheckDamage();
         UpdateStats();
         UpdateLockState();
         if (systemIntegrity <= 0)
@@ -39,17 +42,15 @@ public class Turret : Robot
             isLockedOn = false;
             animator.SetBool("isLockedOn", false);
         }
+        else if (target != null && owner.target != null && focusFires)
+            FocusFire(owner.target);
         else if (target != null)
         {
             animator.SetBool("isLockedOn", true);
             isLockedOn = true;
         }
         else if (target == null && owner.target != null)
-        {
-            animator.SetBool("isLockedOn", true);
-            target = owner.target;
-            isLockedOn = true;
-        }
+            FocusFire(owner.target);
     }
 
     // Entities usually ignore y axis (height) when calculating vectors but turrets need to override and use all 3 axes

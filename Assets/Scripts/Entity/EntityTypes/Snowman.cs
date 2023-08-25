@@ -37,6 +37,7 @@ public class Snowman : Entity
             UpdateVectors();
         }
 
+        CheckDamage();
         UpdateStats();
         UpdateLockState();
         CheckMelt();
@@ -44,28 +45,16 @@ public class Snowman : Entity
             RepairDamage();
     }
 
-    private void UpdateStats()
+    // Keeping stats within the specified boundaries
+    public void UpdateStats()
     {
-        agent.speed = speed;
-        agent.angularSpeed = rotationSpeed;
-
         // Calculating how to change integrity (aka health) based on temperature 
         if (temperature > minTemperature)
             systemIntegrity -= temperature / 10f * Time.deltaTime;
 
-        if (register.hasTakenDamage)
-        {
-            systemIntegrity -= register.damageTaken;
-            temperature += register.tempModifier;
-            register.hasTakenDamage = false;
-        }
+        agent.speed = speed;
+        agent.angularSpeed = rotationSpeed;
 
-        ClampStats();
-    }
-
-    // Keeping stats within the specified boundaries
-    public void ClampStats()
-    {
         temperature = Mathf.Clamp(temperature, minTemperature, Mathf.Infinity);
         systemIntegrity = Mathf.Clamp(systemIntegrity, 0, maxIntegrity);
         energy = Mathf.Clamp(energy, 0, maxEnergy);

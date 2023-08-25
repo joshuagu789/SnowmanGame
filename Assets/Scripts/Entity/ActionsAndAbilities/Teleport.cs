@@ -59,9 +59,8 @@ public class Teleport : MonoBehaviour
             //list.Add(entity.leader.GetComponent<Entity>());
             foreach (Entity ally in list)
             {
-                //ally.agent.enabled = false;
                 Instantiate(teleportVFX, ally.transform.position, transform.rotation);
-
+                
                 RaycastHit hit;
                 // If destination is below/above the ground
                 if (Physics.Raycast(ally.transform.position + travelVector + transform.up * -1000, transform.up, out hit, Mathf.Infinity) || Physics.Raycast(ally.transform.position + travelVector + transform.up * 1000, -transform.up, out hit, Mathf.Infinity))
@@ -70,7 +69,6 @@ public class Teleport : MonoBehaviour
 
                 ally.agent.enabled = true;
                 ally.isIdle = false;
-                Instantiate(teleportVFX, ally.transform.position, transform.rotation);
             }
             
             // Moving the leader of the squad since list is leader's squad list & doesn't include itself

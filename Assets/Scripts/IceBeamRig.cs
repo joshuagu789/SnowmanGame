@@ -92,7 +92,7 @@ public class IceBeamRig : MonoBehaviour
         laser.enabled = true;
 
         // Making target take damage
-        player.target.gameObject.GetComponentInChildren<Register>().TakeDamage(transform, damage, tempModifier);
+        player.target.gameObject.GetComponentInChildren<Register>().TakeDamage(player.transform, damage, tempModifier);
 
         player.speed /= recoil;
         yield return new WaitForSeconds(laserDuration);

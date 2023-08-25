@@ -36,27 +36,12 @@ public class Player : Snowman
             UpdateVectors();
         }
 
+        CheckDamage();
         UpdateStats();
         CheckMelt();
         if (Input.GetKeyDown(KeyCode.R))
             isRepairing = !isRepairing;
         if(isRepairing)
             RepairDamage();
-    }
-
-    void UpdateStats()
-    {
-        // Calculating how to change integrity (aka health) based on temperature 
-        if (temperature > minTemperature)
-            systemIntegrity -= temperature / 10f * Time.deltaTime;
-
-        if (register.hasTakenDamage)
-        {
-            systemIntegrity -= register.damageTaken;
-            temperature += register.tempModifier;
-            register.hasTakenDamage = false;
-        }
-
-        ClampStats();
     }
 }
