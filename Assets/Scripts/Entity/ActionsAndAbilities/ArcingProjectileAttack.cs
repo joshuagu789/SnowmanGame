@@ -43,7 +43,7 @@ public class ArcingProjectileAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && timer > cooldown && entity.angleToTarget <= (5 + fireAngleDeviation))
+            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && timer > cooldown && entity.angleToTarget <= (10 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring && entity.animator != null) // Making entity stop when firing
                 {
@@ -51,22 +51,41 @@ public class ArcingProjectileAttack : MonoBehaviour
                     entity.agent.isStopped = true;
                 }
                 timer = 0;
-                StartCoroutine(Shoot(entity.vectorToTarget));
+                StartCoroutine(Shoot(entity.target.position - transform.position));
             }
         }
     }
 
-    private void CalculateSpeed(float distance)
+    private void CalculateSpeed(Vector3 vectorToLocation)
     {
-        // From the formula Vx * time = distance aka Vcos(angle) * time = distance (Vx is horizontal component of velocity)
-        // Along with Vyf = Vyi + at aka 0 = Vsin(angle) - 9.8t with t isolated and substituted into Vcos(angle) * time = distance
-        // NOTE: t for vertical component is half of time of t of horizontal component
+        /*
+         * From the formula Vx * time = distance aka Vcos(angle) * time = distance (Vx is horizontal component of velocity)
+         * Along with Vyf = Vyi + at aka 0 = Vsin(angle) - 9.8t with t isolated and substituted into Vcos(angle) * time = distance
+         * NOTE: t for vertical component is half of time of t of horizontal component
+         *
+         * Steps in order:
+         * Vx * time = Vcos(angle) * time = distance
+         * time = distance/Vcos(fireAngle)
+         * vertical displacement = -4.9t^2 + Vsin(fireAngle)t
+         * vertical displacement = -4.9 ( distance^2 / (V * V * cos(fireAngle) * cos(fireAngle)) ) + Vsin(fireAngle)(distance/Vcos(fireAngle))
+         *                       = (-4.9 * distance^2 / (V * V * cos(fireAngle) * cos(fireAngle)) ) + tan(fireAngle) * distance
+         *                       
+         *           component1         component2                         component3
+         * V^2 = -4.9(distance^2) / ( (cos(fireAngle))^2 * (vertical displacement - tan(fireAngle) * distance) )
+         */
+        float distance = new Vector3(vectorToLocation.x, 0f, vectorToLocation.z).magnitude; // Horizontal distance
 
-        float denominator = 2f * Mathf.Sin(fireAngle * Mathf.PI / 180f) * Mathf.Cos(fireAngle * Mathf.PI / 180f);   // Converting fireAngle to radians from degrees
-        netVelocity = Mathf.Sqrt(9.8f * distance / denominator);
+        float component1 = (float) -4.9 * distance * distance;
+        float component2 = Mathf.Pow(Mathf.Cos(fireAngle * Mathf.PI / 180f), 2);
+        float component3 = vectorToLocation.y - (Mathf.Tan(fireAngle * Mathf.PI / 180f) * distance);
+
+        netVelocity = Mathf.Sqrt(component1 / (component2 * component3));
+
+        //float denominator = 2f * Mathf.Sin(fireAngle * Mathf.PI / 180f) * Mathf.Cos(fireAngle * Mathf.PI / 180f);   // Converting fireAngle to radians from degrees
+        //netVelocity = Mathf.Sqrt(9.8f * distance / denominator);
     }
 
-    public void ShootAtLocation(Vector3 vectorToLocation)
+    public void ShootInDirection(Vector3 vectorToLocation)
     {
         StartCoroutine(Shoot(vectorToLocation));
     }
@@ -80,7 +99,7 @@ public class ArcingProjectileAttack : MonoBehaviour
         yield return new WaitForSeconds(firingDelay);
         for (int x = 0; x < bulletCount; x++)
         {
-            CalculateSpeed(vectorToTarget.magnitude);
+            CalculateSpeed(vectorToTarget);
             SpawnProjectile();
             yield return new WaitForSeconds(bulletInterval);
         }

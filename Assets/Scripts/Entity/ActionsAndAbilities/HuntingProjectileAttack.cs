@@ -36,7 +36,7 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
             if (!hasFoundTarget)
                 ShootRandomly();
             else
-                ShootAtLocation(possibleTargetPosition);
+                ShootInDirection(possibleTargetPosition - transform.position);
         }
     }
 
@@ -57,7 +57,7 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
     {
         // Choosing a random location in range and in field of view for entity to blindly fire at
         var vectorToTarget = Quaternion.AngleAxis(Random.Range(-fireAngleDeviation, fireAngleDeviation), Vector3.up) * entity.transform.forward * range;
-        ShootAtLocation(vectorToTarget);
+        ShootInDirection(vectorToTarget);
     }
 
     public override void SpawnProjectile()
