@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
 
     public List<GameObject> tierOneEnemies = new List<GameObject>();
     public List<GameObject> tierTwoEnemies = new List<GameObject>();
+    public List<GameObject> tierThreeEnemies = new List<GameObject>();
 
     public List<GameObject> tierOneSnowmen = new List<GameObject>();
     public List<GameObject> tierTwoSnowmen = new List<GameObject>();
@@ -28,6 +29,7 @@ public class Spawner : MonoBehaviour
     {
         enemiesList.Add(1, tierOneEnemies);
         enemiesList.Add(2, tierTwoEnemies);
+        enemiesList.Add(3, tierThreeEnemies);
         snowmenList.Add(1, tierOneSnowmen);
         snowmenList.Add(2, tierTwoSnowmen);
     }

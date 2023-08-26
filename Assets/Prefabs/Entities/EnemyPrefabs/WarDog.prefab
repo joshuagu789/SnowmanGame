@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 7901131032745169051}
   - component: {fileID: 7901131032745169048}
   - component: {fileID: 7901131032745169049}
+  - component: {fileID: 7117875642970836310}
   m_Layer: 0
   m_Name: WarDog
   m_TagString: Untagged
@@ -421,6 +422,22 @@ NavMeshAgent:
   m_BaseOffset: 1.8
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7117875642970836310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018610560740665919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c3bb97902504a22a72f40567e6bf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 7901131032745169048}
+  range: 40
+  energyCost: 1
+  detectionSpeed: 0.05
 --- !u!1 &7901131031114894467
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,20 +815,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 7901131032934827469}
     weight: 1
---- !u!114 &7901131032456095708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3882391345115364675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6c427cb99ef742e6beff99ccdc166d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entity: {fileID: 7901131032745169048}
-  aimer: {fileID: 7901131032456095709}
 --- !u!114 &7901131032456095699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,6 +831,20 @@ MonoBehaviour:
   damageTaken: 0
   tempModifier: 0
   hasTakenDamage: 0
+--- !u!114 &7901131032456095708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882391345115364675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c427cb99ef742e6beff99ccdc166d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 7901131032745169048}
+  aimer: {fileID: 7901131032456095709}
 --- !u!95 &4381124367052665281 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: f74223fe9603a49f6958f4c072c451b8, type: 3}
@@ -1072,22 +1089,6 @@ MonoBehaviour:
   netVelocity: 0
   spotRadius: 40
   movesToTarget: 1
---- !u!114 &7901131032284936166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7018610560490609545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!114 &7901131032284936164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1135,6 +1136,22 @@ MonoBehaviour:
   owner: {fileID: 7901131032745169048}
   focusFires: 1
   spotsTargets: 0
+--- !u!114 &7901131032284936166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018610560490609545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageSource: {fileID: 0}
+  damageTaken: 0
+  tempModifier: 0
+  hasTakenDamage: 0
 --- !u!4 &7650716034611626291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 539c8332756a24e3a9ed26fb236161e8, type: 3}

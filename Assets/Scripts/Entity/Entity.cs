@@ -120,7 +120,7 @@ public class Entity : MonoBehaviour
             // Makes entity target its attacker if the attack allows for it
             if (register.damageSource != null && !register.damageSource.gameObject.GetComponentInParent<Entity>().type.Equals(type))
             {
-                target = register.damageSource;
+                FocusFire(register.damageSource);
             }
             systemIntegrity -= register.damageTaken;
             temperature += register.tempModifier;

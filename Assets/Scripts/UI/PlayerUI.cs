@@ -168,6 +168,6 @@ public class PlayerUI: SquadMemberUI
         // Making secondary camera look at target
         targetLockCamera.transform.LookAt(enemy.transform);
         targetLockCamera.transform.position = enemy.transform.position + new Vector3(snowman.transform.position.x - enemy.transform.position.x, 0f, // Camera is positioned between enemy and player
-                                              snowman.transform.position.z - enemy.transform.position.z).normalized * 3 * enemy.agent.radius;   // By adding vector to player to enemy's position (3 * radius so that camera is not inside target)
+                                              snowman.transform.position.z - enemy.transform.position.z).normalized * 4 * enemy.agent.radius;   // By adding vector to player to enemy's position (3 * radius so that camera is not inside target)
     }
 }

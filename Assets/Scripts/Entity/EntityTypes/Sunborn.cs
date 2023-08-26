@@ -48,6 +48,12 @@ public class Sunborn : Entity
     {
         if (register.hasTakenDamage)
         {
+            // Makes entity target its attacker if the attack allows for it
+            if (register.damageSource != null && !register.damageSource.gameObject.GetComponentInParent<Entity>().type.Equals(type))
+            {
+                FocusFire(register.damageSource);
+            }
+
             animator.SetTrigger("Dodge");
             systemIntegrity -= register.damageTaken;
             temperature += register.tempModifier;

@@ -257,7 +257,7 @@ MonoBehaviour:
   fov: 180
   minRange: 25
   maxRange: 30
-  leashRange: 200
+  leashRange: 250
   defaultLeashRange: 0
   target: {fileID: 0}
   isIdle: 0

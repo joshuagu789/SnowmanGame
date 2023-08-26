@@ -227,7 +227,7 @@ public class SmartMovement : MonoBehaviour
     {
         // Swivelling game object to face target
         var targetRotation = Quaternion.LookRotation(new Vector3(entity.target.position.x - entity.transform.position.x,
-                                                    entity.transform.position.y, entity.target.position.z - entity.transform.position.z));
+                                                    0f, entity.target.position.z - entity.transform.position.z));   
         entity.transform.rotation = Quaternion.Slerp(entity.transform.rotation, targetRotation,    
                                                      entity.rotationSpeed / 10 * Time.deltaTime);      // (Slerp's rotation speed value usually zero to one)
                                                                         //but rotation speed needs to be high here to override NavMeshAgent's rotations
