@@ -37,7 +37,7 @@ public class Turret : Robot
     // Like the usual UpdateLockState but also allows turret to lock onto owner's target
     public override void UpdateLockState()
     {
-        if (target == null && owner.target == null)
+        if (owner.target == null)
         {
             target = null;
             isLockedOn = false;

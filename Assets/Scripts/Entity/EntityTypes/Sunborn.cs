@@ -10,7 +10,8 @@ using UnityEngine;
 
 public class Sunborn : Entity
 {
-    public float maxTemperature;
+    public float maxTemperature; 
+    public float deathTime;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,7 @@ public class Sunborn : Entity
         CheckDamage();
         UpdateStats();
         if (systemIntegrity <= 0)
-            Destroy(gameObject);
+            StartCoroutine(Die());
         else if (systemIntegrity > 0)
             RepairDamage();
     }
@@ -70,6 +71,18 @@ public class Sunborn : Entity
         temperature = Mathf.Clamp(temperature, Mathf.NegativeInfinity, maxTemperature);
         systemIntegrity = Mathf.Clamp(systemIntegrity, 0, maxIntegrity);
         energy = Mathf.Clamp(energy, 0, maxEnergy);
+    }
+
+    private IEnumerator Die()
+    {
+        agent.isStopped = true;
+        isDisabled = true;
+        for (int i = 0; i < animator.layerCount; i++)   // Making entity play death animation across all of its animation layers
+        {
+            animator.Play("Death",i);
+        }
+        yield return new WaitForSeconds(deathTime);    // Destroying entity after death animation plays
+        Destroy(gameObject);
     }
 
     // Unlike Snowman.cs's RepairDamage(), this one repairs at a linear rate and can't repair temperature

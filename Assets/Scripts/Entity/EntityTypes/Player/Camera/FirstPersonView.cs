@@ -40,7 +40,7 @@ public class FirstPersonView : MonoBehaviour
             if (xRotation >= 0f && cameraTarget.localPosition.y < (originalPos - 0.6f) || xRotation <= 0f && cameraTarget.localPosition.y > (originalPos + 0.4f)
                 || cameraTarget.localPosition.y <= (originalPos + 0.4f) && cameraTarget.localPosition.y >= (originalPos - 0.6f))
             {
-                cameraTarget.Translate(0f, (xRotation * 2f * Time.deltaTime), 0f);
+                cameraTarget.Translate(0f, (xRotation * Time.deltaTime), 0f);
             }
 
             playerBody.Rotate(Vector3.up * mouseX);

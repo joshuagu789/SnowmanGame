@@ -47,14 +47,6 @@ public class MeleeAttack : MonoBehaviour
 
                 cooldownTimer = 0;
                 attackNumber = (int)Random.Range(1, uniqueAttackNumber + 0.99f);    // Selecting random attack
-                entity.isDisabled = true;
-                entity.animator.SetBool("isAttacking", true);
-                entity.animator.SetTrigger("Melee" + attackNumber);
-
-                // Making target stop moving
-                enemy = entity.target.GetComponent<Entity>();   
-                enemy.animator.SetBool("isMoving", false);
-                enemy.agent.isStopped = true;
 
                 StartCoroutine(Melee());
             }
@@ -63,6 +55,15 @@ public class MeleeAttack : MonoBehaviour
 
     private IEnumerator Melee()
     {
+        entity.isDisabled = true;
+        entity.animator.SetBool("isAttacking", true);
+        entity.animator.SetTrigger("Melee" + attackNumber);
+
+        // Making target stop moving
+        enemy = entity.target.GetComponent<Entity>();
+        enemy.animator.SetBool("isMoving", false);
+        enemy.agent.isStopped = true;
+
         yield return new WaitForSeconds(firingDelay);
 
         if (entity.target != null)
@@ -76,6 +77,7 @@ public class MeleeAttack : MonoBehaviour
             }
             entity.animator.SetBool("isAttacking", false);
             entity.isDisabled = false;
+
             if (isStationaryWhenFiring)
                 entity.agent.isStopped = false;
             if (entity.target != null)

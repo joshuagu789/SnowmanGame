@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 7901131032745169048}
-  walkPointRange: 750
+  walkPointRange: 1000
   maxIdleTime: 0
   strafeDistance: 20
 --- !u!114 &7901131032745169048
@@ -843,7 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c427cb99ef742e6beff99ccdc166d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 7901131032745169048}
+  entity: {fileID: 7901131032822998071}
   aimer: {fileID: 7901131032456095709}
 --- !u!95 &4381124367052665281 stripped
 Animator:
@@ -898,13 +898,13 @@ MonoBehaviour:
   range: 60
   damage: 1
   explosionRadius: 1.5
-  cooldown: 0.5
+  cooldown: 1
   firingDelay: 1
   bulletSpeed: 80
   bulletLifetime: 1
-  bulletCount: 8
-  bulletInterval: 0.05
-  fireAngleDeviation: 7.5
+  bulletCount: 5
+  bulletInterval: 0.2
+  fireAngleDeviation: 0
 --- !u!114 &7901131032822998071
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -44,7 +44,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9811321, g: 0.087931626, b: 0.087931626, a: 1}
-  m_Intensity: 3
+  m_Intensity: 4
   m_Range: 8
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fed9924d62e441d2b662f5a8ff45918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 60
+  lifeTime: 45
 --- !u!54 &825431907646940498
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -342,7 +342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198603562046773920, guid: 378b2c30ef426554495292cb902cb8f4, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 50
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 198603562046773920, guid: 378b2c30ef426554495292cb902cb8f4, type: 3}
       propertyPath: InitialModule.startSize.scalar

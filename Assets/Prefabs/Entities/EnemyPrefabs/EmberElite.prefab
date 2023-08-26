@@ -333,6 +333,7 @@ MonoBehaviour:
   canJoinSquad: 0
   squadList: []
   maxTemperature: 100
+  deathTime: 3.5
 --- !u!114 &2159877154827750472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,6 +384,7 @@ MonoBehaviour:
   entity: {fileID: 2159877154827750475}
   projectile: {fileID: 3551426065017335987, guid: a6ae48d26423c4678aebafb631ced76e, type: 3}
   projectileOrigin: {fileID: 2159877154975794216}
+  spawnVFX: {fileID: 0}
   uniqueAttackNumber: 3
   isStationaryWhenFiring: 0
   range: 60

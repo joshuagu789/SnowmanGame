@@ -43,7 +43,7 @@ public class ArcingProjectileAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= entity.range * entity.range && timer > cooldown && entity.angleToTarget <= (5 + fireAngleDeviation))
+            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && timer > cooldown && entity.angleToTarget <= (5 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring && entity.animator != null) // Making entity stop when firing
                 {

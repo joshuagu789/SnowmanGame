@@ -31,7 +31,6 @@ public class Entity : MonoBehaviour
 
     // For targeting & distance measuring
     public float detectionRange;
-    public float range;     // Maximum distance from target from which entity can act
     public float fov;       // AKA Field of View- max degrees to either side of forward where entity can spot/attack enemies
 
     // Below two variables are used for strafing enemies
