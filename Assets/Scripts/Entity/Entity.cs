@@ -144,7 +144,14 @@ public class Entity : MonoBehaviour
     }
 
     // Below methods are for commands from other entities or for itself if it has the right script for it
-    public void FocusFire(Transform target) { isLockedOn = true; this.target = target; animator.SetBool("isLockedOn", true); }
+    public void FocusFire(Transform target)
+    {
+        isLockedOn = true;
+        this.target = target;
+        animator.SetBool("isLockedOn", true);
+        timer = 1f;
+        UpdateVectors();    // Instantly getting data for distance to new target to avoid weird stuff from happening (such as melee attacking enemy 50 m away)
+    }
 
     public void IncrementLeashRange(int increment)
     {

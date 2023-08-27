@@ -253,7 +253,6 @@ MonoBehaviour:
   speed: 5
   rotationSpeed: 90
   detectionRange: 100
-  range: 50
   fov: 180
   minRange: 25
   maxRange: 30
@@ -272,6 +271,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 1
   squadList: []
+  destroyedVersion: {fileID: 8455325263521434920, guid: 23e31d31357d048c6b129f237b951785, type: 3}
+  explosion: {fileID: 7404968982948847973, guid: e20e4f4ce5db64c1286c95d72bacd3af, type: 3}
 --- !u!114 &-2806402089248886291
 MonoBehaviour:
   m_ObjectHideFlags: 0

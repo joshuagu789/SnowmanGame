@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class Robot : Entity
 {
+    public GameObject destroyedVersion;     // Robots spawn their broken pieces when destroyed
+    public GameObject explosion;            // They also explode when destroyed
     private bool readyToCheckLock = true;
 
     // Start is called before the first frame update
@@ -89,5 +91,17 @@ public class Robot : Entity
         }
         else
             readyToCheckLock = true;
+    }
+
+    private void OnDestroy()    // Replacing itself with a destroyed version of itself
+    {
+        base.OnDestroy();
+        if (systemIntegrity <= 0)
+        {
+            if (destroyedVersion != null)
+                Instantiate(destroyedVersion, transform.position, transform.rotation);
+            if (explosion != null)
+                Instantiate(explosion, transform.position, transform.rotation);
+        }
     }
 }

@@ -380,8 +380,7 @@ MonoBehaviour:
   maxEnergy: 100
   speed: 5.5
   rotationSpeed: 120
-  detectionRange: 60
-  range: 0
+  detectionRange: 50
   fov: 360
   minRange: 15
   maxRange: 45
@@ -400,6 +399,8 @@ MonoBehaviour:
   isLeader: 1
   canJoinSquad: 1
   squadList: []
+  destroyedVersion: {fileID: 1552679915162201067, guid: 19f6032310f964ff7b71c3d5445a5ddf, type: 3}
+  explosion: {fileID: 7404968982948847973, guid: e20e4f4ce5db64c1286c95d72bacd3af, type: 3}
 --- !u!195 &7901131032745169049
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -930,7 +931,6 @@ MonoBehaviour:
   speed: 0
   rotationSpeed: 0
   detectionRange: 0
-  range: 0
   fov: 0
   minRange: 0
   maxRange: 0
@@ -949,6 +949,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 0
   squadList: []
+  destroyedVersion: {fileID: 0}
+  explosion: {fileID: 0}
   owner: {fileID: 7901131032745169048}
   focusFires: 1
   spotsTargets: 0
@@ -1114,7 +1116,6 @@ MonoBehaviour:
   speed: 0
   rotationSpeed: 0
   detectionRange: 0
-  range: 0
   fov: 0
   minRange: 0
   maxRange: 0
@@ -1133,6 +1134,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 0
   squadList: []
+  destroyedVersion: {fileID: 0}
+  explosion: {fileID: 0}
   owner: {fileID: 7901131032745169048}
   focusFires: 1
   spotsTargets: 0

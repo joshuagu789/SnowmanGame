@@ -354,7 +354,6 @@ MonoBehaviour:
   speed: 5.5
   rotationSpeed: 120
   detectionRange: 60
-  range: 0
   fov: 360
   minRange: 15
   maxRange: 45
@@ -373,6 +372,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 1
   squadList: []
+  destroyedVersion: {fileID: 916631372402910795, guid: 114eb7baadb02469f9483d405818510d, type: 3}
+  explosion: {fileID: 7404968982948847973, guid: e20e4f4ce5db64c1286c95d72bacd3af, type: 3}
 --- !u!1 &2194477122032169202
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,53 +797,6 @@ ParentConstraint:
   m_IsContraintActive: 1
   m_IsLocked: 1
   m_Sources: []
---- !u!114 &84082569883714019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003125652015699265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6267f2b4830d4300a7dda7f5a75761c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  server: {fileID: 0}
-  register: {fileID: 84082569742902157}
-  animator: {fileID: 5782671464641058177}
-  agent: {fileID: 0}
-  type: Enemy
-  systemIntegrity: 40
-  maxIntegrity: 40
-  temperature: 50
-  energy: 30
-  maxEnergy: 30
-  speed: 0
-  rotationSpeed: 0
-  detectionRange: 0
-  range: 0
-  fov: 0
-  minRange: 0
-  maxRange: 0
-  leashRange: 0
-  defaultLeashRange: 0
-  target: {fileID: 0}
-  isIdle: 0
-  isLockedOn: 0
-  lockDuration: 10
-  isDisabled: 0
-  walkPointSet: 0
-  vectorToTarget: {x: 0, y: 0, z: 0}
-  distanceToTargetSqr: 0
-  angleToTarget: 0
-  leader: {fileID: 0}
-  isLeader: 0
-  canJoinSquad: 0
-  squadList: []
-  owner: {fileID: 84082568748296070}
-  focusFires: 1
-  spotsTargets: 0
 --- !u!114 &84082569883714018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,6 +825,54 @@ MonoBehaviour:
   bulletCount: 5
   bulletInterval: 0.2
   fireAngleDeviation: 12
+--- !u!114 &84082569883714019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003125652015699265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6267f2b4830d4300a7dda7f5a75761c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  server: {fileID: 0}
+  register: {fileID: 84082569742902157}
+  animator: {fileID: 5782671464641058177}
+  agent: {fileID: 0}
+  type: Enemy
+  systemIntegrity: 40
+  maxIntegrity: 40
+  temperature: 50
+  energy: 30
+  maxEnergy: 30
+  speed: 0
+  rotationSpeed: 0
+  detectionRange: 0
+  fov: 0
+  minRange: 0
+  maxRange: 0
+  leashRange: 0
+  defaultLeashRange: 0
+  target: {fileID: 0}
+  isIdle: 0
+  isLockedOn: 0
+  lockDuration: 10
+  isDisabled: 0
+  walkPointSet: 0
+  vectorToTarget: {x: 0, y: 0, z: 0}
+  distanceToTargetSqr: 0
+  angleToTarget: 0
+  leader: {fileID: 0}
+  isLeader: 0
+  canJoinSquad: 0
+  squadList: []
+  destroyedVersion: {fileID: 0}
+  explosion: {fileID: 0}
+  owner: {fileID: 84082568748296070}
+  focusFires: 1
+  spotsTargets: 0
 --- !u!95 &5782671464641058177 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: f74223fe9603a49f6958f4c072c451b8, type: 3}
@@ -918,20 +920,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 84082568921430705}
     weight: 1
---- !u!114 &84082569742902158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6444028960701044995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6c427cb99ef742e6beff99ccdc166d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entity: {fileID: 84082568748296070}
-  aimer: {fileID: 84082569742902156}
 --- !u!114 &84082569742902157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -948,6 +936,20 @@ MonoBehaviour:
   damageTaken: 0
   tempModifier: 0
   hasTakenDamage: 0
+--- !u!114 &84082569742902158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6444028960701044995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c427cb99ef742e6beff99ccdc166d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 84082568748296070}
+  aimer: {fileID: 84082569742902156}
 --- !u!4 &8461545108061734192 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8378888656739478816, guid: f74223fe9603a49f6958f4c072c451b8, type: 3}
@@ -1094,53 +1096,6 @@ ParentConstraint:
   m_IsContraintActive: 1
   m_IsLocked: 1
   m_Sources: []
---- !u!114 &84082569700474988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003125651299812564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6267f2b4830d4300a7dda7f5a75761c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  server: {fileID: 0}
-  register: {fileID: 84082568491427520}
-  animator: {fileID: 5782671464276902932}
-  agent: {fileID: 0}
-  type: Enemy
-  systemIntegrity: 40
-  maxIntegrity: 40
-  temperature: 50
-  energy: 30
-  maxEnergy: 30
-  speed: 0
-  rotationSpeed: 0
-  detectionRange: 0
-  range: 0
-  fov: 0
-  minRange: 0
-  maxRange: 0
-  leashRange: 0
-  defaultLeashRange: 0
-  target: {fileID: 0}
-  isIdle: 0
-  isLockedOn: 0
-  lockDuration: 10
-  isDisabled: 0
-  walkPointSet: 0
-  vectorToTarget: {x: 0, y: 0, z: 0}
-  distanceToTargetSqr: 0
-  angleToTarget: 0
-  leader: {fileID: 0}
-  isLeader: 0
-  canJoinSquad: 0
-  squadList: []
-  owner: {fileID: 84082568748296070}
-  focusFires: 1
-  spotsTargets: 0
 --- !u!114 &84082569700474986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,6 +1124,54 @@ MonoBehaviour:
   bulletCount: 5
   bulletInterval: 0.2
   fireAngleDeviation: 12
+--- !u!114 &84082569700474988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003125651299812564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6267f2b4830d4300a7dda7f5a75761c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  server: {fileID: 0}
+  register: {fileID: 84082568491427520}
+  animator: {fileID: 5782671464276902932}
+  agent: {fileID: 0}
+  type: Enemy
+  systemIntegrity: 40
+  maxIntegrity: 40
+  temperature: 50
+  energy: 30
+  maxEnergy: 30
+  speed: 0
+  rotationSpeed: 0
+  detectionRange: 0
+  fov: 0
+  minRange: 0
+  maxRange: 0
+  leashRange: 0
+  defaultLeashRange: 0
+  target: {fileID: 0}
+  isIdle: 0
+  isLockedOn: 0
+  lockDuration: 10
+  isDisabled: 0
+  walkPointSet: 0
+  vectorToTarget: {x: 0, y: 0, z: 0}
+  distanceToTargetSqr: 0
+  angleToTarget: 0
+  leader: {fileID: 0}
+  isLeader: 0
+  canJoinSquad: 0
+  squadList: []
+  destroyedVersion: {fileID: 0}
+  explosion: {fileID: 0}
+  owner: {fileID: 84082568748296070}
+  focusFires: 1
+  spotsTargets: 0
 --- !u!95 &5782671464276902932 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: f74223fe9603a49f6958f4c072c451b8, type: 3}
@@ -1216,20 +1219,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 84082570310090662}
     weight: 1
---- !u!114 &84082568491427521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6444028960406685846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6c427cb99ef742e6beff99ccdc166d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entity: {fileID: 84082569700474988}
-  aimer: {fileID: 84082568491427535}
 --- !u!114 &84082568491427520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,6 +1235,20 @@ MonoBehaviour:
   damageTaken: 0
   tempModifier: 0
   hasTakenDamage: 0
+--- !u!114 &84082568491427521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6444028960406685846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c427cb99ef742e6beff99ccdc166d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 84082569700474988}
+  aimer: {fileID: 84082568491427535}
 --- !u!4 &8461545108435784869 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8378888656739478816, guid: f74223fe9603a49f6958f4c072c451b8, type: 3}

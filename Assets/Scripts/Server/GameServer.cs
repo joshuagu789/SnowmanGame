@@ -30,6 +30,7 @@ public class GameServer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         cooldownTimer = waveCooldown;
         for (int i = 0; i < 10; i++)
         {
