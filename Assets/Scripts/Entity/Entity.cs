@@ -76,8 +76,11 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        agent.speed = speed;
-        agent.angularSpeed = rotationSpeed;
+        if (agent != null)
+        {
+            agent.speed = speed;
+            agent.angularSpeed = rotationSpeed;
+        }
 
         UpdateVectors();
     }
@@ -98,6 +101,10 @@ public class Entity : MonoBehaviour
         {
             server.snowmenList.Add(transform);
         }
+        else if (type.Equals("Resource"))
+        {
+            server.resourcesList.Add(transform);
+        }
     }
 
     public void RemoveFromServer()
@@ -109,6 +116,10 @@ public class Entity : MonoBehaviour
         else if (type.Equals("Snowman"))
         {
             server.snowmenList.Remove(transform);
+        }
+        else if (type.Equals("Resource"))
+        {
+            server.resourcesList.Remove(transform);
         }
     }
 

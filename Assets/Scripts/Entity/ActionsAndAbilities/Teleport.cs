@@ -51,7 +51,7 @@ public class Teleport : MonoBehaviour
         entity.animator.SetTrigger("Teleport");
         entity.isDisabled = true;
         entity.agent.isStopped = true;
-        print(travelVector);
+
         yield return new WaitForSeconds(activationDelay);
 
         if (list != null)

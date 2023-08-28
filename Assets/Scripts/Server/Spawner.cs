@@ -54,10 +54,19 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    // Same as SpawnRandom() but all entities spawned are the same
-    public void SpawnSpecific(string type, int tier, int amount, Vector3 location, int minRange, int maxRange)
+    // Spawns a specific game object 
+    public void SpawnSpecific(GameObject entity, int amount, Vector3 location, int minRange, int maxRange)
     {
-        ChooseList(type);
+        if (amount > 0)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                SelectSpawnLocation(location, minRange, maxRange, 10);
+                var spawnedEntity = Instantiate(entity, spawnLocation, transform.rotation);
+                spawnedEntity.GetComponent<Entity>().server = gameServer;
+                spawnedEntity.GetComponent<Entity>().AddToServer();
+            }
+        }
     }
 
     // Same as SpawnRandom() but first entity created is a leader to which the rest of the spawned entities are assigned to follow 

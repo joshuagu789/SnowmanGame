@@ -12,6 +12,7 @@ public class GameServer : MonoBehaviour
     // Lists to keep track of all active entities
     public List<Transform> snowmenList = new List<Transform>();   // Includes player
     public List<Transform> enemiesList = new List<Transform>();
+    public List<Transform> resourcesList = new List<Transform>();
 
     public BroadcastDialogue broadcaster;
     public MusicManager music;
@@ -24,7 +25,7 @@ public class GameServer : MonoBehaviour
     public float threatLevel = 0f;
 
     private int maxEntities = 100;
-    private float sunRiseTime = 600f;
+    //private float sunRiseTime = 600f;
     private float cooldownTimer;
 
     // Start is called before the first frame update
