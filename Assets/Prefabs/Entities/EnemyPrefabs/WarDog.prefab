@@ -949,8 +949,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 0
   squadList: []
-  destroyedVersion: {fileID: 0}
-  explosion: {fileID: 0}
+  destroyedVersion: {fileID: 6024768048972976146, guid: 06647fc0614ca426e82f6125cfdfa35c, type: 3}
+  explosion: {fileID: 662056413364215625, guid: 5d2edb12c817c48118aa3200989abd03, type: 3}
   owner: {fileID: 7901131032745169048}
   focusFires: 1
   spotsTargets: 0
@@ -1134,8 +1134,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 0
   squadList: []
-  destroyedVersion: {fileID: 0}
-  explosion: {fileID: 0}
+  destroyedVersion: {fileID: 1149942462539621273, guid: 62f6f27407b8c4a1b8c604883ea221b7, type: 3}
+  explosion: {fileID: 662056413364215625, guid: 5d2edb12c817c48118aa3200989abd03, type: 3}
   owner: {fileID: 7901131032745169048}
   focusFires: 1
   spotsTargets: 0

@@ -357,7 +357,7 @@ MonoBehaviour:
   fov: 360
   minRange: 15
   maxRange: 45
-  leashRange: 135
+  leashRange: 30
   defaultLeashRange: 0
   target: {fileID: 0}
   isIdle: 0
@@ -868,8 +868,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 0
   squadList: []
-  destroyedVersion: {fileID: 0}
-  explosion: {fileID: 0}
+  destroyedVersion: {fileID: 6024768048972976146, guid: 06647fc0614ca426e82f6125cfdfa35c, type: 3}
+  explosion: {fileID: 662056413364215625, guid: 5d2edb12c817c48118aa3200989abd03, type: 3}
   owner: {fileID: 84082568748296070}
   focusFires: 1
   spotsTargets: 0
@@ -1167,8 +1167,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 0
   squadList: []
-  destroyedVersion: {fileID: 0}
-  explosion: {fileID: 0}
+  destroyedVersion: {fileID: 6024768048972976146, guid: 06647fc0614ca426e82f6125cfdfa35c, type: 3}
+  explosion: {fileID: 662056413364215625, guid: 5d2edb12c817c48118aa3200989abd03, type: 3}
   owner: {fileID: 84082568748296070}
   focusFires: 1
   spotsTargets: 0

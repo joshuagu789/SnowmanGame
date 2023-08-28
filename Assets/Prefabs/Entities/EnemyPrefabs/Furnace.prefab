@@ -379,7 +379,7 @@ MonoBehaviour:
   uniqueAttackNumber: 1
   isStationaryWhenFiring: 1
   damage: 15
-  range: 200
+  range: 300
   explosionRadius: 10
   cooldown: 5
   firingDelay: 2
@@ -407,13 +407,12 @@ MonoBehaviour:
   type: Enemy
   systemIntegrity: 100
   maxIntegrity: 100
-  temperature: 0
+  temperature: 80
   energy: 60
   maxEnergy: 60
   speed: 3.5
   rotationSpeed: 60
   detectionRange: 50
-  range: 200
   fov: 90
   minRange: 175
   maxRange: 200
@@ -432,6 +431,8 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 1
   squadList: []
+  destroyedVersion: {fileID: 7743720914917875720, guid: 5d7dd0e47bebb458ab0c4136123060f3, type: 3}
+  explosion: {fileID: 6812224718508781062, guid: dc1c001041abc4783addc9d54b82e2a4, type: 3}
 --- !u!1 &4949688390304468509
 GameObject:
   m_ObjectHideFlags: 0

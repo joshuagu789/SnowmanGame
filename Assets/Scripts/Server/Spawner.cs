@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
     }
 
     // Instantiates random entities from a list which is determined by type and tier (type being either "Snowmen" or "Enemy")
-    public void SpawnRandom(string type, int minTier, int maxTier,int amount, Transform location, int minRange, int maxRange)
+    public void SpawnRandom(string type, int minTier, int maxTier,int amount, Vector3 location, int minRange, int maxRange)
     {
         if (amount > 0)
         {
@@ -55,13 +55,13 @@ public class Spawner : MonoBehaviour
     }
 
     // Same as SpawnRandom() but all entities spawned are the same
-    public void SpawnSpecific(string type, int tier, int amount, Transform location, int minRange, int maxRange)
+    public void SpawnSpecific(string type, int tier, int amount, Vector3 location, int minRange, int maxRange)
     {
         ChooseList(type);
     }
 
     // Same as SpawnRandom() but first entity created is a leader to which the rest of the spawned entities are assigned to follow 
-    public void SpawnSquad(string type, int tier, int amount, Transform location, int minRange, int maxRange)
+    public void SpawnSquad(string type, int tier, int amount, Vector3 location, int minRange, int maxRange)
     {
         ChooseList(type);
     }
@@ -74,22 +74,22 @@ public class Spawner : MonoBehaviour
             entityList = snowmenList;
     }
 
-    private void SelectSpawnLocation(Transform location, int minRange, int maxRange, int numberOfTries)
+    private void SelectSpawnLocation(Vector3 location, int minRange, int maxRange, int numberOfTries)
     {
         Vector3 spawnCenter;
         if (location != null)
-            spawnCenter = location.position;
+            spawnCenter = location;
         else
             spawnCenter = new Vector3(0f,0f,0f);
 
         Mathf.Clamp(minRange, 0, Mathf.Infinity);
         Mathf.Clamp(maxRange, 0, Mathf.Infinity);
         // Choose a random spawn location that is between minRange and maxRange from location
-        spawnLocation = Quaternion.AngleAxis(Random.Range(0, 360), location.transform.up) * -location.position.normalized * Random.Range(minRange, maxRange) + location.position;
+        spawnLocation = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * -location.normalized * Random.Range(minRange, maxRange) + location;
 
         // Making sure spawn location is a valid place to instantiate entities
         RaycastHit hit;
-        if (Physics.Raycast(spawnLocation, transform.up, out hit, 1000) || Physics.Raycast(spawnLocation, -transform.up, out hit, 1000))    // If spawn location is below/above a collider (collider could potentially be the ground)
+        if (Physics.Raycast(spawnLocation + Vector3.down * 1000, transform.up, out hit) || Physics.Raycast(spawnLocation + Vector3.up * 1000, -transform.up, out hit))    // If spawn location is below/above a collider (collider could potentially be the ground)
         {
             // Retrying method if spawn location is not on ground
             if (!hit.collider.gameObject.tag.Equals("Ground") && numberOfTries > 0)

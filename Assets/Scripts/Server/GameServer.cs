@@ -34,7 +34,7 @@ public class GameServer : MonoBehaviour
         cooldownTimer = waveCooldown;
         for (int i = 0; i < 10; i++)
         {
-            spawner.SpawnRandom("Enemies", 1, 2, (int)Random.Range(2, 5), player.transform, 500, 1000);
+            spawner.SpawnRandom("Enemies", 1, 2, (int)Random.Range(2, 5), player.transform.position, 500, 1000);
         }
     }
 
@@ -64,7 +64,7 @@ public class GameServer : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                spawner.SpawnRandom("Enemies", 1, 3, (int)Random.Range(2, 5), player.transform, 300, 500);
+                spawner.SpawnRandom("Enemies", 1, 3, (int)Random.Range(2, 5), player.transform.position, 300, 500);
             }
         }
 
