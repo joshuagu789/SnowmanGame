@@ -68,4 +68,14 @@ public class Building : Robot
             transform.position += new Vector3(0, GetComponent<BoxCollider>().size.y * amount / maxIntegrity / 2, 0);
         }
     }
+
+    public override void MoveTo(Vector3 location)
+    {
+        FaceLocation(location);
+    }
+
+    public override void StandStill()
+    {
+        // Does nothing
+    }
 }

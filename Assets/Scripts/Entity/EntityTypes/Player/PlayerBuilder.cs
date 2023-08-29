@@ -113,7 +113,7 @@ public class PlayerBuilder : MonoBehaviour
 
         foreach (Item item in requiredMaterials)
         {
-            int amountStillNeeded = item.amount;
+            int amountStillNeeded = item.GetAmount(); 
             List<Entity> allies = new List<Entity> { player };
             allies.AddRange(allies[0].squadList);
 
@@ -121,16 +121,16 @@ public class PlayerBuilder : MonoBehaviour
             {
                 var allyStorage = ally.gameObject.GetComponent<StorageUnit>();
 
-                if (allyStorage != null && allyStorage.GetStorage().ContainsKey(item.item))
+                if (allyStorage != null && allyStorage.GetStorage().ContainsKey(item.GetItem()))
                 {
-                    if (amountStillNeeded <= allyStorage.GetStorage()[item.item])    // If ally's storage has enough to meet amount of the item needed
+                    if (amountStillNeeded <= allyStorage.GetStorage()[item.GetItem()])    // If ally's storage has enough to meet amount of the item needed
                     {
-                        amountStillNeeded -= allyStorage.GetStorage()[item.item];
+                        amountStillNeeded -= allyStorage.GetStorage()[item.GetItem()];
                         break;
                     }
                     else
                     {
-                        amountStillNeeded -= allyStorage.GetStorage()[item.item];
+                        amountStillNeeded -= allyStorage.GetStorage()[item.GetItem()];
                     }
                 }
             }
@@ -148,7 +148,7 @@ public class PlayerBuilder : MonoBehaviour
     {
         foreach (Item item in requiredMaterials)
         {
-            int amountStillNeeded = item.amount;
+            int amountStillNeeded = item.GetAmount();
             List<Entity> allies = new List<Entity> { player };
             allies.AddRange(allies[0].squadList);
 
@@ -156,20 +156,20 @@ public class PlayerBuilder : MonoBehaviour
             {
                 var allyStorage = ally.gameObject.GetComponent<StorageUnit>();
 
-                if (allyStorage != null && allyStorage.GetStorage().ContainsKey(item.item))
+                if (allyStorage != null && allyStorage.GetStorage().ContainsKey(item.GetItem()))
                 {
-                    if (amountStillNeeded <= allyStorage.GetStorage()[item.item])    // If ally's storage has enough to meet amount of the item needed
+                    if (amountStillNeeded <= allyStorage.GetStorage()[item.GetItem()])    // If ally's storage has enough to meet amount of the item needed
                     {
                         int amount = amountStillNeeded;
-                        amountStillNeeded -= allyStorage.GetStorage()[item.item];
-                        ally.GetComponent<StorageUnit>().DeleteItem(item.item, amount);
+                        amountStillNeeded -= allyStorage.GetStorage()[item.GetItem()];
+                        ally.GetComponent<StorageUnit>().DeleteItem(item.GetItem(), amount);
                         break;
                     }
                     else    // If ally doesn't have enough of the specific item
                     {
                         int amount = amountStillNeeded;
-                        amountStillNeeded -= allyStorage.GetStorage()[item.item];
-                        ally.GetComponent<StorageUnit>().DeleteItem(item.item, amount);
+                        amountStillNeeded -= allyStorage.GetStorage()[item.GetItem()];
+                        ally.GetComponent<StorageUnit>().DeleteItem(item.GetItem(), amount);
                     }
                 }
             }

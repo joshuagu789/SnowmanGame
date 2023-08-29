@@ -178,12 +178,18 @@ public class Entity : MonoBehaviour
         agent.SetDestination(location);
     }
 
-    public void StandStill()
+    public virtual void StandStill()
     {
         agent.ResetPath();
         walkPointSet = false;
         walkPoint = new Vector3(0f, 0f, 0f);
         animator.SetBool("isMoving", false);
+    }
+
+    public void FaceLocation(Vector3 location)
+    {
+        var targetRotation = Quaternion.LookRotation(new Vector3(location.x - transform.position.x, 0f, location.z - transform.position.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed / 360 * Time.deltaTime);
     }
 
     public Vector3 GetWalkPoint() { return walkPoint; }

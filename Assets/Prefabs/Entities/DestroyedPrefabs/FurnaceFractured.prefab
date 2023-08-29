@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6099414894592455496}
   - component: {fileID: 7042438550796559326}
   - component: {fileID: 219336383203208417}
-  - component: {fileID: 8648423309064467424}
   m_Layer: 0
   m_Name: Furnace Mesh
   m_TagString: Untagged
@@ -115,19 +114,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: -0.012499899, y: 0.5833334, z: 0}
---- !u!114 &8648423309064467424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2898413146548260567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fed9924d62e441d2b662f5a8ff45918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 60
 --- !u!1 &4575935552332102325
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +127,6 @@ GameObject:
   - component: {fileID: 3951296933684336053}
   - component: {fileID: 2900690335873625118}
   - component: {fileID: 2308007061764342053}
-  - component: {fileID: 2161444232290084526}
   m_Layer: 0
   m_Name: Furnace Mesh.005
   m_TagString: Untagged
@@ -243,19 +228,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &2161444232290084526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4575935552332102325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fed9924d62e441d2b662f5a8ff45918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 60
 --- !u!1 &6324601958311854494
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +241,6 @@ GameObject:
   - component: {fileID: 3780674431469538656}
   - component: {fileID: 8738394902211803760}
   - component: {fileID: 5135761394250053948}
-  - component: {fileID: 4826393581282316785}
   m_Layer: 0
   m_Name: Furnace Mesh.001
   m_TagString: Untagged
@@ -371,19 +342,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.767767, y: 1.3333333, z: 0.2}
   m_Center: {x: -0.012499869, y: 0.5833334, z: 0.8419417}
---- !u!114 &4826393581282316785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6324601958311854494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fed9924d62e441d2b662f5a8ff45918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 60
 --- !u!1 &7483525364804913159
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +355,6 @@ GameObject:
   - component: {fileID: 4965831071050627322}
   - component: {fileID: 7403161585232149582}
   - component: {fileID: 7070976954607365375}
-  - component: {fileID: 1650836686412417959}
   m_Layer: 0
   m_Name: Furnace Mesh.003
   m_TagString: Untagged
@@ -499,19 +456,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &1650836686412417959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7483525364804913159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fed9924d62e441d2b662f5a8ff45918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 60
 --- !u!1 &7743720914917875720
 GameObject:
   m_ObjectHideFlags: 0

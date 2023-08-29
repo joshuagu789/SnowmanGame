@@ -116,7 +116,7 @@ public class StorageUnit : MonoBehaviour
         var item = other.collider.GetComponent<Item>();
         if (item != null)
         {
-            GetComponent<StorageUnit>().AddItem(item.item, item.amount);
+            GetComponent<StorageUnit>().AddItem(item.GetItem(), item.GetAmount());
             Destroy(other.gameObject);
         }
     }
