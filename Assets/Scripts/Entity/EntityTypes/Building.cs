@@ -11,7 +11,6 @@ using UnityEngine;
 public class Building : Robot
 {
     public List<Item> buildCost;
-    public float heightOffset;  
     private bool underConstruction = true;
     private bool isTouchingGround = true;   // Buildings are instantiated halfway into the ground since Spawner spawns units with their center of mass touching ground
 

@@ -174,6 +174,15 @@ public class Entity : MonoBehaviour
         isIdle = false;
         walkPointSet = true;
         walkPoint = location;
+        agent.SetDestination(location);
+    }
+
+    public void StandStill()
+    {
+        agent.ResetPath();
+        walkPointSet = false;
+        walkPoint = new Vector3(0f, 0f, 0f);
+        animator.SetBool("isMoving", false);
     }
 
     public Vector3 GetWalkPoint() { return walkPoint; }

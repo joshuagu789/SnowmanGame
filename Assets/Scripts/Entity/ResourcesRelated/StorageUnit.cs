@@ -57,8 +57,9 @@ public class StorageSlot : ScriptableObject
 */
 public class StorageUnit : MonoBehaviour
 {
-    public Dictionary<ItemObject, int> storage = new Dictionary<ItemObject, int>();
-    public float maxStorageSize;
+    private Dictionary<ItemObject, int> storage = new Dictionary<ItemObject, int>();
+    [SerializeField]
+    private float maxStorageSize;
     private float storageSize = 0;
 
     public void AddItem(ItemObject item, int amount)

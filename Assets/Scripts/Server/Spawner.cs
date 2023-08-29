@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
 {
     public GameServer gameServer;
     public Transform player;
+    public GameObject a;
 
     public List<GameObject> tierOneEnemies = new List<GameObject>();
     public List<GameObject> tierTwoEnemies = new List<GameObject>();
@@ -23,6 +24,11 @@ public class Spawner : MonoBehaviour
 
     private SortedDictionary<int, List<GameObject>> entityList;
     private Vector3 spawnLocation;
+
+    private void Start()
+    {
+        SpawnSpecific(a, 4, player.position, 10, 20);
+    }
 
     // Start is called before the first frame update
     void Awake()
