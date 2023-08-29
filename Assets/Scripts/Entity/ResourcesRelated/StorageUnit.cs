@@ -85,4 +85,15 @@ public class StorageUnit : MonoBehaviour
             }
         }
     }
+
+    // Collecting items on contact
+    private void OnCollisionEnter(Collision other)  
+    {
+        var item = other.collider.GetComponent<Item>();
+        if (item != null)
+        {
+            GetComponent<StorageUnit>().AddItem(item.item, item.amount);
+            Destroy(other.gameObject);
+        }
+    }
 }

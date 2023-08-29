@@ -33,9 +33,9 @@ public class GameServer : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         cooldownTimer = waveCooldown;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 12; i++)
         {
-            spawner.SpawnRandom("Enemies", 1, 2, (int)Random.Range(2, 5), player.transform.position, 500, 1000);
+            spawner.SpawnRandom("Enemies", 1, 2, (int)Random.Range(2, 4), player.transform.position, 500, 1000);
         }
     }
 

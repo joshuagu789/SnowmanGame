@@ -55,6 +55,7 @@ public class Leadership : MonoBehaviour
     // All allies not in combat will move to the entity that the leader is targeting
     private void HuntTarget()
     {
+        entity.MoveTo(entity.target.position);
         foreach (Entity ally in entity.squadList)
         {
             var location = new Vector3(entity.target.position.x + Random.Range(-50f, 50f), entity.target.position.y, entity.target.position.z + Random.Range(-50f, 50f));

@@ -5,6 +5,7 @@ using UnityEngine;
 /*
    Interacts only with Entity script to manage the unique characteristics that robot entities have
    (such as exploding and dropping spare parts when defeated)
+    - robots can also be repaired
 */
 
 public class Robot : Entity
@@ -93,7 +94,7 @@ public class Robot : Entity
             readyToCheckLock = true;
     }
 
-    private void OnDestroy()    // Replacing itself with a destroyed version of itself
+    public override void OnDestroy()    // Replacing itself with a destroyed version of itself
     {
         base.OnDestroy();
         if (systemIntegrity <= 0)
@@ -103,5 +104,10 @@ public class Robot : Entity
             if (explosion != null)
                 Instantiate(explosion, transform.position, transform.rotation);
         }
+    }
+
+    public virtual void Repair(float amount)
+    {
+        systemIntegrity += amount;
     }
 }

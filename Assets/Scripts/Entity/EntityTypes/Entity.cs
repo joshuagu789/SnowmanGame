@@ -85,7 +85,7 @@ public class Entity : MonoBehaviour
         UpdateVectors();
     }
 
-    public void OnDestroy()
+    public virtual void OnDestroy()
     {
         if (leader != null)
             leader.GetComponent<Entity>().squadList.Remove(this);
