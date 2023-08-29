@@ -1,5 +1,5 @@
 /*
- * Entites with this script are able to hold items that they can use as consumables or materials
+ * Entites with this script are able to hold items that they can use as consumables or materials for building
  *  - Player uses this as well as NPCs
  */
 using System.Collections;
@@ -62,6 +62,18 @@ public class StorageUnit : MonoBehaviour
     private float maxStorageSize;
     private float storageSize = 0;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            print(gameObject.name);
+            foreach (ItemObject slot in storage.Keys)
+            {
+                print(slot.name + ": " + storage[slot]);
+            }
+        }
+    }
+
     public void AddItem(ItemObject item, int amount)
     {
         if (storage.ContainsKey(item) && item.volume * amount + storageSize <= maxStorageSize)  // If storage already contains item
@@ -76,15 +88,26 @@ public class StorageUnit : MonoBehaviour
         }
     }
 
-    private void Update()
+    // Removing amount of a specific item from storage as well as updating storageSize
+    public void DeleteItem(ItemObject item, int amount)
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (storage.ContainsKey(item))
         {
-            foreach (ItemObject slot in storage.Keys)
+            var originalAmount = storage[item];
+            storage[item] -= amount;
+            if (storage[item] <= 0)
             {
-                print(slot.name + ": " + storage[slot]);
+                storage.Remove(item);
+                storageSize -= item.volume * originalAmount;
             }
+            else
+                storageSize -= item.volume * amount;
         }
+    }
+
+    public Dictionary<ItemObject, int> GetStorage()
+    {
+        return storage;
     }
 
     // Collecting items on contact

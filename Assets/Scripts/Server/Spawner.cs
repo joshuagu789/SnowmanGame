@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnSpecific(a, 4, player.position, 10, 20);
+            //SpawnSpecific(a, 4, player.position, 10, 20);
     }
 
     // Start is called before the first frame update

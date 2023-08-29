@@ -82,7 +82,7 @@ public class BasicMovement : MonoBehaviour
             var distance = new Vector3(entity.leader.position.x - entity.transform.position.x, 0f,
                            entity.leader.position.z - entity.transform.position.z);
 
-            if (distance.magnitude > entity.leashRange)
+            if (distance.sqrMagnitude > entity.leashRange * entity.leashRange)
                 tooFarFromLeader = true;
             else
                 tooFarFromLeader = false;
@@ -142,7 +142,7 @@ public class BasicMovement : MonoBehaviour
 
             // Checking if destination is reached
             Vector3 distanceToWalkPoint = new Vector3(entity.GetWalkPoint().x - transform.position.x, 0f, entity.GetWalkPoint().z - transform.position.z);
-            if (distanceToWalkPoint.magnitude < 1f)
+            if (distanceToWalkPoint.sqrMagnitude < entity.agent.radius * entity.agent.radius)
                 entity.walkPointSet = false;
         }
     }

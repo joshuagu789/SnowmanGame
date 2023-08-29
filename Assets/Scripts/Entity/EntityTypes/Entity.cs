@@ -174,6 +174,7 @@ public class Entity : MonoBehaviour
         isIdle = false;
         walkPointSet = true;
         walkPoint = location;
+        animator.SetBool("isMoving", true);
         agent.SetDestination(location);
     }
 

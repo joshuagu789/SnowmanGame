@@ -30,7 +30,7 @@ public class Player : Snowman
     void Update()
     {
         agent.ResetPath();  // Player has a NavMeshAgent so that their allies will stop bumping into them- 
-                            // constantly resetting path since agent is not used for travel but rather WASD controls
+                            // constantly resetting path since agent is not used for travel but for other agents to not walk into the player
         if (isLockedOn & target != null)
         {
             UpdateVectors();

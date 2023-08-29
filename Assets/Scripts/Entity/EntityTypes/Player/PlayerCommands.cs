@@ -24,7 +24,6 @@ public class PlayerCommands : MonoBehaviour
     private bool toggleOn = false;
     private bool readyToSendOrder = false;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         // Making command bar transparent

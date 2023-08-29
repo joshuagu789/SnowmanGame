@@ -737,9 +737,12 @@ MonoBehaviour:
   - I hear you.
   - Need something?
   deathVoiceLines:
-  - IF YOU ALL WANT TO SURVIVE THEN REVIVE ME
-  alertVoiceLines: []
-  alertResponseVoiceLines: []
+  - IM FALLING APART
+  alertVoiceLines:
+  - ...Anyone else hear that?
+  alertResponseVoiceLines:
+  - LETS MOVE WHILE WE STILL CAN
+  - WE SHOULD TELEPORT ASAP
   ableToSpeak: 1
   hasSpokenDeathVoiceLine: 0
 --- !u!114 &-4966303733862749187
