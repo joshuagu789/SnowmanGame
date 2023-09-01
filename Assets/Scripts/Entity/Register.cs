@@ -11,12 +11,10 @@ using UnityEngine;
 
 public class Register : MonoBehaviour
 {
-
-    public Transform damageSource;
-    public float damageTaken;
-    public float tempModifier;
-
-    public bool hasTakenDamage = false;
+    private Transform damageSource;
+    private float damageTaken;
+    private float tempIncrease;
+    private bool hasTakenDamage = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +29,7 @@ public class Register : MonoBehaviour
         {
             damageSource = null;
             damageTaken = 0;
-            tempModifier = 0;
+            tempIncrease = 0;
         }
     }
 
@@ -39,10 +37,16 @@ public class Register : MonoBehaviour
     {
         this.damageSource = damageSource;
         this.damageTaken = damageTaken;
-        this.tempModifier = tempModifier;
+        this.tempIncrease = tempModifier;
 
         // Now announces to scripts checking DamageRegister that the game object has taken damage and needs to register it
         // hasTakenDamage will be set to false after the damage has been registered
         hasTakenDamage = true;
     }
+
+    public bool HasTakenDamage() { return hasTakenDamage; }
+    public Transform GetDamageSource() { return damageSource; }
+    public float GetDamageTaken() { return damageTaken; }
+    public float GetTempIncrease() { return tempIncrease; }
+    public void ResetRegister() { hasTakenDamage = false; }
 }

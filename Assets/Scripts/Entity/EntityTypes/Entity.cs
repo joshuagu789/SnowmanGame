@@ -125,16 +125,16 @@ public class Entity : MonoBehaviour
 
     public virtual void CheckDamage()
     {
-        if (register.hasTakenDamage)
+        if (register.HasTakenDamage())
         {
             // Makes entity target its attacker if the attack allows for it
-            if (register.damageSource != null && !register.damageSource.gameObject.GetComponentInParent<Entity>().type.Equals(type))
+            if (register.GetDamageSource() != null && !register.GetDamageSource().gameObject.GetComponentInParent<Entity>().type.Equals(type))
             {
-                FocusFire(register.damageSource);
+                FocusFire(register.GetDamageSource());
             }
-            systemIntegrity -= register.damageTaken;
-            temperature += register.tempModifier;
-            register.hasTakenDamage = false;
+            systemIntegrity -= register.GetDamageTaken();
+            temperature += register.GetTempIncrease();
+            register.ResetRegister();
         }
     }
 

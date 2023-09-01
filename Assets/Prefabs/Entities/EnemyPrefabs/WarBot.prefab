@@ -137,8 +137,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9480742, g: 0.9622642, b: 0.031772893, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Intensity: 1.5
+  m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -467,10 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!1 &5476484129633813469
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,10 +928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!114 &84082569742902158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1231,10 +1223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!114 &84082568491427521
 MonoBehaviour:
   m_ObjectHideFlags: 0

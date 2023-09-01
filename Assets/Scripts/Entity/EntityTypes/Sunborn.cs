@@ -12,6 +12,9 @@ public class Sunborn : Entity
 {
     public float maxTemperature; 
     public float deathTime;
+    public float dodgeCooldown;
+
+    private float cooldownTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -47,18 +50,24 @@ public class Sunborn : Entity
 
     public override void CheckDamage()
     {
-        if (register.hasTakenDamage)
+        cooldownTimer += Time.deltaTime;
+
+        if (register.HasTakenDamage() && cooldownTimer < dodgeCooldown) // If the sunborn took damage and isn't ready to dodge yet
         {
             // Makes entity target its attacker if the attack allows for it
-            if (register.damageSource != null && !register.damageSource.gameObject.GetComponentInParent<Entity>().type.Equals(type))
+            if (register.GetDamageSource() != null && !register.GetDamageSource().gameObject.GetComponentInParent<Entity>().type.Equals(type))
             {
-                FocusFire(register.damageSource);
+                FocusFire(register.GetDamageSource());
             }
-
+            systemIntegrity -= register.GetDamageTaken();
+            temperature += register.GetTempIncrease();
+            register.ResetRegister();
+        }
+        else if (register.HasTakenDamage() && cooldownTimer >= dodgeCooldown  && !isDisabled)  // Sunborn can negate damage and play dodge animation if ready
+        {
+            cooldownTimer = 0;
             animator.SetTrigger("Dodge");
-            systemIntegrity -= register.damageTaken;
-            temperature += register.tempModifier;
-            register.hasTakenDamage = false;
+            register.ResetRegister();
         }
     }
 

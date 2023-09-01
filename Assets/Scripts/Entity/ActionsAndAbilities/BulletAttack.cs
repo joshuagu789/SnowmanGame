@@ -60,6 +60,7 @@ public class BulletAttack : MonoBehaviour
         yield return new WaitForSeconds(firingDelay);
         for (int x = 0; x < bulletCount; x++)
         {
+            // Shooting one bullet and waiting a short delay until bulletCount number of bullets are fired
             SpawnBullets();
             yield return new WaitForSeconds(bulletInterval);
         }

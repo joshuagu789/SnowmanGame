@@ -183,7 +183,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 1.4999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7901131031114894464}
   m_Father: {fileID: 4581653221355999749}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,10 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!1 &7018610560740665919
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +285,6 @@ Transform:
   - {fileID: 9156278216935566341}
   - {fileID: 2808946995223025903}
   - {fileID: 7901131032934827469}
-  - {fileID: 7901131031114894464}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -464,12 +460,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7901131031114894467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.55, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7650716035467767941}
-  m_RootOrder: 3
+  m_Father: {fileID: 5676468564281981493}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &7901131031114894465
 Light:
@@ -482,9 +478,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.7394751, b: 0.2216981, a: 1}
+  m_Color: {r: 0.9245283, g: 0.68467426, b: 0.20496617, a: 1}
   m_Intensity: 1.5
-  m_Range: 10
+  m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -828,10 +824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!114 &7901131032456095708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,10 +1143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!4 &7650716034611626291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 539c8332756a24e3a9ed26fb236161e8, type: 3}

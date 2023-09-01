@@ -313,7 +313,6 @@ MonoBehaviour:
   speed: 10
   rotationSpeed: 120
   detectionRange: 75
-  range: 60
   fov: 90
   minRange: 10
   maxRange: 50
@@ -334,6 +333,7 @@ MonoBehaviour:
   squadList: []
   maxTemperature: 100
   deathTime: 3.5
+  dodgeCooldown: 6
 --- !u!114 &2159877154827750472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,10 +745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!1 &5521523922923802265
 GameObject:
   m_ObjectHideFlags: 0
