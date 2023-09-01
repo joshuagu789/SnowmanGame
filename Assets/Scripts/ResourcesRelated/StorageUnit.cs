@@ -71,6 +71,7 @@ public class StorageUnit : MonoBehaviour
             {
                 print(slot.name + ": " + storage[slot]);
             }
+            print("timescale: " + Time.timeScale);
         }
     }
 

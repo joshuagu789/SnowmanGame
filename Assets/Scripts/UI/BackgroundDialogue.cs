@@ -37,7 +37,7 @@ public class BackgroundDialogue : MonoBehaviour
     // Model C's chatter voice lines
     { {0, new List<string>{"Wait, we enter combat!",}}, { 1, new List<string> { "How is everyone on energy?", }}, { 2, new List<string> { "I'll try to ration it.", "Let's avoid combat to preserve it."}},
     { 3, new List<string> { "Any enemies approaching us?", }}, { 4, new List<string> { "Nothing on my side.", }},
-    {5, new List<string>{"Let's keep moving.","Maybe I should get some A.R.M.S like Model D...","Let's avoid combat whenever we can, alright?","Have faith, friends. We will make it through."}}, {6, new List<string>{""}}, };
+    {5, new List<string>{"Let's keep moving.","Let's avoid combat whenever we can, alright?","Have faith, friends. We will make it through."}}, {6, new List<string>{""}}, };
 
 
     public SquadMemberUI modelD_UI;

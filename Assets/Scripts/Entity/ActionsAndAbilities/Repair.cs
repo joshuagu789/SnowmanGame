@@ -17,6 +17,7 @@ public class Repair : MonoBehaviour
     private float noticeRange;
 
     private Robot repairTarget;
+    private float distanceToTargetSqr;
     private float timer;
     private float distanceTimer;
 
@@ -58,26 +59,26 @@ public class Repair : MonoBehaviour
     private void RepairRobot(Robot robot)
     {
         entity.isDisabled = true;
-
         distanceTimer += Time.deltaTime;
+
         if (distanceTimer >= 0.25)
         {
             distanceTimer = 0;
-
-            var distanceToTargetSqr = new Vector3(robot.transform.position.x - entity.transform.position.x, 0f, robot.transform.position.z - entity.transform.position.z).sqrMagnitude;
-
-            if (distanceToTargetSqr <= repairRange * repairRange)   // If repair target is in range
-            {
-                entity.StandStill();
-                entity.animator.SetBool("isBuilding", true);
-                robot.Repair(repairSpeed * repairSpeed * Time.deltaTime);
-            }
-            else
-            {
-                entity.MoveTo(robot.transform.position);
-                entity.animator.SetBool("isBuilding", false);
-            }
+            distanceToTargetSqr = new Vector3(robot.transform.position.x - entity.transform.position.x, 0f, robot.transform.position.z - entity.transform.position.z).sqrMagnitude;
         }
+
+        if (distanceToTargetSqr <= repairRange * repairRange)   // If repair target is in range
+        {
+            entity.StandStill();
+            entity.animator.SetBool("isBuilding", true);
+            robot.Repair(repairSpeed * Time.deltaTime);
+        }
+        else
+        {
+            entity.MoveTo(robot.transform.position);
+            entity.animator.SetBool("isBuilding", false);
+        }
+        
         if (robot.systemIntegrity >= robot.maxIntegrity || entity.isLockedOn)
         {
             repairTarget = null;

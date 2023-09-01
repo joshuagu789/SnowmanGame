@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 public class Harvester : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class Harvester : MonoBehaviour
     private Transform outputLocation;   // Where the items taken from the Harvestable containing the resource are instantiated
 
     private Harvestable harvestTarget;
+    private GameObject resourcePrefab;
+    private float distanceToTargetSqr;
     private float timer;
     private float distanceTimer;
 
@@ -36,12 +39,8 @@ public class Harvester : MonoBehaviour
             timer = 0;
             SearchHarvesTarget();
         }
-        else if (harvestTarget != null)
+        else if(resourcePrefab != null)
             Harvest(harvestTarget);
-        else
-        {
-            harvestTarget = null;
-        }
     }
 
     // Searching for a game object with script harvestable that's within range
@@ -54,6 +53,7 @@ public class Harvester : MonoBehaviour
             if (resource != null)
             {
                 harvestTarget = resource;
+                resourcePrefab = resource.GetResource().prefab;
                 currentAmount = 0;
                 break;
             }
@@ -67,45 +67,51 @@ public class Harvester : MonoBehaviour
         entity.isDisabled = true;
 
         distanceTimer += Time.deltaTime;
+
         if (distanceTimer >= 0.25 && resource != null)
         {
             distanceTimer = 0;
+            distanceToTargetSqr = new Vector3(resource.transform.position.x - entity.transform.position.x, 0f, resource.transform.position.z - entity.transform.position.z).sqrMagnitude;
+        }
 
-            var distanceToTargetSqr = new Vector3(resource.transform.position.x - entity.transform.position.x, 0f, resource.transform.position.z - entity.transform.position.z).sqrMagnitude;
+        if (distanceToTargetSqr <= harvestRange * harvestRange && resource != null)   // If repair target is in range
+        {
+            entity.StandStill();
+            entity.animator.SetBool("isBuilding", true);
+            currentAmount += harvestSpeed * Time.deltaTime;
+            resource.Mine(harvestSpeed * Time.deltaTime);
 
-            if (distanceToTargetSqr <= harvestRange * harvestRange)   // If repair target is in range
+            var targetRotation = Quaternion.LookRotation(new Vector3(resource.transform.position.x - transform.position.x, 0f, resource.transform.position.z - transform.position.z));
+            print(targetRotation);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, entity.rotationSpeed / 180 * Time.deltaTime);
+
+            // Spawning the game object as an item holding the resource and its amount
+            if (currentAmount >= outputAmount)
             {
-                entity.StandStill();
-                entity.animator.SetBool("isBuilding", true);
-                currentAmount += harvestSpeed * Time.deltaTime;
-                resource.Mine(harvestSpeed * Time.deltaTime);
-
-                // Spawning the game object as an item holding the resource and its amount
-                if (currentAmount >= outputAmount)
-                {
-                    currentAmount = 0;
-                    var item = Instantiate(resource.GetResource().prefab, outputLocation.position, transform.rotation);
-                    item.GetComponent<Item>().SetAmount((int) outputAmount);
-                }
-            }
-            else
-            {
-                entity.MoveTo(resource.transform.position);
-                entity.animator.SetBool("isBuilding", false);
+                currentAmount = 0;
+                var item = Instantiate(resourcePrefab, outputLocation.position, transform.rotation);
+                item.GetComponent<Item>().SetAmount((int)outputAmount);
             }
         }
+        else
+        {
+            entity.MoveTo(resource.transform.position);
+            entity.animator.SetBool("isBuilding", false);
+        }
+        
         if (entity.isLockedOn || resource == null) 
         {
-            harvestTarget = null;
-            entity.animator.SetBool("isBuilding", false);
-            entity.isDisabled = false;
-
             // Spawning the game object holding the resource and its amount early without reaching the desired outputAmount since harvester was interrupted
             if (currentAmount > 0)
             {
-                var item = Instantiate(resource.GetResource().prefab, outputLocation.position, transform.rotation);
+                var item = Instantiate(resourcePrefab, outputLocation.position, transform.rotation);
                 item.GetComponent<Item>().SetAmount((int)currentAmount);
             }
+
+            harvestTarget = null;
+            resourcePrefab = null;
+            entity.animator.SetBool("isBuilding", false);
+            entity.isDisabled = false;
         }
     }
 }

@@ -14,7 +14,7 @@ public class Building : Robot
     private bool underConstruction = true;
     private bool isTouchingGround = true;   // Buildings are instantiated halfway into the ground since Spawner spawns units with their center of mass touching ground
 
-    private void Start()
+    private void Awake()
     {
         systemIntegrity = maxIntegrity / 10;
         isDisabled = true;
@@ -71,7 +71,7 @@ public class Building : Robot
 
     public override void MoveTo(Vector3 location)
     {
-        FaceLocation(location);
+        // Does nothing
     }
 
     public override void StandStill()
