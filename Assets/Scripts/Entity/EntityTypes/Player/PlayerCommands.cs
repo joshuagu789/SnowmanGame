@@ -68,7 +68,17 @@ public class PlayerCommands : MonoBehaviour
         else if (readyToSendOrder)
         {
             outputTitle.text = "Give Command:";
-            outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. Ability1 \n6. Ability2 \n7. Build \n8. Cancel";
+            if (targetAudience.Count > 1)
+                outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. Tactical Ability \n6. Intel Ability \n7. Build \n8. Cancel";
+            else
+            {
+                var tacticalAbility = targetAudience[0].GetComponent<SquadAbility>();
+
+                if(tacticalAbility != null)
+                    outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. " + tacticalAbility.GetAbilityType() + " \n6. Intel Ability \n7. Build \n8. Cancel";
+                else
+                    outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. Tactical Ability \n6. Intel Ability \n7. Build \n8. Cancel";
+            }
         }
     }
 

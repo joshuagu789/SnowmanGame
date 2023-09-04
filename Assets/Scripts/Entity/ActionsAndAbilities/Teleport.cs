@@ -9,43 +9,41 @@ using UnityEngine.TextCore.Text;
  *  - Planned: leader AIs can command entities to teleport squad by calling on public method?
  */
 
-public class Teleport : MonoBehaviour
+public class Teleport : SquadAbility
 {
-    public Entity entity;
     public Camera camera;
     public GameObject teleportVFX;
     public Transform effectLocation;    // Where teleportVFX is created
 
     public float teleportDistance;
-    public float energyCost;
-    public float cooldown;
     public float activationDelay;
     public float radius;    // Also teleports allies within radius
 
-    private float cooldownTimer = 0;
-    private Vector3 destination;
-
-    // Update is called once per frame
-    private void Update()
+    private void Awake()
     {
-        cooldownTimer += Time.deltaTime;
+        type = AbilityType.Teleport;
+    }
 
-        if (entity.leader.gameObject.CompareTag("Player") & Input.GetKeyDown(KeyCode.F) && cooldownTimer >= cooldown && entity.energy >= energyCost)
+    public override void UseAbility(Vector3 direction)
+    {
+        if (CanUseAbility())
         {
-            cooldownTimer = 0;
-            entity.energy -= energyCost;
+            ResetCooldown();
+            ExpendEnergy();
 
-            var travelVector = new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z) * teleportDistance;
-
-            StartCoroutine(MovePosition(entity.leader.GetComponent<Entity>().squadList, travelVector, true));
+            //var travelVector = new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z) * teleportDistance;
+            var travelVector = direction * teleportDistance;
+            StartCoroutine(MovePosition(entity.leader.GetComponent<Entity>().squadList, travelVector, entity.leader.GetComponent<Entity>()));
         }
-        // Below two lines are experimental (for entities teleporting indepdendently)
-        else if (entity.leader != null && cooldownTimer >= cooldown) { }
-        else { }
+    }
+
+    public override void UseAbility(Entity target)
+    {
+        // Planned: teleport squad to target if in range
     }
 
     // Either moves everyone inside list (which includes itself) or just moves itself
-    private IEnumerator MovePosition(List<Entity> list, Vector3 travelVector, bool leaderIsPlayer)
+    private IEnumerator MovePosition(List<Entity> list, Vector3 travelVector, Entity leader)
     {
         entity.animator.SetBool("isMoving", false);
         entity.animator.SetTrigger("Teleport");
@@ -56,7 +54,6 @@ public class Teleport : MonoBehaviour
 
         if (list != null)
         {
-            //list.Add(entity.leader.GetComponent<Entity>());
             foreach (Entity ally in list)
             {
                 Instantiate(teleportVFX, ally.transform.position, transform.rotation);
@@ -71,21 +68,19 @@ public class Teleport : MonoBehaviour
                 ally.isIdle = false;
             }
             
-            // Moving the leader of the squad since list is leader's squad list & doesn't include itself
-            if (leaderIsPlayer)
+            // Moving the leader outside of the loop for moving the squad since leader could be the player and the player is moved in a different manner than AI's using NavMeshAgents
+            if (leader.gameObject.GetComponent<Player>() != null)
             {
                 yield return new WaitForSeconds(0.1f);
                 var player = entity.leader.GetComponent<CharacterController>(); // Player moves using character controller
                 Instantiate(teleportVFX, player.transform.position, transform.rotation);
-                player.Move(new Vector3(0f, 100f, 0f));     // To clear player of any obstacles
+                player.Move(new Vector3(0f, 100f, 0f));     // To clear player of any obstacles NOTE: might cause problems if game gets a ceiling in future
                 player.Move(travelVector); 
                 player.Move(new Vector3(0f, -200f, 0f));    // Setting player back down
                 Instantiate(teleportVFX, player.transform.position, transform.rotation);
             }
             else
-                entity.leader.gameObject.transform.Translate(travelVector);
-            
-            //Instantiate(teleportVFX, effectLocation.position, transform.rotation);
+                entity.leader.gameObject.transform.Translate(travelVector);            
         }
 
         entity.agent.isStopped = false;
