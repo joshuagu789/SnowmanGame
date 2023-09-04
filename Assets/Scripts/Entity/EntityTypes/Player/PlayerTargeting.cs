@@ -70,7 +70,7 @@ public class PlayerTargeting : MonoBehaviour
             {
                 Vector3 distance = new Vector3(potentialTarget.position.x - transform.position.x, 0f, potentialTarget.position.z - transform.position.z);
                 float angle = Vector3.Angle(camera.transform.forward, distance);
-                float priorityRank = distance.magnitude + angle * 4f;    // Formula to choose closest enemy that's closest to player's field of view
+                float priorityRank = distance.sqrMagnitude + angle * angle * 16f;     // Formula to choose closest enemy that's closest to player's field of view
 
                 if (priorityRank < minPriorityRank && distance.magnitude <= player.detectionRange)
                 {

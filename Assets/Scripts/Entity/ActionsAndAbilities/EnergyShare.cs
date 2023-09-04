@@ -38,7 +38,8 @@ public class EnergyShare : SquadAbility
             timer = 0;
             UpdateTargets();
         }
-        TransferEnergy();
+        if(activeTethers.Count > 0)
+            TransferEnergy();
     }
 
     // Adding new candidates (allies w/ low energy) to activeTargets and clearing targets that are too far away
@@ -93,13 +94,51 @@ public class EnergyShare : SquadAbility
         }
     }
 
+    // Find nearest ally based on proximity to Vector3 direction
     public override void UseAbility(Vector3 direction)
     {
-        // Find nearest ally based on where player is looking where direction is new Vector3(camera.position,forward.x,0f,camera.position,forward.z)?
+        // Getting all nearby allies in same squad
+        List<Entity> allyList = new List<Entity>();
+        if (entity.leader != null)
+        {
+            var leader = entity.leader.gameObject.GetComponent<Entity>();
+            allyList = new List<Entity>(leader.squadList);
+            allyList.Add(leader);
+        }
+
+        allyList.Remove(entity);    // Removing self
+
+        if (allyList.Count > 0)
+        {
+            bool targetFound = false;
+            Entity closestTarget = null;
+            float minPriorityRank = Mathf.Infinity;
+
+            // Finding ally closest and nearest to direction's position and field of view respectively 
+            foreach (Entity ally in allyList)
+            {
+                Vector3 distance = new Vector3(ally.transform.position.x - transform.position.x, 0f, ally.transform.position.z - transform.position.z);
+                float angle = Vector3.Angle(direction, distance);
+                float priorityRank = distance.sqrMagnitude + angle * angle * 16f;    // Formula to choose closest enemy that's closest to player's field of view
+                                                                                                            // If ally is not self
+                if (priorityRank < minPriorityRank && distance.sqrMagnitude <= range * range && ally.GetInstanceID() != gameObject.GetInstanceID()) 
+                {
+                    closestTarget = ally;
+                    minPriorityRank = priorityRank;
+                    targetFound = true;
+                }
+            }
+
+            if(targetFound == true)
+                StartCoroutine(FocusEnergy(closestTarget));
+        }
     }
+
 
     public override void UseAbility(Entity target)
     {
+        var distance = new Vector3(target.transform.position.x - transform.position.x, 0f, target.transform.position.z - transform.position.z);
+        if(distance.sqrMagnitude <= range * range * maxTethers)     // FocusEnergy also extends range by a bit
         StartCoroutine(FocusEnergy(target));
     }
 
@@ -123,16 +162,28 @@ public class EnergyShare : SquadAbility
         transferSpeed = transferSpeed * maxTethers;     // Also strengthening transferSpeed for the target
 
         var beam = Instantiate(tetherBeam);
-        var transferTarget = new List<Object> { target.transform, beam };
-        activeTethers.Add(target.gameObject.GetInstanceID(), transferTarget);   // Adding target to activeTethers so TransferEnergy() will only work on that one particular target
+        var tether = beam.GetComponent<LineRenderer>();
+        //var transferTarget = new List<Object> { target.transform, beam };
+        //activeTethers.Add(target.gameObject.GetInstanceID(), transferTarget);   // Adding target to activeTethers so TransferEnergy() will only work on that one particular target
 
-        while (entity.energy > 0 && target.energy < target.maxEnergy)   
-            yield return null;      // Coroutine only continues after condition is false 
+        // Transfering Energy
+        while (entity.energy > 0 && target.energy < target.maxEnergy)
+        {
+            target.energy += transferSpeed * Time.deltaTime;     
+            entity.energy -= transferSpeed * Time.deltaTime;
+
+            tether.SetPosition(0, transferOrigin.position);       // Update line renderer position
+            tether.SetPosition(1, target.transform.position);
+            tether.enabled = true;
+            yield return 0.01f;      // Coroutine only continues after condition is false
+        }
 
         // Restoring EnergyShare to default state 
-        foreach (int key in activeTethers.Keys.ToListPooled())  // Clearing all tethers again
-            Destroy(activeTethers[key][1]);
-        activeTethers.Clear();
+        //foreach (int key in activeTethers.Keys.ToListPooled())  // Clearing all tethers again
+        //    Destroy(activeTethers[key][1]);
+        //activeTethers.Clear();
+        Destroy(beam);
+
 
         range = originalRange;
         transferSpeed = originalTransferSpeed;

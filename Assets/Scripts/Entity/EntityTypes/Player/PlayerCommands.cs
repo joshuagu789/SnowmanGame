@@ -12,6 +12,8 @@ using System;
 public class PlayerCommands : MonoBehaviour
 {
     public Player player;
+    [SerializeField]
+    private new Transform camera;
     public GameObject commandBar;
     public TextMeshProUGUI outputTitle;
     public TextMeshProUGUI outputBox;
@@ -54,13 +56,12 @@ public class PlayerCommands : MonoBehaviour
         if (!readyToSendOrder)
         {
             var output = "1. All \n";
-            counter = 2;
+            counter = 1;
             foreach (Entity ally in player.squadList)
             {
-                output += counter + ". " + ally.gameObject.name + "\n";
                 counter++;
+                output += counter + ". " + ally.gameObject.name + "\n";
             }
-            counter--;
             outputTitle.text = "Select Target:";
             outputBox.text = output;
         }
@@ -78,6 +79,7 @@ public class PlayerCommands : MonoBehaviour
                     outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. " + tacticalAbility.GetAbilityType() + " \n6. Intel Ability \n7. Build \n8. Cancel";
                 else
                     outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. Tactical Ability \n6. Intel Ability \n7. Build \n8. Cancel";
+                counter = 8;
             }
         }
     }
@@ -141,6 +143,19 @@ public class PlayerCommands : MonoBehaviour
                 {
                     ally.IncrementLeashRange(increment);  // All allies change leash range by increment * default leash range
                     ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();
+                }
+            }
+            else if (optionNumber == 5)
+            {
+                foreach (Entity ally in targetAudience)
+                {
+                    var ability = ally.gameObject.GetComponent<SquadAbility>();
+                    if (ability.CanUseAbility())
+                    {
+                        print("executed");
+                        ability.UseAbility(new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z));
+                        ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();
+                    }
                 }
             }
             readyToSendOrder = false;
