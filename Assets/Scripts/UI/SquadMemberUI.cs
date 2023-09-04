@@ -30,7 +30,9 @@ public class SquadMemberUI : MonoBehaviour
     public List<string> deathVoiceLines = new List<string>();
     public List<string> alertVoiceLines = new List<string>();
     public List<string> alertResponseVoiceLines = new List<string>();
-
+    public List<string> noEnergyVoiceLines = new List<string>();
+    public List<string> isOccupiedVoiceLines = new List<string>();
+         
     [HideInInspector]
     public bool ableToSpeak = true;
     private bool showingStatus = false;
@@ -111,6 +113,20 @@ public class SquadMemberUI : MonoBehaviour
     {
         ableToSpeak = true;
         StartCoroutine(Output(affirmativeVoiceLines[(int) UnityEngine.Random.Range(0, affirmativeVoiceLines.Count)]));
+    }
+
+    // Makes entity output a random voice line from noEnergyVoiceLines (also overrides)
+    public void SpeakNoEnergy()
+    {
+        ableToSpeak = true;
+        StartCoroutine(Output(noEnergyVoiceLines[(int)UnityEngine.Random.Range(0, noEnergyVoiceLines.Count)]));
+    }
+
+    // Makes entity output a random voice line from isOccupiedVoiceLines (also overrides)
+    public void SpeakOccupied()
+    {
+        ableToSpeak = true;
+        StartCoroutine(Output(isOccupiedVoiceLines[(int)UnityEngine.Random.Range(0, isOccupiedVoiceLines.Count)]));
     }
 
     // Displays health (systemIntegrity), temperature, energy, combat state

@@ -24,7 +24,7 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
         cooldowntimer += Time.deltaTime;
         UpdateTarget();
 
-        if (cooldowntimer >= cooldown && !entity.isLockedOn && !entity.isDisabled)
+        if (cooldowntimer >= GetCooldown() && !entity.isLockedOn && !entity.isDisabled)
         {
             cooldowntimer = 0;
 
@@ -46,7 +46,7 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
     {
         if (hasFoundTarget)
             targetTimer += Time.deltaTime;
-        if (targetTimer >= cooldown * 2)
+        if (targetTimer >= GetCooldown() * 2)
         {
             hasFoundTarget = false;
             possibleTargetPosition = new Vector3(0,0,0);

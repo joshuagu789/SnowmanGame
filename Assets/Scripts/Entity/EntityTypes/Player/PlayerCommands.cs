@@ -145,17 +145,20 @@ public class PlayerCommands : MonoBehaviour
                     ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();
                 }
             }
-            else if (optionNumber == 5)
+            else if (optionNumber == 5) // || optionNumber == 6
             {
                 foreach (Entity ally in targetAudience)
                 {
                     var ability = ally.gameObject.GetComponent<SquadAbility>();
-                    if (ability.CanUseAbility())
+                    if (ability.CanUseAbility() && ability != null)
                     {
-                        print("executed");
                         ability.UseAbility(new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z));
                         ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();
                     }
+                    else if (!ability.HasEnoughEnergy() && ability != null)
+                        ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakNoEnergy();
+                    else if (!ability.IsOffCooldown() || ally.isDisabled)
+                        ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakOccupied();
                 }
             }
             readyToSendOrder = false;

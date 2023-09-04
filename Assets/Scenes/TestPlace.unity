@@ -2005,7 +2005,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541687289}
-  m_LocalRotation: {x: 0.023883894, y: 0.00000001723504, z: -4.117573e-10, w: 0.9997148}
+  m_LocalRotation: {x: 0.023883894, y: -0.000000017235037, z: 4.1175718e-10, w: 0.9997148}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2587,7 +2587,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: -0.013960739, y: 0.0000000016400837, z: 2.2899014e-11, w: 0.99990255}
+  m_LocalRotation: {x: -0.0139607405, y: 8.5554586e-10, z: 1.1945219e-11, w: 0.99990255}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3471,7 +3471,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.0238839, y: 0.000000034470084, z: -8.2351476e-10, w: 0.9997148}
+  m_LocalRotation: {x: 0.0238839, y: -0.000000034470077, z: 8.235146e-10, w: 0.9997148}
   m_LocalPosition: {x: -3.44, y: -1.5999999, z: -35.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4257,7 +4257,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 280323923983135799, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
   m_PrefabInstance: {fileID: 280323925000099515}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1993835432}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5e02ca45cda74198ba918edbb21d770, type: 3}
@@ -7695,7 +7695,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831699312}
-  m_LocalRotation: {x: 0.062137436, y: -0.000000017173132, z: 0.0000000010691603, w: 0.9980676}
+  m_LocalRotation: {x: 0.062137417, y: 0.000000017173132, z: -0.0000000010691599, w: 0.9980676}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8548,6 +8548,10 @@ MonoBehaviour:
   - Form up, and follow my directions if you want to live!
   - MOVE!!! NOW!!
   - FORM UP! AWAIT MY COMMAND!
+  noEnergyVoiceLines:
+  - No energy... what happened to our reserves?!
+  isOccupiedVoiceLines:
+  - Wait! I need time!
   ableToSpeak: 1
   hasSpokenDeathVoiceLine: 0
   integrityText: {fileID: 85404753}
@@ -8924,6 +8928,11 @@ MonoBehaviour:
   m_Damping: 0.75
   m_DampingWhenOccluded: 0.75
   m_OptimalTargetDistance: 0
+--- !u!1 &1993835432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1090575682137268354, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+  m_PrefabInstance: {fileID: 280323925000099515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1996887568
 GameObject:
   m_ObjectHideFlags: 0
@@ -9995,8 +10004,24 @@ PrefabInstance:
       value: Incoming artillery! No- DROPSHIPS
       objectReference: {fileID: 0}
     - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: noEnergyVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: isOccupiedVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: noEnergyVoiceLines.Array.data[0]
+      value: No energy!
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: alertResponseVoiceLines.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: isOccupiedVoiceLines.Array.data[0]
+      value: Not now!
       objectReference: {fileID: 0}
     - target: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: alertResponseVoiceLines.Array.data[0]
@@ -10213,8 +10238,24 @@ PrefabInstance:
       value: IM FALLING APART
       objectReference: {fileID: 0}
     - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: noEnergyVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: isOccupiedVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: noEnergyVoiceLines.Array.data[0]
+      value: I need more energy!
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: alertResponseVoiceLines.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: isOccupiedVoiceLines.Array.data[0]
+      value: I need more time!
       objectReference: {fileID: 0}
     - target: {fileID: 545863580471765321, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: alertResponseVoiceLines.Array.data[0]
@@ -10230,7 +10271,11 @@ PrefabInstance:
       objectReference: {fileID: 963194227}
     - target: {fileID: 545863580471765322, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: cooldown
-      value: 10
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765322, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: energyCost
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 545863580471765322, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: teleportDistance
@@ -10649,8 +10694,24 @@ PrefabInstance:
       value: Multiple energy signatures gathering... wait do they know?
       objectReference: {fileID: 0}
     - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: noEnergyVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: isOccupiedVoiceLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: noEnergyVoiceLines.Array.data[0]
+      value: IM ALL OUT OF ENERGY ITS ALL GONE
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
       propertyPath: alertResponseVoiceLines.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: isOccupiedVoiceLines.Array.data[0]
+      value: I'd love to but I'm busy!
       objectReference: {fileID: 0}
     - target: {fileID: 3856691800209668370, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
       propertyPath: alertResponseVoiceLines.Array.data[0]
@@ -10826,12 +10887,29 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 280323923983135787, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
   m_PrefabInstance: {fileID: 280323925000099515}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1993835432}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48f15f54af61d4b3798b7b2cfb4e4ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5866666021881493249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993835432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc67a91f65434c3f90ad2e9f3712d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 1151492748}
+  type: 0
+  energyCost: 0
+  cooldown: 15
+  duration: 15
 --- !u!1 &6611919810711406819
 GameObject:
   m_ObjectHideFlags: 0

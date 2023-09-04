@@ -7,7 +7,7 @@ using UnityEngine;
  * the projectile at using the kinematic equations of physics since one unit in Unity is equal to a meter. 
  */
 
-public class ArcingProjectileAttack : MonoBehaviour
+public class ArcingProjectileAttack : Attack
 {
 
     public Entity entity;
@@ -20,7 +20,6 @@ public class ArcingProjectileAttack : MonoBehaviour
     public float damage;
     public float range;
     public float explosionRadius;
-    public float cooldown;      // Time until entity can attack again
     public float firingDelay;   // For projectile to appear with animation's timing
 
     public int bulletCount;       // Number of bullets fired per salvo/attack
@@ -43,7 +42,7 @@ public class ArcingProjectileAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && timer > cooldown && entity.angleToTarget <= (10 + fireAngleDeviation))
+            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && timer > GetCooldown() && entity.angleToTarget <= (10 + fireAngleDeviation))
             {
                 if (isStationaryWhenFiring && entity.animator != null) // Making entity stop when firing
                 {

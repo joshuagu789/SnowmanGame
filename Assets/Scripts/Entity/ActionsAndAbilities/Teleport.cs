@@ -42,6 +42,8 @@ public class Teleport : SquadAbility
         // Planned: teleport squad to target if in range
     }
 
+    public override string GetAbilityType() { return "Teleport"; }
+
     // Either moves everyone inside list (which includes itself) or just moves itself
     private IEnumerator MovePosition(List<Entity> list, Vector3 travelVector, Entity leader)
     {

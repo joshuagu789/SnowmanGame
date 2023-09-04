@@ -142,10 +142,7 @@ public class EnergyShare : SquadAbility
         StartCoroutine(FocusEnergy(target));
     }
 
-    public override string GetAbilityType()
-    {
-        return "Energy Share";
-    }
+    public override string GetAbilityType() { return "Focus Energy"; }
 
     // Focusing all tethers onto one target instead of spreading them out- stops once target gets enough energy or entity runs out of energy
     private IEnumerator FocusEnergy(Entity target)
@@ -163,8 +160,6 @@ public class EnergyShare : SquadAbility
 
         var beam = Instantiate(tetherBeam);
         var tether = beam.GetComponent<LineRenderer>();
-        //var transferTarget = new List<Object> { target.transform, beam };
-        //activeTethers.Add(target.gameObject.GetInstanceID(), transferTarget);   // Adding target to activeTethers so TransferEnergy() will only work on that one particular target
 
         // Transfering Energy
         while (entity.energy > 0 && target.energy < target.maxEnergy)
@@ -178,13 +173,7 @@ public class EnergyShare : SquadAbility
             yield return 0.01f;      // Coroutine only continues after condition is false
         }
 
-        // Restoring EnergyShare to default state 
-        //foreach (int key in activeTethers.Keys.ToListPooled())  // Clearing all tethers again
-        //    Destroy(activeTethers[key][1]);
-        //activeTethers.Clear();
         Destroy(beam);
-
-
         range = originalRange;
         transferSpeed = originalTransferSpeed;
     }
