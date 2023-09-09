@@ -11,7 +11,6 @@ using UnityEngine.TextCore.Text;
 
 public class Teleport : SquadAbility
 {
-    //public Camera camera;
     public GameObject teleportVFX;
     public Transform effectLocation;    // Where teleportVFX is created
 

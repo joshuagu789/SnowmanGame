@@ -29,11 +29,11 @@ public abstract class SquadAbility : MonoBehaviour
 
     public virtual void Update() { cooldownTimer += Time.deltaTime; }
 
-    public bool CanUseAbility() { return IsOffCooldown() && HasEnoughEnergy() && !entity.isDisabled; }
     public abstract void UseAbility( Vector3 direction );
     public abstract void UseAbility( Entity target );
     public abstract string GetAbilityType();
 
+    public bool CanUseAbility() { return IsOffCooldown() && HasEnoughEnergy() && !entity.isDisabled; }
     public bool IsOffCooldown() { return cooldownTimer >= cooldown; }
     public bool HasEnoughEnergy() { return entity.energy >= energyCost && entity.energy != 0; }
     public void ResetCooldown() { cooldownTimer = 0; }

@@ -15,8 +15,25 @@ public class HoldFire : SquadAbility
     // All attacks of entity and an int for its original cooldown (cooldown will be set to infinity while weapons are locked)
     private Dictionary<Attack, float> attacksList = new Dictionary<Attack, float>();
 
-    public override void UseAbility(Vector3 direction) { StartCoroutine(LockWeapons()); }
-    public override void UseAbility(Entity target) { StartCoroutine(LockWeapons()); }
+    public override void UseAbility(Vector3 direction)
+    {
+        if (CanUseAbility())
+        {
+            ResetCooldown();
+            ExpendEnergy();
+            StartCoroutine(LockWeapons());
+        }
+    }
+    public override void UseAbility(Entity target)
+    {
+        if (CanUseAbility())
+        {
+            ResetCooldown();
+            ExpendEnergy();
+            StartCoroutine(LockWeapons());
+        }
+    }
+
     public override string GetAbilityType() { return "Hold Fire"; }
 
     // Gets all entities and their corresponding Attacks (HoldFire owner could have Turrets as children with their own Attacks) and disabling them for a duration
@@ -31,16 +48,13 @@ public class HoldFire : SquadAbility
             {
                 Attack[] attacksArray = attacker.gameObject.GetComponents<Attack>();
                 if (attacksArray != null)
-                {
-                    //List<Attack> attacks = new List<Attack>();  // Need to convert from array to list
-                    //attacks.AddRange(attacks);
                     foreach (Attack attack in attacksArray)
-                    {
-                        var originalCooldown = attack.GetCooldown();
-                        attack.SetCooldown(Mathf.Infinity);             // Essentially disables attack
-                        attacksList.Add(attack, originalCooldown);
-                    }
-                }
+                        if (!attacksList.Keys.Contains(attack))
+                        {
+                            var originalCooldown = attack.GetCooldown();
+                            attack.SetCooldown(Mathf.Infinity);             // Essentially disables attack
+                            attacksList.Add(attack, originalCooldown);
+                        }
             }
         }
 

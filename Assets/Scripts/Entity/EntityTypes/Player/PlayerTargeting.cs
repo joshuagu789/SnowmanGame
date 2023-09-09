@@ -12,7 +12,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class PlayerTargeting : MonoBehaviour
 {
 
-    public CameraController camera;
+    public new CameraController camera;
     public GameServer server;
     public Transform targetLock;
     Player player;

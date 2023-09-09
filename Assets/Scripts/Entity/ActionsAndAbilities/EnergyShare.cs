@@ -97,6 +97,8 @@ public class EnergyShare : SquadAbility
     // Find nearest ally based on proximity to Vector3 direction
     public override void UseAbility(Vector3 direction)
     {
+        ResetCooldown();
+        ExpendEnergy();
         // Getting all nearby allies in same squad
         List<Entity> allyList = new List<Entity>();
         if (entity.leader != null)
@@ -121,7 +123,7 @@ public class EnergyShare : SquadAbility
                 float angle = Vector3.Angle(direction, distance);
                 float priorityRank = distance.sqrMagnitude + angle * angle * 16f;    // Formula to choose closest enemy that's closest to player's field of view
                                                                                                             // If ally is not self
-                if (priorityRank < minPriorityRank && distance.sqrMagnitude <= range * range && ally.GetInstanceID() != gameObject.GetInstanceID()) 
+                if (priorityRank < minPriorityRank && distance.sqrMagnitude <= range * range && ally.GetInstanceID() != gameObject.GetInstanceID() && ally.energy < ally.maxEnergy) 
                 {
                     closestTarget = ally;
                     minPriorityRank = priorityRank;

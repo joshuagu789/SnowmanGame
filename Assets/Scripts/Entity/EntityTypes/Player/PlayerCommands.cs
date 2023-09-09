@@ -38,7 +38,7 @@ public class PlayerCommands : MonoBehaviour
     private void Update()
     {
         // Updating if the command bar should be displayed
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && !readyToSendOrder)
             toggleOn = !toggleOn;
         if (toggleOn)
             DisplayCommands();
@@ -70,17 +70,18 @@ public class PlayerCommands : MonoBehaviour
         {
             outputTitle.text = "Give Command:";
             if (targetAudience.Count > 1)
-                outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. Tactical Ability \n6. Intel Ability \n7. Build \n8. Cancel";
+                outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. Tactical Ability \n6. Intel Ability \n7. Cancel";
             else
             {
                 var tacticalAbility = targetAudience[0].GetComponent<SquadAbility>();
+                var intelAbility = targetAudience[0].GetComponent<IntelAbility>();
 
-                if(tacticalAbility != null)
-                    outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. " + tacticalAbility.GetAbilityType() + " \n6. Intel Ability \n7. Build \n8. Cancel";
+                if(tacticalAbility != null && intelAbility != null)
+                    outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. " + tacticalAbility.GetAbilityType() + " \n6. " + intelAbility.GetAbilityType() + " \n7. Cancel";
                 else
-                    outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. Tactical Ability \n6. Intel Ability \n7. Build \n8. Cancel";
-                counter = 8;
+                    outputBox.text = "1. Focus fire \n2. Status Report \n3. Group up \n4. Spread out \n5. " + tacticalAbility.GetAbilityType() + " \n6. \" Intel Ability \n7. Cancel";
             }
+            counter = 7;
         }
     }
 
@@ -90,11 +91,11 @@ public class PlayerCommands : MonoBehaviour
         if (toggleOn && Input.anyKeyDown)
             foreach (int index in keycodes.Keys)
                 if (index <= counter && Input.GetKeyDown(keycodes[index]))
-                    ExecuteCommand(index); 
+                    StartCoroutine(ExecuteCommand(index));
     }
 
     // Executing command as indicated by what option corresponded with the number displayed in command bar
-    private void ExecuteCommand(int optionNumber)
+    private IEnumerator ExecuteCommand(int optionNumber)
     {
         // Alerting allies to await command
         if (toggleOn && !readyToSendOrder && optionNumber <= player.squadList.Capacity + 1) 
@@ -111,6 +112,8 @@ public class PlayerCommands : MonoBehaviour
             }
             readyToSendOrder = true;
             toggleOn = false;
+            yield return new WaitForSeconds(0.55f);
+            toggleOn = true;
         }
 
         // Giving command to allies depending on option selected
@@ -145,20 +148,53 @@ public class PlayerCommands : MonoBehaviour
                     ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();
                 }
             }
-            else if (optionNumber == 5) // || optionNumber == 6
+            // Making ally/allies use squad abilities if they are ready
+            else if (optionNumber == 5)
             {
                 foreach (Entity ally in targetAudience)
                 {
                     var ability = ally.gameObject.GetComponent<SquadAbility>();
+                    var allyUI = ally.gameObject.GetComponentInChildren<SquadMemberUI>();
+
                     if (ability.CanUseAbility() && ability != null)
                     {
                         ability.UseAbility(new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z));
-                        ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakAffirmative();
+                        allyUI.SpeakAffirmative();
                     }
                     else if (!ability.HasEnoughEnergy() && ability != null)
-                        ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakNoEnergy();
+                        allyUI.SpeakNoEnergy();
                     else if (!ability.IsOffCooldown() || ally.isDisabled)
-                        ally.gameObject.GetComponentInChildren<SquadMemberUI>().SpeakOccupied();
+                        allyUI.SpeakOccupied();
+                }
+            }
+            // Making ally/allies use intel abilities if they are ready
+            else if (optionNumber == 6)
+            {
+                foreach (Entity ally in targetAudience)
+                {
+                    var ability = ally.gameObject.GetComponent<IntelAbility>();
+                    var allyUI = ally.gameObject.GetComponentInChildren<SquadMemberUI>();
+
+                    if (ability.CanUseAbility() && ability != null)
+                    {
+                        Dictionary<GameObject, float> locationsList = new Dictionary<GameObject, float>();
+                        var output = "";
+                        locationsList = ability.GetLocations();
+
+                        if (locationsList.Count > 0)    // Making ally say where locations are
+                        {
+                            foreach (GameObject thing in locationsList.Keys)
+                                output += "[" + locationsList[thing] + "] ";
+                                //output += "[" + thing.name + ", " + locationsList[thing] + "] ";
+                            allyUI.OverrideSpeak(output);
+                        }
+                        else    // If ally has nothing to say (no locations nearby)
+                            allyUI.OverrideSpeak("Nothing to report.");
+                    }
+                    else if (!ability.HasEnoughEnergy() && ability != null)
+                        allyUI.SpeakNoEnergy();
+                    else if (!ability.IsOffCooldown() || ally.isDisabled)
+                        allyUI.SpeakOccupied();
                 }
             }
             readyToSendOrder = false;
