@@ -32,13 +32,10 @@ public class IntelAbility : MonoBehaviour
         Dictionary<GameObject, float> finish = new Dictionary<GameObject, float>();
 
         cooldownTimer += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.T))
-            finish = GetLocations();
-            
     }
 
-    // Gathering all game objects with the Monobehaviour specialization and their directions and returning it to the requester
-    public Dictionary<GameObject, float> GetLocations()
+    // Gathering all game objects with the Monobehaviour specialization and their directions from origin and returning it to the requester
+    public Dictionary<GameObject, float> GetLocations(Transform origin)
     {
         Dictionary<GameObject, float> locations = new Dictionary<GameObject, float>();
 
@@ -59,13 +56,12 @@ public class IntelAbility : MonoBehaviour
                     // If the specialization is Entity, also checks if target entity is a different type than the searcher entity (aka enemies) 
                     if (specialization.Equals("Entity") && entityTarget != null && !entityTarget.type.Equals(entity.type) && !locations.ContainsKey(script.gameObject))
                     {
-                        locations.Add(script.gameObject, (int)compass.GetDirection(script.transform)); // Adding game object's info to dictionary if one of game object's scripts has the specialization
+                        locations.Add(script.gameObject, (int)compass.GetDirection(script.transform, origin)); // Adding game object's info to dictionary if one of game object's scripts has the specialization
                         break;
                     }
                     else if (specialization.Equals(script.GetType().Name) && !locations.ContainsKey(script.gameObject))
                     {
-                        print(script.gameObject.transform.position + " ||||| " + script.gameObject.name);
-                        locations.Add(script.gameObject, (int)compass.GetDirection(script.transform)); // Adding game object's info to dictionary if one of game object's scripts has the specialization
+                        locations.Add(script.gameObject, (int)compass.GetDirection(script.transform, origin)); // Adding game object's info to dictionary if one of game object's scripts has the specialization
                         break;
                     }
                 }

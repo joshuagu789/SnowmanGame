@@ -179,13 +179,12 @@ public class PlayerCommands : MonoBehaviour
                     {
                         Dictionary<GameObject, float> locationsList = new Dictionary<GameObject, float>();
                         var output = "";
-                        locationsList = ability.GetLocations();
+                        locationsList = ability.GetLocations(camera.transform);
 
                         if (locationsList.Count > 0)    // Making ally say where locations are
                         {
                             foreach (GameObject thing in locationsList.Keys)
                                 output += "[" + locationsList[thing] + "] ";
-                                //output += "[" + thing.name + ", " + locationsList[thing] + "] ";
                             allyUI.OverrideSpeak(output);
                         }
                         else    // If ally has nothing to say (no locations nearby)
