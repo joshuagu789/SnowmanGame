@@ -82,7 +82,6 @@ public class Harvester : MonoBehaviour
             resource.Mine(harvestSpeed * Time.deltaTime);
 
             var targetRotation = Quaternion.LookRotation(new Vector3(resource.transform.position.x - transform.position.x, 0f, resource.transform.position.z - transform.position.z));
-            print(targetRotation);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, entity.rotationSpeed / 180 * Time.deltaTime);
 
             // Spawning the game object as an item holding the resource and its amount
@@ -93,7 +92,7 @@ public class Harvester : MonoBehaviour
                 item.GetComponent<Item>().SetAmount((int)outputAmount);
             }
         }
-        else
+        else if(resource != null)
         {
             entity.MoveTo(resource.transform.position);
             entity.animator.SetBool("isBuilding", false);

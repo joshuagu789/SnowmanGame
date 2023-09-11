@@ -65,7 +65,7 @@ public class GameServer : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                spawner.SpawnRandom("Enemies", 1, 3, (int)Random.Range(2, 5), player.transform.position, 300, 500);
+                spawner.SpawnRandom("Enemies", 2, 3, (int)Random.Range(2, 5), player.transform.position, 300, 500);
             }
         }
 

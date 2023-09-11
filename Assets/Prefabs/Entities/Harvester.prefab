@@ -116,10 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2848dfec72cd04eb7a555928d085aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
-  damageTaken: 0
-  tempModifier: 0
-  hasTakenDamage: 0
 --- !u!114 &2029951667798001146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +159,7 @@ MonoBehaviour:
   isLeader: 0
   canJoinSquad: 0
   squadList: []
-  destroyedVersion: {fileID: 0}
+  destroyedVersion: {fileID: 7699063257462412873, guid: 8b1b823e7bd86449687441164f907758, type: 3}
   explosion: {fileID: 662056413364215625, guid: 5d2edb12c817c48118aa3200989abd03, type: 3}
   buildCost:
   - {fileID: 8885099670638311213, guid: 32c52e76af2da426e8b3e3604fff438e, type: 3}
