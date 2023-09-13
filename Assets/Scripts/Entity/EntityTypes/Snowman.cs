@@ -10,13 +10,9 @@ using UnityEngine;
 public class Snowman : Entity
 {
     public float minTemperature;
+    [SerializeField]
+    private SnowmanCore core;
     private bool readyToCheckLock = true;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     private void OnEnable()
     {
@@ -27,6 +23,13 @@ public class Snowman : Entity
     private void OnDisable()
     {
         RemoveFromServer();
+    }
+
+    public override void OnDestroy()    
+    {
+        base.OnDestroy();
+        if (systemIntegrity <= 0)
+            Instantiate(core.prefab, transform.position + Vector3.up, transform.rotation); // Dropping core when destroyed that allows for snowman's possible resurrection
     }
 
     // Update is called once per frame
@@ -40,9 +43,10 @@ public class Snowman : Entity
         CheckDamage();
         UpdateStats();
         UpdateLockState();
-        CheckMelt();
-        if(systemIntegrity > 0)
+        if (systemIntegrity > 0)
             RepairDamage();
+        else if (!animator.GetBool("isMelting"))
+            Melt(); 
     }
 
     // Keeping stats within the specified boundaries
@@ -93,14 +97,26 @@ public class Snowman : Entity
             readyToCheckLock = true;
     }
 
-    public void CheckMelt()
+    public void Melt() { StartCoroutine(StartMelt()); }
+
+    // Disabling and starting snowman's death animation then destroying game object is snowman is not saved by end of duration
+    private IEnumerator StartMelt()
     {
-        if (systemIntegrity <= 0f)
+        animator.SetBool("isMelting", true);
+        isDisabled = true;
+        speed /= 6;
+
+        yield return new WaitForSeconds(20f);
+
+        if (systemIntegrity > 0)    // If snowman has been saved
         {
-            animator.SetBool("isMelting", true);
-            isDisabled = true;
-            speed = 1f;
+            animator.SetBool("isMelting", false);
+            yield return new WaitForSeconds(10f);
+            isDisabled = false;
+            speed *= 6;
         }
+        else
+            Destroy(gameObject);
     }
 
     // Math formulas for converting energy into healh (aka integrity) and temperature repairs

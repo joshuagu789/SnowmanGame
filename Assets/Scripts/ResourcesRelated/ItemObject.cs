@@ -7,6 +7,7 @@ public enum ItemType
     Resource,
     Consumable,
     Equipment,
+    Core    // Item snowmen drop on death that allows for their ressurection
 }
 
 public class ItemObject : ScriptableObject

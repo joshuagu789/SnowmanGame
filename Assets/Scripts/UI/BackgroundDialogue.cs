@@ -92,8 +92,11 @@ public class BackgroundDialogue : MonoBehaviour
         int counter = 0;
         foreach (SquadMemberUI speaker in squadMemberUIs)
         {
-            var snowman = speaker.gameObject.GetComponent<Snowman>();
-            if (!snowman.isLockedOn && !snowman.animator.GetBool("isMelting")) { counter++; }
+            if (speaker != null)
+            {
+                var snowman = speaker.gameObject.GetComponent<Snowman>();
+                if (!snowman.isLockedOn && !snowman.animator.GetBool("isMelting")) { counter++; }
+            }
         }
         potentialSpeakers = counter;
     }

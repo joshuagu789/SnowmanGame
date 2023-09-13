@@ -30,6 +30,18 @@ public class Robot : Entity
         RemoveFromServer();
     }
 
+    public override void OnDestroy()    // Replacing itself with a destroyed version of itself
+    {
+        base.OnDestroy();
+        if (systemIntegrity <= 0)
+        {
+            if (destroyedVersion != null)
+                Instantiate(destroyedVersion, transform.position, transform.rotation);
+            if (explosion != null)
+                Instantiate(explosion, transform.position, transform.rotation);
+        }
+    }
+
     // Update is called once per frame
     private void Update()
     {
@@ -92,18 +104,6 @@ public class Robot : Entity
         }
         else
             readyToCheckLock = true;
-    }
-
-    public override void OnDestroy()    // Replacing itself with a destroyed version of itself
-    {
-        base.OnDestroy();
-        if (systemIntegrity <= 0)
-        {
-            if (destroyedVersion != null)
-                Instantiate(destroyedVersion, transform.position, transform.rotation);
-            if (explosion != null)
-                Instantiate(explosion, transform.position, transform.rotation);
-        }
     }
 
     public virtual void Repair(float amount)

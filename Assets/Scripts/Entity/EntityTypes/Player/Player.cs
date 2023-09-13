@@ -38,10 +38,11 @@ public class Player : Snowman
 
         CheckDamage();
         UpdateStats();
-        CheckMelt();
         if (Input.GetKeyDown(KeyCode.R))
             isRepairing = !isRepairing;
-        if(isRepairing && systemIntegrity > 0)
+        if (isRepairing && systemIntegrity > 0)
             RepairDamage();
+        else if (!animator.GetBool("isMelting") && systemIntegrity <= 0)
+            Melt();
     }
 }

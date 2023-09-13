@@ -14,10 +14,4 @@ public class Resource : ItemObject
     {
         type = ItemType.Resource;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
