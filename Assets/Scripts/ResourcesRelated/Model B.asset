@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fb1c025f28774bbc87e5c41394e93c6, type: 3}
-  m_Name: Model C
+  m_Name: Model B
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8101095736294846128, guid: ce097975f49b64151823b7993cb8d390, type: 3}
+  prefab: {fileID: 8346473062762021072, guid: 30e530a68ec874d29bc5d4f146fe66c4, type: 3}
   type: 3
   volume: 0
-  snowmanPrefab: {fileID: 4126653042107786600, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+  snowmanPrefab: {fileID: 6534988284133966978, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}

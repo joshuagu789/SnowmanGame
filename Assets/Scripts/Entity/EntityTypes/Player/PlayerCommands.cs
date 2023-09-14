@@ -59,8 +59,11 @@ public class PlayerCommands : MonoBehaviour
             counter = 1;
             foreach (Entity ally in player.squadList)
             {
-                counter++;
-                output += counter + ". " + ally.gameObject.name + "\n";
+                if (ally.systemIntegrity > 0)
+                {
+                    counter++;
+                    output += counter + ". " + ally.gameObject.name + "\n";
+                }
             }
             outputTitle.text = "Select Target:";
             outputBox.text = output;
@@ -101,10 +104,17 @@ public class PlayerCommands : MonoBehaviour
         if (toggleOn && !readyToSendOrder && optionNumber <= player.squadList.Capacity + 1) 
         {
             targetAudience = new List<Entity>();
+
+            // Option 1 selects all members of squad
             if (optionNumber == 1)
-                targetAudience = player.squadList;    // Option 1 selects all members of squad
-            else if (optionNumber != 0)
-                targetAudience.Add(player.squadList[optionNumber - 2]);   // Selecting only the Entity corresponding with option
+            {
+                foreach (Entity ally in player.squadList)
+                    if (ally.systemIntegrity > 0)
+                        targetAudience.Add(ally);
+            }                  
+            // Selecting only the Entity corresponding with option
+            else if (optionNumber != 0 && player.squadList[optionNumber - 2].systemIntegrity > 0)
+                targetAudience.Add(player.squadList[optionNumber - 2]);   
 
             foreach (Entity ally in targetAudience)
             {

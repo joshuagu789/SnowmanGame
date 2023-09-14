@@ -146,9 +146,9 @@ public class BackgroundDialogue : MonoBehaviour
             var snowman = speaker.gameObject.GetComponent<Snowman>();
 
             // Adding the randomly selected speaker to list speakers- the questioner can't be in combat but the answerer(s) can be
-            if (speakers.Count == 0 && !speakers.Contains(speaker) && !snowman.isLockedOn && !snowman.animator.GetBool("isMelting"))
+            if (speaker != null && speakers.Count == 0 && !speakers.Contains(speaker) && !snowman.isLockedOn && !snowman.animator.GetBool("isMelting"))
                 speakers.Add(speaker);
-            else if (speakers.Count != 0 && !speakers.Contains(speaker) && !snowman.animator.GetBool("isMelting"))
+            else if (speaker != null && speakers.Count != 0 && !speakers.Contains(speaker) && !snowman.animator.GetBool("isMelting"))
                 speakers.Add(speaker);
         }
     }
