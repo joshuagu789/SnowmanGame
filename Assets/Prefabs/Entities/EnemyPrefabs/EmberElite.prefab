@@ -307,7 +307,7 @@ MonoBehaviour:
   type: Enemy
   systemIntegrity: 200
   maxIntegrity: 200
-  temperature: 100
+  temperature: 75
   energy: 100
   maxEnergy: 100
   speed: 10
@@ -331,7 +331,7 @@ MonoBehaviour:
   isLeader: 1
   canJoinSquad: 0
   squadList: []
-  maxTemperature: 100
+  maxTemperature: 75
   deathTime: 3.5
   dodgeCooldown: 6
 --- !u!114 &2159877154827750472
