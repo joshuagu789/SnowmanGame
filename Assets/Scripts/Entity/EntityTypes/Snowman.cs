@@ -65,7 +65,7 @@ public class Snowman : Entity
     }
 
     // To make target lock go away after a duration
-    private void UpdateLockState()
+    public override void UpdateLockState()
     {
         if (target == null)
             isLockedOn = false;

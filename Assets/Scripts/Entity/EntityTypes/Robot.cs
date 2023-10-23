@@ -68,9 +68,9 @@ public class Robot : Entity
     }
 
     // To make target lock go away after a duration
-    public virtual void UpdateLockState()
+    public override void UpdateLockState()
     {
-        if (target == null || !isLockedOn) 
+        if (target == null || !isLockedOn)
         {
             isLockedOn = false;
             animator.SetBool("isLockedOn", false);

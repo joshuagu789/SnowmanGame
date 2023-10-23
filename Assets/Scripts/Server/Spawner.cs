@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
 {
     public GameServer gameServer;
     public Transform player;
-    public GameObject a;
+    public GameObject headHunter;
 
     public List<GameObject> tierOneEnemies = new List<GameObject>();
     public List<GameObject> tierTwoEnemies = new List<GameObject>();
@@ -38,6 +38,12 @@ public class Spawner : MonoBehaviour
         enemiesList.Add(3, tierThreeEnemies);
         snowmenList.Add(1, tierOneSnowmen);
         snowmenList.Add(2, tierTwoSnowmen);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+            SpawnSpecific(headHunter, 1, player.position, 20, 30);
     }
 
     // Instantiates random entities from a list which is determined by type and tier (type being either "Snowmen" or "Enemy")

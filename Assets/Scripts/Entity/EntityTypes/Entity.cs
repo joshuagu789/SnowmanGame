@@ -154,6 +154,15 @@ public class Entity : MonoBehaviour
         }
     }
 
+    public virtual void UpdateLockState()
+    {
+        if (target == null || !isLockedOn)
+        {
+            isLockedOn = false;
+            animator.SetBool("isLockedOn", false);
+        }
+    }
+
     // Below methods are for commands from other entities or for itself if it has the right script for it
     public void FocusFire(Transform target)
     {

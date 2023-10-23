@@ -23,8 +23,6 @@ public class Building : Robot
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.R))
-            Repair(15 * Time.deltaTime);
         CheckConstructionState();
         UpdateVectors();
         CheckDamage();

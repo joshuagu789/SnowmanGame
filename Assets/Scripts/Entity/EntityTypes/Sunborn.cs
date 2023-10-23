@@ -46,6 +46,7 @@ public class Sunborn : Entity
             StartCoroutine(Die());
         else if (systemIntegrity > 0)
             RepairDamage();
+        UpdateLockState();
     }
 
     public override void CheckDamage()
