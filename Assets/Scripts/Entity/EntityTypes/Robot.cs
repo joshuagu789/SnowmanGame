@@ -20,7 +20,7 @@ public class Robot : Entity
         defaultLeashRange = leashRange;
     }
 
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         AddToServer();
     }

@@ -67,6 +67,23 @@ public class Building : Robot
         }
     }
 
+    public override void UpdateLockState()
+    {
+        if (target == null || !isLockedOn)
+        {
+            isLockedOn = false;
+            animator.SetBool("isLockedOn", false);
+        }
+
+        if (distanceToTargetSqr > detectionRange * detectionRange)
+        {
+            vectorToTarget = new Vector3(0f, 0f, 0f);
+            distanceToTargetSqr = 0;
+            isLockedOn = false;
+            target = null;
+        }
+    }
+
     public override void MoveTo(Vector3 location)
     {
         // Does nothing

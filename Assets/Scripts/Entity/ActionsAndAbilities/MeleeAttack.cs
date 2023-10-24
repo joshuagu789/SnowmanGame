@@ -62,7 +62,8 @@ public class MeleeAttack : MonoBehaviour
         // Making target stop moving
         enemy = entity.target.GetComponent<Entity>();
         enemy.animator.SetBool("isMoving", false);
-        enemy.agent.isStopped = true;
+        if(enemy.agent != null)
+            enemy.agent.isStopped = true;
 
         yield return new WaitForSeconds(firingDelay);
 
@@ -86,7 +87,8 @@ public class MeleeAttack : MonoBehaviour
         else    // If the target is destroyed before the attack executes
         {
             entity.animator.SetBool("isAttacking", false);
-            entity.agent.isStopped = false;
+            if (enemy.agent != null)
+                entity.agent.isStopped = false;
             entity.isDisabled = false;
         }
     }

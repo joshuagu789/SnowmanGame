@@ -19,7 +19,7 @@ public class GameServer : MonoBehaviour
     public Spawner spawner;
     public Player player;
 
-    private float detectionLevel = 0f;
+    public float detectionLevel = 0f;   //temporarily public
     public float detectionThreshold;
     private float waveCooldown = 180f;
     public float threatLevel = 0f;

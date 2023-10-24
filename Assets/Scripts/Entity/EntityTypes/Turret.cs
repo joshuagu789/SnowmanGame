@@ -7,14 +7,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Turret : Robot
 {
     public Entity owner;    // Entity to which the turret is attached to
     public bool focusFires; // Entity will target owner's target if bool is true
     public bool spotsTargets;   // Entity will tell owner to target enemy if owner has no target yet
+    private Transform turretFront;  // For measuring the angle that the target is away from the turret's front (which is not necessarily the front of the gameObject's transform)
 
     private float vectorTimer = 1f;
+
+    public override void OnEnable()
+    {
+        // Doesn't remove from server
+        AimConstraint aimer = GetComponentInChildren<AimConstraint>();
+        if (aimer != null)
+            turretFront = aimer.transform;
+        else
+            turretFront = transform;
+    }
 
     public override void OnDisable()
     {
@@ -65,7 +77,8 @@ public class Turret : Robot
             {
                 vectorTimer = 0;
                 vectorToTarget = target.position - transform.position;
-                angleToTarget = Vector3.Angle(transform.forward, vectorToTarget);
+                //angleToTarget = Vector3.Angle(transform.forward, vectorToTarget);
+                angleToTarget = Vector3.Angle(turretFront.forward, vectorToTarget);
                 distanceToTargetSqr = vectorToTarget.sqrMagnitude;
             }
         }
