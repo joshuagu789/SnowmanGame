@@ -17,7 +17,7 @@ public class Building : Robot
     private void Awake()
     {
         systemIntegrity = maxIntegrity / 10;
-        isDisabled = true;
+        SetDisableAll(true);
     }
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class Building : Robot
     {
         if (systemIntegrity >= maxIntegrity && underConstruction)
         {
-            isDisabled = false;
+            SetDisableAll(false);
             underConstruction = false;
         }
         // Checking to see if building has emerged out of ground yet
@@ -90,6 +90,16 @@ public class Building : Robot
     }
 
     public override void StandStill()
+    {
+        // Does nothing
+    }
+
+    public override void Root()
+    {
+        // Does nothing
+    }
+
+    public override void Unroot()
     {
         // Does nothing
     }

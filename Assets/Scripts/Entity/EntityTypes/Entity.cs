@@ -163,6 +163,8 @@ public class Entity : MonoBehaviour
         }
     }
 
+// ENTITY COMMANDS
+
     // Below methods are for commands from other entities or for itself if it has the right script for it
     public void FocusFire(Transform target)
     {
@@ -195,11 +197,28 @@ public class Entity : MonoBehaviour
         animator.SetBool("isMoving", false);
     }
 
+    // Similar to StandStill() but completely stops entity from moving even if it wants to
+    public virtual void Root() { agent.isStopped = true; }
+
+    public virtual void Unroot() { agent.isStopped = false; }
+
     public void FaceLocation(Vector3 location)
     {
         var targetRotation = Quaternion.LookRotation(new Vector3(location.x - transform.position.x, 0f, location.z - transform.position.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed / 360 * Time.deltaTime);
     }
 
+// GETTERS AND SETTERS
+
+    // Shuts down entity as well as any child entities that it has if a is false, and enables if true
+    public virtual void SetDisableAll(bool a)
+    {
+        var entities = GetComponentsInChildren<Entity>();
+        foreach (Entity entity in entities)
+            entity.SetIsDisabled(a);
+    }
+
+    public bool GetIsDisabled() { return isDisabled; }
+    public void SetIsDisabled(bool a) { isDisabled = a; }
     public Vector3 GetWalkPoint() { return walkPoint; }
 }
