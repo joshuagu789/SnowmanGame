@@ -12,6 +12,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class Entity : MonoBehaviour
 {
 //hghghghghghgh
+//joshua
     public GameServer server;
     public Register register;
     public Animator animator;
