@@ -45,4 +45,14 @@ public class Player : Snowman
         else if (!animator.GetBool("isMelting") && systemIntegrity <= 0)
             Melt();
     }
+
+    public override void CheckDamage()
+    {
+        if (register.HasTakenDamage())
+        {
+            systemIntegrity -= register.GetDamageTaken();
+            temperature += register.GetTempIncrease();
+            register.ResetRegister();
+        }
+    }
 }

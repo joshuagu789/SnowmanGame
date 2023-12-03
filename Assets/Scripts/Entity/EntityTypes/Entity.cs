@@ -198,9 +198,17 @@ public class Entity : MonoBehaviour
     }
 
     // Similar to StandStill() but completely stops entity from moving even if it wants to
-    public virtual void Root() { agent.isStopped = true; }
+    public virtual void Root()
+    {
+        if(agent!=null)
+            agent.isStopped = true;
+    }
 
-    public virtual void Unroot() { agent.isStopped = false; }
+    public virtual void Unroot()
+    {
+        if (agent != null)
+            agent.isStopped = true;
+    }
 
     public void FaceLocation(Vector3 location)
     {
