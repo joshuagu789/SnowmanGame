@@ -14,6 +14,8 @@ public class Turret : Robot
     public Entity owner;    // Entity to which the turret is attached to
     public bool focusFires; // Entity will target owner's target if bool is true
     public bool spotsTargets;   // Entity will tell owner to target enemy if owner has no target yet
+    [SerializeField]
+    private bool usesOwnerTargeting;    // Will calculate angle to target based on owner's measurements
     private Transform turretFront;  // For measuring the angle that the target is away from the turret's front (which is not necessarily the front of the gameObject's transform)
 
     private float vectorTimer = 1f;
@@ -77,8 +79,12 @@ public class Turret : Robot
             {
                 vectorTimer = 0;
                 vectorToTarget = target.position - transform.position;
-                //angleToTarget = Vector3.Angle(transform.forward, vectorToTarget);
-                angleToTarget = Vector3.Angle(turretFront.forward, vectorToTarget);
+
+                if (usesOwnerTargeting)
+                    angleToTarget = owner.GetAngleToTarget();
+                else
+                    angleToTarget = Vector3.Angle(turretFront.forward, vectorToTarget);
+
                 distanceToTargetSqr = vectorToTarget.sqrMagnitude;
             }
         }

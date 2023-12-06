@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         // If object is moving
-        if (direction.magnitude >= 0.1f && player.speed > 0)
+        if (direction.magnitude >= 0.1f && player.speed > 0 && player.agent.isStopped == false)
         {
             // Angle object is facing                                                   taking into account camera's angle (so that player moves based on WASD AND camera angle)
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;

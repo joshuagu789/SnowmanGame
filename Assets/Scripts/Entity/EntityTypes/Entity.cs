@@ -196,17 +196,35 @@ public class Entity : MonoBehaviour
         animator.SetBool("isMoving", false);
     }
 
-    // Similar to StandStill() but completely stops entity from moving even if it wants to
+    // Similar to StandStill() but used as an attack mechanic
     public virtual void Root()
     {
-        if(agent!=null)
+        if (agent != null) {
             agent.isStopped = true;
+        }    
     }
 
     public virtual void Unroot()
     {
         if (agent != null)
+            agent.isStopped = false;
+    }
+
+    // Like Root but has a duration
+    public virtual void RootFor(float duration)
+    {
+        if (agent != null)
+        {
             agent.isStopped = true;
+        }
+    }
+
+    private IEnumerator StopFor(float duration) {
+        if (agent != null) {
+            agent.isStopped = true;
+            yield return new WaitForSeconds(duration);
+            agent.isStopped = false;
+        }
     }
 
     public void FaceLocation(Vector3 location)
@@ -228,4 +246,5 @@ public class Entity : MonoBehaviour
     public bool GetIsDisabled() { return isDisabled; }
     public void SetIsDisabled(bool a) { isDisabled = a; }
     public Vector3 GetWalkPoint() { return walkPoint; }
+    public float GetAngleToTarget() { return angleToTarget; }
 }
