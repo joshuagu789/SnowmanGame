@@ -46,7 +46,6 @@ public class Entity : MonoBehaviour
     public bool isIdle = false;
     public bool isLockedOn = false;
     public float lockDuration;
-    [HideInInspector]
     public bool isDisabled;
     [HideInInspector]
     public bool walkPointSet;   // Means the entity's NavMeshAgent has a destination
