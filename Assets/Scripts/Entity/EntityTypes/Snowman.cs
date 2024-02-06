@@ -17,6 +17,8 @@ public class Snowman : Entity
     private void OnEnable()
     {
         defaultLeashRange = leashRange;
+        if (core != null)
+            core.SetSnowmanPrefab(gameObject);
         AddToServer();
     }
 

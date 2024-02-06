@@ -490,6 +490,7 @@ GameObject:
   - component: {fileID: 3901506896264016668}
   - component: {fileID: 285077394829414540}
   - component: {fileID: 313302293492618929}
+  - component: {fileID: 3394560572863482129}
   m_Layer: 0
   m_Name: MobileBase
   m_TagString: Untagged
@@ -608,6 +609,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 3901506896264016668}
+--- !u!114 &3394560572863482129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4243945592859954758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b598c3fe64dae480bafbda9e4cf8fa63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4392204614869502718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,6 +1694,7 @@ MonoBehaviour:
   owner: {fileID: 3901506896264016668}
   focusFires: 1
   spotsTargets: 0
+  usesOwnerTargeting: 0
 --- !u!114 &3901506895063577069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1693,6 +1707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80e5318138fe419eb33a6df5fd658a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 1
   entity: {fileID: 3901506895063577057}
   projectile: {fileID: 3846957070246456012, guid: a2567328e57f346c0b04f6f175fae88d, type: 3}
   projectileOrigin: {fileID: 3901506895365826767}
@@ -1702,7 +1717,6 @@ MonoBehaviour:
   range: 60
   damage: 2
   explosionRadius: 1.5
-  cooldown: 1
   firingDelay: 1
   bulletSpeed: 80
   bulletLifetime: 1

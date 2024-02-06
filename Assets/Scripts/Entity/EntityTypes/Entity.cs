@@ -9,6 +9,11 @@ using static UnityEngine.EventSystems.EventTrigger;
    info-carrying variables that other scripts will use
 */
 
+/// <summary>
+/// Summary
+/// </summary>
+/// <param name="param1">Some Parameter.</param>
+/// <returns>What this method returns.</returns>
 public class Entity : MonoBehaviour
 {
 

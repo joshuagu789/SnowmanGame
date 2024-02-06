@@ -8,7 +8,7 @@ using UnityEngine;
  *  - A lot is copy and pasted from arcing projectile attack
  */
 
-public class BulletAttack : MonoBehaviour
+public class BulletAttack : Attack
 {
     public Entity entity;
     public GameObject projectile;
@@ -21,7 +21,6 @@ public class BulletAttack : MonoBehaviour
     public float range;
     public float damage;
     public float explosionRadius;
-    public float cooldown;      // Time until entity can attack again
     public float firingDelay;   // For projectile to appear with animation's timing
 
     public float bulletSpeed;
@@ -43,7 +42,7 @@ public class BulletAttack : MonoBehaviour
         if (entity.target != null && entity.isLockedOn && !entity.isDisabled)
         {
             // Checking to see if the target is in range, attack is off cooldown, and if target is in front
-            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && cooldownTimer > cooldown && entity.angleToTarget <= (10 + fireAngleDeviation))
+            if (entity.distanceToTargetSqr != 0 && entity.distanceToTargetSqr <= range * range && cooldownTimer > GetCooldown() && entity.angleToTarget <= (10 + fireAngleDeviation))
             {
                 cooldownTimer = 0;
                 StartCoroutine(Shoot());
