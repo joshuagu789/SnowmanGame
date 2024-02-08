@@ -1,15 +1,16 @@
-/*
- * Buildings, like robots, drop scrap metal and explode on death, and they also spawn disabled and need repairs to become fully operational
- *  - they also require materials to be built
- *  - buildings can technically still lock onto targets and command squads (maybe even move)
- */
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Child of Robot and Entity script that manages the unique characteristics that building entities have
+/// <br/>
+/// Typical traits: Explode and drop scrap metal on death, spawn disabled and need repairs to become fully operational, they also require materials to be built,
+/// buildings can technically still lock onto targets and command squads (maybe even move)
+/// </summary>
 public class Building : Robot
 {
+
     public List<Item> buildCost;
     private bool underConstruction = true;
     private bool isTouchingGround = true;   // Buildings are instantiated halfway into the ground since Spawner spawns units with their center of mass touching ground
@@ -86,21 +87,21 @@ public class Building : Robot
 
     public override void MoveTo(Vector3 location)
     {
-        // Does nothing
+        // Does nothing for now
     }
 
     public override void StandStill()
     {
-        // Does nothing
+        // Does nothing for now
     }
 
     public override void Root()
     {
-        // Does nothing
+        // Does nothing for now
     }
 
     public override void Unroot()
     {
-        // Does nothing
+        // Does nothing for now
     }
 }

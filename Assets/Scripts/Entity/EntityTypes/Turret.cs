@@ -1,14 +1,16 @@
-/*
- * A Turret script is give to any game object that is a robot but attached to another Entity
- *  - turrets (like robots) explode into pieces when its health reaches zero
- *  - turrets don't use nav mesh agents or follow leader instructions so it overrides some methods 
- *  - turrets do not add themselves to the game server so they cannot be targeted
- */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 
+
+/// <summary>
+/// Child of Robot and Entity script that manages the unique characteristics that turret entities have
+/// <br/>
+/// Turret script is given to any game object that is a robot but attached to another Entity
+/// <br/>
+/// Typical traits: Explode and drop scrap metal on death, ignores nav mesh agents and leader instructions, not in game server, 3D angle calculations for targetting
+/// </summary>
 public class Turret : Robot
 {
     public Entity owner;    // Entity to which the turret is attached to

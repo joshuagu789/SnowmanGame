@@ -8,7 +8,6 @@ using UnityEngine.TextCore.Text;
  *  - could possibly make entities use them independently without player's command
  *  - Planned: leader AIs can command entities to teleport squad by calling on public method?
  */
-
 public class Teleport : SquadAbility
 {
     public GameObject teleportVFX;

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * Universal script assigned to snowmen- can it replace Player script for the player?
- *  - NOTE: this script is heavily copy & pasted from Robot and Player script
-*/
-
+/// <summary>
+/// Child of Entity script that manages the unique characteristics that sunborn entities have 
+/// <br/>
+/// Typical traits: repairs self with energy, melting mechanic, immortality with core, cooling mechanic 
+/// </summary>
 public class Snowman : Entity
 {
     public float minTemperature;

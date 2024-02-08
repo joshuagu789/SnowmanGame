@@ -9,7 +9,7 @@ using UnityEngine;
 public class GameMenu : MonoBehaviour
 {
     public GameObject menu;
-
+    
     private bool isVisible = false;
 
     // Start is called before the first frame update

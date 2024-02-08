@@ -12,7 +12,7 @@ public class SnowmanCore : ItemObject
 
     void Awake()
     {
-        type = ItemType.Core;
+        type = ItemType.CORE;
     }
 
     public void SetSnowmanPrefab(GameObject snowmanPrefab) { this.snowmanPrefab = snowmanPrefab; }

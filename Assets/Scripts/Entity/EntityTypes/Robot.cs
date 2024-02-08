@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-   Interacts only with Entity script to manage the unique characteristics that robot entities have
-   (such as exploding and dropping spare parts when defeated)
-    - robots can also be repaired
-*/
-
+/// <summary>
+/// Child of Entity script that manages the unique characteristics that robot entities have
+/// <br/>
+/// Typical traits: Robots can be repaired, cannot regenerate on their own, lose tracking of target after duration,
+/// explode and drop spare parts when defeated, and has flexible allegiance to either Snowman or Sunborn team
+/// </summary>
 public class Robot : Entity
 {
     public GameObject destroyedVersion;     // Robots spawn their broken pieces when destroyed

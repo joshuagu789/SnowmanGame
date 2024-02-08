@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;   // Needed for NavMeshAgent
 using static UnityEngine.EventSystems.EventTrigger;
 
-/*
-   Universal script for any game character that isn't the player (npc)- this script only has
-   info-carrying variables that other scripts will use
-*/
-
 /// <summary>
-/// Summary
+/// Script given to any character in the game that can interact with others. Entity is the parent script for other game characters such as
+/// snowmen, robots, the player, and even buildings.
+/// <br/>
+/// Typical traits: can move, can be damaged, can be assigned a leader or be a leader
+/// <br/>
+/// Typical parter scripts: movement, target locking, attack
 /// </summary>
 /// <param name="param1">Some Parameter.</param>
 /// <returns>What this method returns.</returns>

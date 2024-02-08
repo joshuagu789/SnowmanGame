@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * Interacts only with Entity script to manage the unique characteristics that sunborn entities have
- *  - similar to robot script except no lock-on lifetime (will hunt target until one or the other is defeated)
- *  - similar to snowman script except higher temperature is good for sunborn while lower temperature harms it
- */
-
+/// <summary>
+/// Child of Entity script to manage the unique characteristics that sunborn entities have 
+/// <br/>
+/// Typical traits: no lock-on lifetime (will hunt target until one or the other is defeated), higher temperature is good for sunborn while lower temperature harms it, dodge mechanic
+/// </summary>
 public class Sunborn : Entity
 {
     public float maxTemperature; 
