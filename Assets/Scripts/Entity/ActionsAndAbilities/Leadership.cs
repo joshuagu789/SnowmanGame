@@ -44,7 +44,7 @@ public class Leadership : MonoBehaviour
 
             // If collider belongs to an ally with no leader and it is able to join a squad
             if (colliderEntity != null && colliderEntity.canJoinSquad && colliderEntity.leader == null && !colliderEntity.isLeader
-                && colliderEntity.type.Equals(gameObject.GetComponent<Entity>().type) && entity.squadList.Count < maxFollowers)
+                && colliderEntity.GetEntityType().Equals(entity.GetEntityType()) && entity.squadList.Count < maxFollowers)
             {
                 colliderEntity.leader = transform;
                 entity.squadList.Add(colliderEntity);

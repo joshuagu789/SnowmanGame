@@ -5,7 +5,7 @@ using UnityEngine.AI;   // Needed for NavMeshAgent
 using static UnityEngine.EventSystems.EventTrigger;
 
 /// <summary>
-/// Script given to any character in the game that can interact with others. Entity is the parent script for other game characters such as
+/// Script given to any interactable game object that can be destroyed. Entity is the parent script for other game characters such as
 /// snowmen, robots, the player, and even buildings.
 /// <br/>
 /// Typical traits: can move, can be damaged, can be assigned a leader or be a leader
@@ -14,6 +14,13 @@ using static UnityEngine.EventSystems.EventTrigger;
 /// </summary>
 /// <param name="param1">Some Parameter.</param>
 /// <returns>What this method returns.</returns>
+
+public enum EntityType {
+    ENEMY,
+    SNOWMAN,
+    RESOURCE
+}
+
 public class Entity : MonoBehaviour
 {
 
@@ -21,8 +28,8 @@ public class Entity : MonoBehaviour
     public Register register;
     public Animator animator;
     public NavMeshAgent agent;
-    public string type;     // Can be either "Enemy" or "Snowman"
-
+    [SerializeField]
+    private EntityType type;
     public float systemIntegrity;
     public float maxIntegrity;
 
@@ -95,36 +102,26 @@ public class Entity : MonoBehaviour
             leader.GetComponent<Entity>().squadList.Remove(this);
     }
 
+    /**
+     * Removes entity from the game but doesn't destroy game object 
+     */
+    public virtual void DieNotPermanent() {
+        if (leader != null)
+            leader.GetComponent<Entity>().squadList.Remove(this);
+        RemoveFromServer();
+        server.ClearLocksOn(this);
+        gameObject.SetActive(false);
+    }
+
     public void AddToServer()
     {
-        if (type.Equals("Enemy") && server != null)
-        {
-            server.enemiesList.Add(transform);
-        }
-        else if (type.Equals("Snowman") && server != null)
-        {
-            server.snowmenList.Add(transform);
-        }
-        else if (type.Equals("Resource"))
-        {
-            server.resourcesList.Add(transform);
-        }
+        print(GetComponent<Entity>());
+        server.AddToServer(GetComponent<Entity>());
     }
 
     public void RemoveFromServer()
     {
-        if (type.Equals("Enemy"))
-        {
-            server.enemiesList.Remove(transform);
-        }
-        else if (type.Equals("Snowman"))
-        {
-            server.snowmenList.Remove(transform);
-        }
-        else if (type.Equals("Resource"))
-        {
-            server.resourcesList.Remove(transform);
-        }
+        server.RemoveFromServer(GetComponent<Entity>());
     }
 
     public virtual void CheckDamage()
@@ -167,7 +164,8 @@ public class Entity : MonoBehaviour
         }
     }
 
-// ENTITY COMMANDS
+    // ENTITY COMMANDS
+    public EntityType GetEntityType() { return type; }
 
     // Below methods are for commands from other entities or for itself if it has the right script for it
     public void FocusFire(Transform target)
@@ -177,6 +175,13 @@ public class Entity : MonoBehaviour
         animator.SetBool("isLockedOn", true);
         timer = 1f;
         UpdateVectors();    // Instantly getting data for distance to new target to avoid weird stuff from happening (such as melee attacking enemy 50 m away)
+    }
+
+    public void ClearTarget()
+    {
+        isLockedOn = false;
+        target = null;
+        UpdateLockState();
     }
 
     public void IncrementLeashRange(int increment)
@@ -238,8 +243,7 @@ public class Entity : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed / 360 * Time.deltaTime);
     }
 
-// GETTERS AND SETTERS
-
+    // GETTERS AND SETTERS
     // Shuts down entity as well as any child entities that it has if a is false, and enables if true
     public virtual void SetDisableAll(bool a)
     {
@@ -251,5 +255,11 @@ public class Entity : MonoBehaviour
     public bool GetIsDisabled() { return isDisabled; }
     public void SetIsDisabled(bool a) { isDisabled = a; }
     public Vector3 GetWalkPoint() { return walkPoint; }
+    public Entity GetTarget()
+    {
+        if(target != null)
+            return target.GetComponent<Entity>();
+        return null;
+    }
     public float GetAngleToTarget() { return angleToTarget; }
 }

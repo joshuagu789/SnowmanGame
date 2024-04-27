@@ -9,7 +9,7 @@ using UnityEngine;
 public class EntityTargeting : MonoBehaviour
 {
     public Entity entity;
-    private List<Transform> targetList = new List<Transform>();
+    private HashSet<Entity> targetList = new HashSet<Entity>();
 
     private float timer = 0f;
 
@@ -22,11 +22,11 @@ public class EntityTargeting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (entity.type.Equals("Enemy"))
+        if (entity.GetEntityType().Equals(EntityType.ENEMY))
         {
             targetList = entity.server.snowmenList;
         }
-        else if (entity.type.Equals("Snowman"))
+        else if (entity.GetEntityType().Equals(EntityType.SNOWMAN))
         {
             targetList = entity.server.enemiesList;
         }
@@ -51,13 +51,13 @@ public class EntityTargeting : MonoBehaviour
         Transform closestTarget = null;
         float minDist = Mathf.Infinity;
 
-        foreach (Transform potentialTarget in targetList)
+        foreach (Entity potentialTarget in targetList)
         {
             // Compares square magnitude of distances since this way it doesn't need to take costly square roots
-            float distanceSqr = new Vector3(potentialTarget.position.x - transform.position.x, 0f, potentialTarget.position.z - transform.position.z).sqrMagnitude;
+            float distanceSqr = new Vector3(potentialTarget.transform.position.x - transform.position.x, 0f, potentialTarget.transform.position.z - transform.position.z).sqrMagnitude;
             if (distanceSqr < minDist && distanceSqr <= entity.detectionRange * entity.detectionRange)
             {
-                closestTarget = potentialTarget;
+                closestTarget = potentialTarget.transform;
                 minDist = distanceSqr;
                 targetFound = true;
             }

@@ -3369,7 +3369,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: -0.013960743, y: -9.312319e-10, z: -1.3001956e-11, w: 0.99990255}
+  m_LocalRotation: {x: -0.013960744, y: -0.0000000011510657, z: -1.60713e-11, w: 0.99990255}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9834,7 +9834,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831699312}
-  m_LocalRotation: {x: 0.062137417, y: 0.000000017173136, z: -0.0000000010691601, w: 0.9980676}
+  m_LocalRotation: {x: 0.062137436, y: -0.000000017173129, z: 0.0000000010691601, w: 0.9980676}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12532,6 +12532,10 @@ PrefabInstance:
       propertyPath: dialogueBox
       value: 
       objectReference: {fileID: 1495188129}
+    - target: {fileID: 854105657499660753, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: alertVoiceLines.Array.data[1]
+      value: Lights... in the distance...
+      objectReference: {fileID: 0}
     - target: {fileID: 1090575682137268354, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: m_Name
       value: Model B

@@ -9,9 +9,10 @@ using UnityEngine;
 public static class UI_Manager
 {
     /// <summary>
-    /// Order is in priority of which UI is more important to display (as each element has a number associated with it)
+    /// Options are NONE, GAME, MAIN_MENU, BASE, PAUSE, and CINEMATIC. Order is in priority of which UI is more important to display
+    /// (as each element has a number associated with it)
     /// </summary>
-    public enum UI
+    public enum UI_Type
     {
         NONE,
         GAME,
@@ -21,21 +22,26 @@ public static class UI_Manager
         CINEMATIC,
     }
 
-    private static UI currentUI;
-    private static Dictionary<UI, Canvas> canvases = new Dictionary<UI, Canvas>();
+    private static UI_Type currentUI;
+    private static Dictionary<UI_Type, Canvas> canvases = new Dictionary<UI_Type, Canvas>();
+
+    private static void Start()
+    {
+        currentUI = UI_Type.NONE;
+    }
 
     /// <summary>
     /// Every script that is a child of CanvasUI will attempt to register their canvas with the UI Manager so that it can be used in the game.
-    /// Each script should use this method when the game starts
+    /// Each script should use this method before the game starts
     /// </summary>
     /// <param name="ui"></param>
     /// <param name="canvas"></param>
     /// <returns></returns>
-    public static bool TryAddCanvas(UI ui, Canvas canvas) {
+    public static bool TryAddCanvas(UI_Type ui, Canvas canvas) {
         return canvases.TryAdd(ui, canvas);
     }
 
-    public static UI GetCurrentUI() { return currentUI; }
+    public static UI_Type GetCurrentUI() { return currentUI; }
 
     /// <summary>
     /// Different UI scripts can request for the UI Manager to switch the current UI being shown to the requested one
@@ -45,7 +51,7 @@ public static class UI_Manager
     /// <param name="UI element to replace current one with"> aasdas </param>
     /// <returns>true if able to switch to requested UI, false is unable to</returns>
 
-    public static bool TrySetUI(UI ui)
+    public static bool TrySetUI(UI_Type ui)
     {
         if (ui > currentUI) {
             currentUI = ui;
@@ -54,6 +60,6 @@ public static class UI_Manager
         return false;
     }
 
-    private static void SetUI(UI ui) { }
+    private static void SetUI(UI_Type ui) { }
 }
 

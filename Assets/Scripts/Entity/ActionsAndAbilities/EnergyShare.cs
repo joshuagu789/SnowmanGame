@@ -51,7 +51,7 @@ public class EnergyShare : SquadAbility
             var character = potentialTarget.transform.gameObject.GetComponentInParent<Entity>();
 
             // Checking if target is an ally/itself, if target isn't already on the list for energy share, and if target has a lower energy ratio
-            if (character != null && entity.energy > 0 && character.type.Equals(entity.type) && character.gameObject.GetInstanceID()
+            if (character != null && entity.energy > 0 && character.GetEntityType().Equals(entity.GetEntityType()) && character.gameObject.GetInstanceID()
                 != transform.gameObject.GetInstanceID() && !activeTethers.ContainsKey(character.gameObject.GetInstanceID()) && character.systemIntegrity > 0
                 && character.energy / character.maxEnergy < entity.energy / entity.maxEnergy && activeTethers.Count < maxTethers)
             {

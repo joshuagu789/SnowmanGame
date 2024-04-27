@@ -29,7 +29,7 @@ public class BackgroundDialogue : MonoBehaviour
     // Model B's chatter voice lines
     { {0, new List<string>{"Enough chatter, I have eyes on target!",}}, {1, new List<string>{"How are we on energy?","How is our energy?"}}, {2, new List<string>{"I just hope it lasts.","We just need enough to last the night.","I will make do with what I have left."}},
     {3, new List<string>{"My side is clear. Any enemies on the others?",}}, {4, new List<string>{"I don't think so.","No.","None close enough to pose a threat."}},
-    {5, new List<string>{"Stay calm, and we survive the night."}}, {6, new List<string>{""}}, };
+    {5, new List<string>{"Stay calm, and we survive the night.","Figures move among the fog..."}}, {6, new List<string>{""}}, };
 
 
     public SquadMemberUI modelC_UI;
@@ -37,7 +37,7 @@ public class BackgroundDialogue : MonoBehaviour
     // Model C's chatter voice lines
     { {0, new List<string>{"Wait, we enter combat!",}}, { 1, new List<string> { "How is everyone on energy?", }}, { 2, new List<string> { "I'll try to ration it.", "Let's avoid combat to preserve it."}},
     { 3, new List<string> { "Any enemies approaching us?", }}, { 4, new List<string> { "Nothing on my side.", }},
-    {5, new List<string>{"Let's keep moving.","Let's avoid combat whenever we can, alright?","Have faith, friends. We will make it through."}}, {6, new List<string>{""}}, };
+    {5, new List<string>{"Let's keep moving.","Let's avoid combat whenever we can, alright?"}}, {6, new List<string>{""}}, };
 
 
     public SquadMemberUI modelD_UI;

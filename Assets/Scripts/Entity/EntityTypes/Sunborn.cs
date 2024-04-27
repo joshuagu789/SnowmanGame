@@ -55,7 +55,7 @@ public class Sunborn : Entity
         if (register.HasTakenDamage() && cooldownTimer < dodgeCooldown) // If the sunborn took damage and isn't ready to dodge yet
         {
             // Makes entity target its attacker if the attack allows for it
-            if (register.GetDamageSource() != null && !register.GetDamageSource().gameObject.GetComponentInParent<Entity>().type.Equals(type))
+            if (register.GetDamageSource() != null && !register.GetDamageSource().gameObject.GetComponentInParent<Entity>().GetEntityType().Equals(GetEntityType()))
             {
                 FocusFire(register.GetDamageSource());
             }
@@ -91,7 +91,8 @@ public class Sunborn : Entity
             animator.Play("Death",i);
         }
         yield return new WaitForSeconds(deathTime);    // Destroying entity after death animation plays
-        Destroy(gameObject);
+        DieNotPermanent();
+        //Destroy(gameObject);
     }
 
     // Unlike Snowman.cs's RepairDamage(), this one repairs at a linear rate and can't repair temperature

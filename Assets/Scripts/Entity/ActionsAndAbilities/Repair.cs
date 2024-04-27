@@ -46,7 +46,7 @@ public class Repair : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             var robot = collider.gameObject.GetComponentInParent<Robot>();
-            if (robot != null && robot.type.Equals(entity.type) && robot.systemIntegrity < robot.maxIntegrity)
+            if (robot != null && robot.GetEntityType().Equals(entity.GetEntityType()) && robot.systemIntegrity < robot.maxIntegrity)
             {
                 repairTarget = robot;
                 break;

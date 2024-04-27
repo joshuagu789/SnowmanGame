@@ -44,6 +44,8 @@ public class Spawner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
             SpawnSpecific(headHunter, 1, player.position, 20, 30);
+        else if (Input.GetKey(KeyCode.P))
+            gameServer.RaiseDetectionLevel((float)0.5 * Time.deltaTime);
     }
 
     // Instantiates random entities from a list which is determined by type and tier (type being either "Snowmen" or "Enemy")
@@ -58,8 +60,7 @@ public class Spawner : MonoBehaviour
             {
                 var tierList = entityList[(int)Random.Range(minTier, maxTier + 1)]; // Selecting random tier to spawn units from and assigning the list containing the units to variable
                 var index = Random.Range(0, tierList.Count);    // Choosing random unit within the list of units corresponding to a tier
-                var spawnedEntity = Instantiate(tierList[index], spawnLocation, transform.rotation);
-
+                GameObject spawnedEntity = Instantiate(tierList[index], spawnLocation, transform.rotation);
                 spawnedEntity.GetComponent<Entity>().server = gameServer;
                 spawnedEntity.GetComponent<Entity>().AddToServer();
             }

@@ -68,7 +68,7 @@ public class HuntingProjectileAttack : ArcingProjectileAttack
         if (attack.GetComponent<SpotterProjectile>() != null)
         {
             var attackScript = attack.GetComponent<SpotterProjectile>();
-            attackScript.SetStats(spotRadius, entity.type, this);
+            attackScript.SetStats(spotRadius, entity.GetEntityType(), this);
         }
         if (attack.GetComponent<ExplosiveBullet>() != null)
         {

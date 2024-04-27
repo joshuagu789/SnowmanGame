@@ -66,15 +66,15 @@ public class PlayerTargeting : MonoBehaviour
             float minPriorityRank = Mathf.Infinity;
 
             // Looping through all enemies currently active 
-            foreach (Transform potentialTarget in server.enemiesList)
+            foreach (Entity potentialTarget in server.enemiesList)
             {
-                Vector3 distance = new Vector3(potentialTarget.position.x - transform.position.x, 0f, potentialTarget.position.z - transform.position.z);
+                Vector3 distance = new Vector3(potentialTarget.transform.position.x - transform.position.x, 0f, potentialTarget.transform.position.z - transform.position.z);
                 float angle = Vector3.Angle(camera.transform.forward, distance);
                 float priorityRank = distance.sqrMagnitude + angle * angle * 16f;     // Formula to choose closest enemy that's closest to player's field of view
 
                 if (priorityRank < minPriorityRank && distance.magnitude <= player.detectionRange)
                 {
-                    closestTarget = potentialTarget;
+                    closestTarget = potentialTarget.transform;
                     minPriorityRank = priorityRank;
                     targetFound = true;
                 }

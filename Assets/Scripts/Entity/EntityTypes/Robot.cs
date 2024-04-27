@@ -51,7 +51,8 @@ public class Robot : Entity
         UpdateLockState();
         if (systemIntegrity <= 0)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            DieNotPermanent();
         }
     }
 

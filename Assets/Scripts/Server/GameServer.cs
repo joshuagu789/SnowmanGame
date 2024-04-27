@@ -4,15 +4,15 @@ using UnityEngine;
 
 /* 
  * Script to hold information about the game's state as well as for starting events (such as spawning enemies)
- *  - Later put list of entities all into a hashmap rather than separate lists of transforms?
+ *  - The only way entities can be interacted with is if they are recorded inside the game server
  */
 
 public class GameServer : MonoBehaviour
 {
     // Lists to keep track of all active entities
-    public List<Transform> snowmenList = new List<Transform>();   // Includes player
-    public List<Transform> enemiesList = new List<Transform>();
-    public List<Transform> resourcesList = new List<Transform>();
+    public HashSet<Entity> snowmenList = new HashSet<Entity>();   // Includes player
+    public HashSet<Entity> enemiesList = new HashSet<Entity>();
+    public HashSet<Entity> resourcesList = new HashSet<Entity>();
 
     public BroadcastDialogue broadcaster;
     public MusicManager music;
@@ -73,15 +73,63 @@ public class GameServer : MonoBehaviour
 
     private void MoveAllEnemies(Vector3 location)
     {
-        foreach (Transform enemy in enemiesList)
+        foreach (Entity enemy in enemiesList)
         {
-            enemy.GetComponent<Entity>().MoveTo(new Vector3(location.x + Random.Range(-150f, 150f), location.y, location.z + Random.Range(-150f, 150f)));
+            enemy.MoveTo(new Vector3(location.x + Random.Range(-150f, 150f), location.y, location.z + Random.Range(-150f, 150f)));
         }
     }
 
     public void RaiseDetectionLevel(float amount)
     {
-        if(cooldownTimer >= waveCooldown)
+        if (cooldownTimer >= waveCooldown)
             detectionLevel += amount;
+    }
+
+    /// <returns>True if game server successfully added entity, false if entity is already in game server.</returns>
+    public bool AddToServer(Entity entity)
+    {
+        HashSet<Entity> targetGroup = null;
+        if (entity.GetEntityType().Equals(EntityType.SNOWMAN))
+            targetGroup = snowmenList;
+        else if (entity.GetEntityType().Equals(EntityType.ENEMY))
+            targetGroup = enemiesList;
+        else if (entity.GetEntityType().Equals(EntityType.RESOURCE))
+            targetGroup = resourcesList;
+
+        if (targetGroup == null || targetGroup.Contains(entity))
+            return false;
+        targetGroup.Add(entity);
+        return true;
+    }
+
+    /// <returns>True if game server successfully removed entity, false if entity wasn't in game server to begin with.</returns>
+    public bool RemoveFromServer(Entity entity)
+    {
+        HashSet<Entity> targetGroup = null;
+        if (entity.GetEntityType().Equals(EntityType.SNOWMAN))
+            targetGroup = snowmenList;
+        else if (entity.GetEntityType().Equals(EntityType.ENEMY))
+            targetGroup = enemiesList;
+        else if (entity.GetEntityType().Equals(EntityType.RESOURCE))
+            targetGroup = resourcesList;
+
+        if (targetGroup == null || !targetGroup.Contains(entity))
+            return false;
+        targetGroup.Remove(entity);
+        ClearLocksOn(entity);
+        return true;
+    }
+
+    /// <summary>
+    /// Removes all friendly and enemy locks on entity- typically to prevent bugs when moving/deleting/hiding entity 
+    public void ClearLocksOn(Entity entity)
+    {
+        foreach (Entity elem in snowmenList)
+            if (elem.GetTarget() != null && elem.GetTarget().Equals(entity))
+                elem.ClearTarget();
+
+        foreach (Entity elem in enemiesList)
+            if (elem.GetTarget() != null && elem.GetTarget().Equals(entity))
+                elem.ClearTarget();
     }
 }

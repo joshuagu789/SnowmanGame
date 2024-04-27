@@ -10,13 +10,13 @@ using UnityEngine;
 public class SpotterProjectile : MonoBehaviour
 {
     private float spotRadius;
-    private string ownerType;
+    private EntityType ownerType;
     private HuntingProjectileAttack projectileOwner;
 
     private bool hasSentInformation;    // SpotterProjectile can only relay information once- when this bool is set to false
     private float timer;
 
-    public void SetStats(float spotRadius, string ownerType, HuntingProjectileAttack projectileOwner)
+    public void SetStats(float spotRadius, EntityType ownerType, HuntingProjectileAttack projectileOwner)
     {
         this.spotRadius = spotRadius;
         this.ownerType = ownerType;
@@ -40,7 +40,7 @@ public class SpotterProjectile : MonoBehaviour
         var colliders = Physics.OverlapCapsule(transform.position + Vector3.down * 1000, transform.position + Vector3.up * 1000, spotRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject.GetComponentInParent<Entity>() != null && !collider.gameObject.GetComponentInParent<Entity>().type.Equals(ownerType))
+            if (collider.gameObject.GetComponentInParent<Entity>() != null && !collider.gameObject.GetComponentInParent<Entity>().GetEntityType().Equals(ownerType))
             {
                 projectileOwner.ReportTarget(collider.transform.position);
                 hasSentInformation = true;

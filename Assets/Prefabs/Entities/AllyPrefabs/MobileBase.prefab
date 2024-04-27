@@ -553,7 +553,7 @@ MonoBehaviour:
   register: {fileID: 3901506896264016669}
   animator: {fileID: 7444021856002969222}
   agent: {fileID: 0}
-  type: Snowman
+  type: 1
   systemIntegrity: 300
   maxIntegrity: 300
   temperature: 0
@@ -1662,7 +1662,7 @@ MonoBehaviour:
   register: {fileID: 5268711395941105217}
   animator: {fileID: 7444021857201736811}
   agent: {fileID: 0}
-  type: Snowman
+  type: 0
   systemIntegrity: 150
   maxIntegrity: 150
   temperature: 0
