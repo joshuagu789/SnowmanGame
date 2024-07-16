@@ -21,10 +21,10 @@ public class Sunborn : Entity
         defaultLeashRange = leashRange;
     }
 
-    private void OnEnable()
-    {
-        AddToServer();
-    }
+    //private void OnEnable()
+    //{
+    //    //AddToServer();
+    //}
 
     private void OnDisable()
     {
@@ -91,8 +91,8 @@ public class Sunborn : Entity
             animator.Play("Death",i);
         }
         yield return new WaitForSeconds(deathTime);    // Destroying entity after death animation plays
-        DieNotPermanent();
-        //Destroy(gameObject);
+        //DieNotPermanent();
+        Destroy(gameObject);
     }
 
     // Unlike Snowman.cs's RepairDamage(), this one repairs at a linear rate and can't repair temperature

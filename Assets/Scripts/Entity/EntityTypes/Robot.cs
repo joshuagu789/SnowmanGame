@@ -22,7 +22,7 @@ public class Robot : Entity
 
     public virtual void OnEnable()
     {
-        AddToServer();
+        //AddToServer();
     }
 
     public virtual void OnDisable()
@@ -51,8 +51,8 @@ public class Robot : Entity
         UpdateLockState();
         if (systemIntegrity <= 0)
         {
-            //Destroy(gameObject);
-            DieNotPermanent();
+            Destroy(gameObject);
+            //DieNotPermanent();
         }
     }
 

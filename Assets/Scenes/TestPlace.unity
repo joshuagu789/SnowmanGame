@@ -2660,7 +2660,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541687289}
-  m_LocalRotation: {x: 0.023883894, y: 0.000000017235037, z: -4.1175718e-10, w: 0.9997148}
+  m_LocalRotation: {x: 0.023883894, y: -0.00000001723504, z: 4.117573e-10, w: 0.9997148}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3369,7 +3369,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725647193}
-  m_LocalRotation: {x: -0.013960744, y: -0.0000000011510657, z: -1.60713e-11, w: 0.99990255}
+  m_LocalRotation: {x: -0.013960741, y: 4.0902973e-10, z: 5.710916e-12, w: 0.99990255}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4497,7 +4497,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.0238839, y: 0.000000034470077, z: -8.235146e-10, w: 0.9997148}
+  m_LocalRotation: {x: 0.0238839, y: -0.000000034470084, z: 8.2351476e-10, w: 0.9997148}
   m_LocalPosition: {x: -3.44, y: -1.5999999, z: -35.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5577,9 +5577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a167e9dbdb744240a02501fde5316f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snowmenList: []
-  enemiesList: []
-  resourcesList: []
   broadcaster: {fileID: 1186613839}
   music: {fileID: 963194234}
   spawner: {fileID: 1186613838}
@@ -8857,7 +8854,7 @@ MonoBehaviour:
   register: {fileID: 0}
   animator: {fileID: 0}
   agent: {fileID: 0}
-  type: Resource
+  type: 2
   systemIntegrity: 100
   maxIntegrity: 100
   temperature: 0
@@ -9834,7 +9831,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831699312}
-  m_LocalRotation: {x: 0.062137436, y: -0.000000017173129, z: 0.0000000010691601, w: 0.9980676}
+  m_LocalRotation: {x: 0.062137417, y: 0.000000017173136, z: -0.0000000010691601, w: 0.9980676}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10534,7 +10531,7 @@ MonoBehaviour:
   register: {fileID: 1907387502}
   animator: {fileID: 1907387501}
   agent: {fileID: 1907387504}
-  type: Snowman
+  type: 1
   systemIntegrity: 100
   maxIntegrity: 100
   temperature: 0
@@ -12557,6 +12554,10 @@ PrefabInstance:
       value: -0.676462
       objectReference: {fileID: 0}
     - target: {fileID: 6534988283297981862, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6534988283297981862, guid: 58c42131be9a1405c869bb7c77d3ffe1, type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 1907387495}
@@ -12741,6 +12742,10 @@ PrefabInstance:
     - target: {fileID: 545863580471765323, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: cooldown
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 545863580471765335, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
+      propertyPath: type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 545863580471765335, guid: 536107d5ce2bc4036a05b80438933fbd, type: 3}
       propertyPath: leader
@@ -13199,6 +13204,10 @@ PrefabInstance:
       propertyPath: core
       value: 
       objectReference: {fileID: 11400000, guid: 3ed9137eec3ca4d66819835f6818ee04, type: 2}
+    - target: {fileID: 3856691800209668363, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3856691800209668363, guid: b3b2949b8c81c418184037d09d1137c3, type: 3}
       propertyPath: leader
       value: 

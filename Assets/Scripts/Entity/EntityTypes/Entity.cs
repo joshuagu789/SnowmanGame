@@ -116,6 +116,7 @@ public class Entity : MonoBehaviour
     public void AddToServer()
     {
         print(GetComponent<Entity>());
+        //server.AddToServer(this);
         server.AddToServer(GetComponent<Entity>());
     }
 

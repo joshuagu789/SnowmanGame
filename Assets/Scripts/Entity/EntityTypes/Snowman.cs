@@ -118,8 +118,8 @@ public class Snowman : Entity
             speed *= 6;
         }
         else
-            DieNotPermanent();
-            //Destroy(gameObject);
+            //DieNotPermanent();
+            Destroy(gameObject);
     }
 
     // Math formulas for converting energy into healh (aka integrity) and temperature repairs
