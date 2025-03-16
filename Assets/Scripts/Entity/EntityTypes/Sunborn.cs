@@ -99,11 +99,11 @@ public class Sunborn : Entity
     private void RepairDamage()
     {
         if(energy < maxEnergy)
-            energy += temperature / 20 * Time.deltaTime;   // Sunborn enemies use temperature as a way to generate energy
+            energy += temperature / 40 * Time.deltaTime;   // Sunborn enemies use temperature as a way to generate energy
         if (systemIntegrity < maxIntegrity && energy > 0)
         {
-            systemIntegrity += maxEnergy / 20 * Time.deltaTime;
-            energy -= maxEnergy / 20 * Time.deltaTime;
+            systemIntegrity += maxEnergy / 60 * Time.deltaTime;
+            energy -= maxEnergy / 40 * Time.deltaTime;
         }
     }
 }
